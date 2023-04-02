@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <>
       <StyledHeader>
-        <StyledNav to="/">
+        <StyledNav to="/home">
           <p>Home</p>
         </StyledNav>
         <StyledNav to="/profile">

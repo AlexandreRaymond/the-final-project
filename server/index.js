@@ -3,7 +3,7 @@
 const express = require("express");
 const morgan = require("morgan");
 
-const { getPlayer } = require("./handlers");
+const { getPlayer, getConference } = require("./handlers");
 
 // Import handlers here
 const PORT = 8000;
@@ -21,13 +21,13 @@ express()
     next();
   })
   .use(morgan("tiny"))
-  .use(express.static("./server/assets"))
+  //.use(express.static("./server/assets"))
   .use(express.json())
-  .use(express.urlencoded({ extended: false }))
-  .use("/", express.static(__dirname + "/"))
+  //.use(express.urlencoded({ extended: false }))
 
   // Endpoints
   .get("/api/people/:id", getPlayer)
+  .get(`/api/conferences`, getConference)
 
   // Listening on PORT
   .listen(PORT, () => {
