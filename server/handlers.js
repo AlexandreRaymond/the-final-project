@@ -25,11 +25,9 @@ const getMongoClient = async () => {
 
 const getPlayer = async (req, res) => {};
 
-const getConference = async (req, res) => {
+const getTeams = async (req, res) => {
   try {
-    const result = await axios.get(
-      `https://statsapi.web.nhl.com/api/v1/teams/1/roster`
-    );
+    const result = await axios.get(`https://statsapi.web.nhl.com/api/v1/teams`);
     console.log("Result", result.data);
 
     res.status(200).json({
@@ -45,4 +43,4 @@ const getConference = async (req, res) => {
   }
 };
 
-module.exports = { getPlayer, getConference };
+module.exports = { getPlayer, getTeams };

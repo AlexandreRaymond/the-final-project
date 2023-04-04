@@ -7,10 +7,11 @@ import Home from "./Home";
 import Standings from "./Standings";
 import Players from "./Players";
 import Login from "./Login";
+import Favourites from "./Favourites";
 
 const App = () => {
   // Logics
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   if (loggedIn === false) {
     return (
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/standings" element={<Standings />} />
         <Route path="/players" element={<Players />} />
+        <Route path="/favourites" element={<Favourites />} />
       </Routes>
     </BrowserRouter>
   );

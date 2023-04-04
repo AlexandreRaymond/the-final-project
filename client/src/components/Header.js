@@ -21,6 +21,9 @@ const Header = () => {
         <StyledNav to="/players">
           <p>Players</p>
         </StyledNav>
+        <StyledNav to="/favourites">
+          <p>Favourites</p>
+        </StyledNav>
       </StyledHeader>
     </>
   );
