@@ -5,9 +5,11 @@ import GlobalStyle from "./GlobalStyle";
 import Header from "./Header";
 import Home from "./Home";
 import Standings from "./Standings";
-import Players from "./Players";
+import Teams from "./Teams";
 import Login from "./Login";
 import Favourites from "./Favourites";
+import Roster from "./Roster";
+import Player from "./Player";
 
 const App = () => {
   // Logics
@@ -32,8 +34,10 @@ const App = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/standings" element={<Standings />} />
-        <Route path="/players" element={<Players />} />
+        <Route path="/teams" element={<Teams />} />
         <Route path="/favourites" element={<Favourites />} />
+        <Route path="/teams/:id/roster" element={<Roster />} />
+        <Route path="/player/:id" element={<Player />} />
       </Routes>
     </BrowserRouter>
   );

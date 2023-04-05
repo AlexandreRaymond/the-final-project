@@ -3,7 +3,7 @@
 const express = require("express");
 const morgan = require("morgan");
 
-const { getPlayer, getTeams } = require("./handlers");
+const { getPlayer, getTeams, getRosterByTeams } = require("./handlers");
 
 // Import handlers here
 const PORT = 8000;
@@ -28,6 +28,12 @@ express()
   // Endpoints
 
   .get(`/api/teams`, getTeams)
+
+  .get(`/api/teams/:id/roster`, getRosterByTeams)
+
+  .get(`/api/player/:id`, getPlayer)
+
+  // for pictures: http://nhl.bamcontent.com/images/headshots/current/168x168/(player id).jpg
 
   // Listening on PORT
   .listen(PORT, () => {

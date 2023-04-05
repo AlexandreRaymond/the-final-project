@@ -18,8 +18,8 @@ const Header = () => {
         <StyledNav to="/standings">
           <p>Standings</p>
         </StyledNav>
-        <StyledNav to="/players">
-          <p>Players</p>
+        <StyledNav to="/teams">
+          <p>Teams</p>
         </StyledNav>
         <StyledNav to="/favourites">
           <p>Favourites</p>
