@@ -11,7 +11,7 @@ const Roster = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    axios.get(`/api/teams/${id}/roster`).then((response) => {
+    axios.get(`/api/teams/${id}`).then((response) => {
       console.log("roster", response.data.roster);
       setRoster(response.data.roster);
       setTeamName(response.data.team.teams[0].name);

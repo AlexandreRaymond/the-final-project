@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Player from "./Player";
 import { MainContainer } from "./Teams";
+import axios from "axios";
 
 const PlayerInfos = ({ people, statInfo, picture }) => {
   const player = people.people[0];
@@ -10,16 +11,24 @@ const PlayerInfos = ({ people, statInfo, picture }) => {
 
   return (
     <MainContainer>
-      <div>
-        <img src={`${picture}`} />
+      <PlayerContainer>
+        <PlayerImg src={picture} />
         <h1>
           {player.fullName}
           {player.alternateCaptain ? " (A)" : ""}
           {player.captain ? " (C)" : ""}
         </h1>
-      </div>
+      </PlayerContainer>
     </MainContainer>
   );
 };
+
+const PlayerImg = styled.img`
+  border-radius: 100px;
+`;
+
+const PlayerContainer = styled.div`
+  background-color: gray;
+`;
 
 export default PlayerInfos;

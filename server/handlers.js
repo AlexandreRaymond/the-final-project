@@ -40,7 +40,7 @@ const getPlayer = async (req, res) => {
       status: 200,
       player: result.data,
       stats: playerstats.data,
-      pic: playerPic.data,
+      pic: playerPic.config.url,
     });
   } catch (err) {
     console.log("error", err);
@@ -55,6 +55,7 @@ const getTeams = async (req, res) => {
   const { id } = req.params;
   try {
     const result = await axios.get(`https://statsapi.web.nhl.com/api/v1/teams`);
+
     console.log("Result", result.data);
 
     res.status(200).json({
@@ -70,7 +71,7 @@ const getTeams = async (req, res) => {
   }
 };
 
-const getRosterByTeams = async (req, res) => {
+const getATeamInfo = async (req, res) => {
   const { id } = req.params;
   try {
     const result = await axios.get(
@@ -79,13 +80,17 @@ const getRosterByTeams = async (req, res) => {
     const teamInfo = await axios.get(
       `https://statsapi.web.nhl.com/api/v1/teams/${id}`
     );
+    const teamLogo = await axios.get(
+      `https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${id}.svg`
+    );
     console.log("Result", result.data);
-    console.log("teamInfo", teamInfo.data);
+    console.log("teamlogo", teamLogo.data);
 
     res.status(200).json({
       status: 200,
       roster: result.data.roster,
       team: teamInfo.data,
+      logo: teamLogo.data,
     });
   } catch (err) {
     console.log("error", err);
@@ -96,4 +101,4 @@ const getRosterByTeams = async (req, res) => {
   }
 };
 
-module.exports = { getPlayer, getTeams, getRosterByTeams };
+module.exports = { getPlayer, getTeams, getATeamInfo };

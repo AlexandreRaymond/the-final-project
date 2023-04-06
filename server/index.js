@@ -3,7 +3,7 @@
 const express = require("express");
 const morgan = require("morgan");
 
-const { getPlayer, getTeams, getRosterByTeams } = require("./handlers");
+const { getPlayer, getTeams, getATeamInfo } = require("./handlers");
 
 // Import handlers here
 const PORT = 8000;
@@ -29,7 +29,7 @@ express()
 
   .get(`/api/teams`, getTeams)
 
-  .get(`/api/teams/:id/roster`, getRosterByTeams)
+  .get(`/api/teams/:id`, getATeamInfo)
 
   .get(`/api/player/:id`, getPlayer)
 
