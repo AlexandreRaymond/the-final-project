@@ -9,10 +9,12 @@ import {
   NavButton,
   MainContainer,
 } from "./Teams";
+import PlayerInfos from "./PlayerInfos";
 
 const Player = () => {
   const [people, setPeople] = useState(null);
   const [statInfo, setStatInfo] = useState(null);
+  const [picture, Setpicture] = useState(null);
 
   const { id } = useParams();
 
@@ -22,8 +24,9 @@ const Player = () => {
       console.log("stats", response.data.stats);
       setPeople(response.data.player);
       setStatInfo(response.data.stats);
+      Setpicture(response.data.pic);
     });
-  }, []);
+  }, [id]);
 
   if (!people && !statInfo) {
     return (
@@ -32,24 +35,32 @@ const Player = () => {
       </>
     );
   }
+
+  return (
+    <>
+      <PlayerInfos people={people} statInfo={statInfo} picture={picture} />
+    </>
+  );
+};
+
+/*
   const player = people.people[0];
-  const stats = statInfo.stats[0].splits[0].stat;
-  console.log("hello", stats);
+  //const stats = statInfo.stats[0].splits[0].stat;
+  console.log("pic", picture);
 
   return (
     <MainContainer>
       <div>
+        <img src={`${picture}`} />
         <h1>
           {player.fullName}
           {player.alternateCaptain ? " (A)" : ""}
           {player.captain ? " (C)" : ""}
         </h1>
-        <div>Goals : {stats.goals}</div>
-        <div>Assists : {stats.assists}</div>
-        <div>Points : {stats.points}</div>
       </div>
     </MainContainer>
   );
 };
+*/
 
 export default Player;

@@ -32,13 +32,15 @@ const getPlayer = async (req, res) => {
     const playerstats = await axios.get(
       `https://statsapi.web.nhl.com/api/v1/people/${id}/stats?stats=statsSingleSeason&season=20222023`
     );
-    console.log("getPlayer result", result);
-    console.group("getPlayer stats", playerstats);
+    const playerPic = await axios.get(
+      `http://nhl.bamcontent.com/images/headshots/current/168x168/${id}.jpg`
+    );
 
     res.status(200).json({
       status: 200,
       player: result.data,
       stats: playerstats.data,
+      pic: playerPic.data,
     });
   } catch (err) {
     console.log("error", err);
