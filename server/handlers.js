@@ -23,6 +23,12 @@ const getMongoClient = async () => {
   }
 };
 
+let today = new Date();
+let date =
+  today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate;
+
+console.log("today is", date);
+
 const getPlayer = async (req, res) => {
   const { id } = req.params;
   try {
@@ -71,6 +77,27 @@ const getTeams = async (req, res) => {
   }
 };
 
+const getStanding = async (req, res) => {
+  try {
+    const result = await axios.get(
+      `https://statsapi.web.nhl.com/api/v1/standings?season=20032004&date=2018-01-14`
+    );
+    console.log("today is", date);
+    console.log("stands", result.data);
+
+    res.status(200).json({
+      status: 200,
+      data: result.data,
+    });
+  } catch (err) {
+    console.log("error", err);
+    res.status(400).json({
+      status: 400,
+      data: err,
+    });
+  }
+};
+
 const getATeamInfo = async (req, res) => {
   const { id } = req.params;
   try {
@@ -101,4 +128,4 @@ const getATeamInfo = async (req, res) => {
   }
 };
 
-module.exports = { getPlayer, getTeams, getATeamInfo };
+module.exports = { getPlayer, getTeams, getATeamInfo, getStanding };

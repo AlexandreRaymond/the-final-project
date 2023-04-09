@@ -10,6 +10,7 @@ import Login from "./Login";
 import Favourites from "./Favourites";
 import Roster from "./Roster";
 import Player from "./Player";
+import NHLStanding from "./NHLStanding";
 
 const App = () => {
   // Logics
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/standings" element={<Standings />} />
+        <Route path="/standings/nhl" element={<NHLStanding />} />
         <Route path="/teams" element={<Teams />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route
