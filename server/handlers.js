@@ -84,13 +84,13 @@ const getATeamInfo = async (req, res) => {
       `https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${id}.svg`
     );
     console.log("Result", result.data);
-    console.log("teamlogo", teamLogo.data);
+    console.log("teamlogo", teamLogo.config.url);
 
     res.status(200).json({
       status: 200,
       roster: result.data.roster,
       team: teamInfo.data,
-      logo: teamLogo.data,
+      logo: teamLogo.config.url,
     });
   } catch (err) {
     console.log("error", err);

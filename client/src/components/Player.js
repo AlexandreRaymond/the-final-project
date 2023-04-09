@@ -10,12 +10,13 @@ import {
   MainContainer,
 } from "./Teams";
 import PlayerInfos from "./PlayerInfos";
+import ModalPlayer from "./ModalPlayer";
 
-const Player = () => {
+const Player = ({ modalOpen, setModalOpen }) => {
   const [people, setPeople] = useState(null);
   const [statInfo, setStatInfo] = useState(null);
   const [picture, setPicture] = useState(null);
-
+  console.log("modalplayer", modalOpen);
   const { id } = useParams();
 
   useEffect(() => {
@@ -36,7 +37,13 @@ const Player = () => {
 
   return (
     <>
-      <PlayerInfos people={people} statInfo={statInfo} picture={picture} />
+      <PlayerInfos
+        people={people}
+        statInfo={statInfo}
+        picture={picture}
+        setModalOpen={setModalOpen}
+        modalOpen={modalOpen}
+      />
     </>
   );
 };

@@ -14,6 +14,8 @@ import Player from "./Player";
 const App = () => {
   // Logics
   const [loggedIn, setLoggedIn] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  console.log("modalApp", modalOpen);
 
   if (loggedIn === false) {
     return (
@@ -36,8 +38,14 @@ const App = () => {
         <Route path="/standings" element={<Standings />} />
         <Route path="/teams" element={<Teams />} />
         <Route path="/favourites" element={<Favourites />} />
-        <Route path="/teams/:id/roster" element={<Roster />} />
-        <Route path="/player/:id" element={<Player />} />
+        <Route
+          path="/teams/:id/roster"
+          element={<Roster modalOpen={modalOpen} setModalOpen={setModalOpen} />}
+        />
+        <Route
+          path="/player/:id"
+          element={<Player modalOpen={modalOpen} setModalOpen={setLoggedIn} />}
+        />
       </Routes>
     </BrowserRouter>
   );

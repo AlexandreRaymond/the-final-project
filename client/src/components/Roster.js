@@ -3,11 +3,14 @@ import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { Wrapper, ButtonContainer, NavBrowse, NavButton } from "./Teams";
+import ModalPlayer from "./ModalPlayer";
+import Player from "./Player";
 
-const Roster = () => {
+const Roster = ({ modalOpen, setModalOpen }) => {
   const [roster, setRoster] = useState(null);
   const [teamName, setTeamName] = useState(null);
-
+  const [logo, setLogo] = useState(null);
+  console.log("modalroster", modalOpen);
   const { id } = useParams();
 
   useEffect(() => {
@@ -15,6 +18,7 @@ const Roster = () => {
       console.log("roster", response.data.roster);
       setRoster(response.data.roster);
       setTeamName(response.data.team.teams[0].name);
+      setLogo(response.data.logo);
     });
   }, []);
 
@@ -27,14 +31,16 @@ const Roster = () => {
   }
   return (
     <MainContainer>
+      <LogoImg src={logo} />
       <h1>{teamName}</h1>
       <ButtonContainer>
         {roster.sort().map((players) => {
           return (
             <Wrapper>
-              <NavBrowse to={`/player/${players.person.id}`}>
-                <NavButton>{players.person.fullName}</NavButton>
-              </NavBrowse>
+              <NavButton onClick={() => setModalOpen(true)}>
+                {players.person.fullName}
+              </NavButton>
+              {modalOpen && <Player />}
             </Wrapper>
           );
         })}
@@ -43,6 +49,13 @@ const Roster = () => {
   );
 };
 
+/*
+<NavBrowse to={`/player/${players.person.id}`}>
+                <NavButton onClick={() => setModalOpen(true)}>
+                  {players.person.fullName}
+                </NavButton>
+              </NavBrowse>
+*/
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -52,6 +65,12 @@ const MainContainer = styled.div`
   margin-top: 80px;
   align-items: center;
   justify-content: center;
+`;
+
+const LogoImg = styled.img`
+  height: 100px;
+  width: 100px;
+  margin: -25px 0;
 `;
 
 export default Roster;
