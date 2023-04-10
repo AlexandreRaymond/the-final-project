@@ -3,8 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { Wrapper, ButtonContainer, NavBrowse, NavButton } from "./Teams";
-import ModalPlayer from "./ModalPlayer";
 import Player from "./Player";
+import PlayerInfos from "./PlayerInfos";
 
 const Roster = ({ modalOpen, setModalOpen }) => {
   const [roster, setRoster] = useState(null);
@@ -37,10 +37,11 @@ const Roster = ({ modalOpen, setModalOpen }) => {
         {roster.sort().map((players) => {
           return (
             <Wrapper>
-              <NavButton onClick={() => setModalOpen(true)}>
-                {players.person.fullName}
-              </NavButton>
-              {modalOpen && <Player />}
+              <NavBrowse to={`/player/${players.person.id}`}>
+                <NavButton onClick={() => setModalOpen(true)}>
+                  {players.person.fullName}
+                </NavButton>
+              </NavBrowse>
             </Wrapper>
           );
         })}

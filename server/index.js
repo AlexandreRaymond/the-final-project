@@ -34,7 +34,7 @@ express()
 
   .get(`/api/teams`, getTeams)
 
-  .get(`api/standings/nhl`, getStanding)
+  .get(`/api/standings/nhl`, getStanding)
 
   .get(`/api/teams/:id`, getATeamInfo)
 

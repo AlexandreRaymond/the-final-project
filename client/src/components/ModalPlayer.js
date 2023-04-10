@@ -13,13 +13,7 @@ import PlayerInfos from "./PlayerInfos";
 import Player from "./Player";
 
 const ModalPlayer = () => {
-  return (
-    <MainContainer>
-      <ModalContainer>
-        <Player />
-      </ModalContainer>
-    </MainContainer>
-  );
+  return <MainContainer>hello</MainContainer>;
 };
 
 const ModalContainer = styled.div`

@@ -25,7 +25,7 @@ const getMongoClient = async () => {
 
 let today = new Date();
 let date =
-  today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate;
+  today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 console.log("today is", date);
 
@@ -80,7 +80,7 @@ const getTeams = async (req, res) => {
 const getStanding = async (req, res) => {
   try {
     const result = await axios.get(
-      `https://statsapi.web.nhl.com/api/v1/standings?season=20032004&date=2018-01-14`
+      `https://statsapi.web.nhl.com/api/v1/standings?season=20222023&date=${date}`
     );
     console.log("today is", date);
     console.log("stands", result.data);

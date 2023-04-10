@@ -17,36 +17,34 @@ const PlayerInfos = ({
 
   return (
     <MainContainer>
-      <ModalContainer>
-        <PlayerContainer>
-          <PlayerImg src={picture} />
-          <h1>
-            {player.fullName}
-            {player.alternateCaptain ? " (A)" : ""}
-            {player.captain ? " (C)" : ""}
-          </h1>
-          <div>
-            <p>
-              GP : <span>{stats.games}</span>
-            </p>
-            <p>
-              Goals : <span>{stats.goals}</span>
-            </p>
-            <p>
-              Assists : <span>{stats.assists}</span>
-            </p>
-            <p>
-              Points : <span>{stats.points}</span>
-            </p>
-            <p>
-              +/- : <span>{stats.plusMinus}</span>
-            </p>
-            <p>
-              PIM : <span>{stats.goals}</span>
-            </p>
-          </div>
-        </PlayerContainer>
-      </ModalContainer>
+      <PlayerContainer>
+        <PlayerImg src={picture} />
+        <h1>
+          {player.fullName}
+          {player.alternateCaptain ? " (A)" : ""}
+          {player.captain ? " (C)" : ""}
+        </h1>
+        <div>
+          <p>
+            GP : <span>{stats.games}</span>
+          </p>
+          <p>
+            Goals : <span>{stats.goals}</span>
+          </p>
+          <p>
+            Assists : <span>{stats.assists}</span>
+          </p>
+          <p>
+            Points : <span>{stats.points}</span>
+          </p>
+          <p>
+            +/- : <span>{stats.plusMinus}</span>
+          </p>
+          <p>
+            PIM : <span>{stats.goals}</span>
+          </p>
+        </div>
+      </PlayerContainer>
     </MainContainer>
   );
 };
@@ -75,7 +73,6 @@ const ModalContainer = styled.div`
 
 const PlayerContainer = styled.div`
   inset: 0;
-  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;

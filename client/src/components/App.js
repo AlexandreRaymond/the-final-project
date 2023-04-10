@@ -44,10 +44,7 @@ const App = () => {
           path="/teams/:id/roster"
           element={<Roster modalOpen={modalOpen} setModalOpen={setModalOpen} />}
         />
-        <Route
-          path="/player/:id"
-          element={<Player modalOpen={modalOpen} setModalOpen={setLoggedIn} />}
-        />
+        <Route path="/player/:id" element={<Player />} />
       </Routes>
     </BrowserRouter>
   );

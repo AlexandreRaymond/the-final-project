@@ -10,9 +10,8 @@ import {
   MainContainer,
 } from "./Teams";
 import PlayerInfos from "./PlayerInfos";
-import ModalPlayer from "./ModalPlayer";
 
-const Player = ({ modalOpen, setModalOpen }) => {
+const Player = ({ modalOpen, setModalOpen, players }) => {
   const [people, setPeople] = useState(null);
   const [statInfo, setStatInfo] = useState(null);
   const [picture, setPicture] = useState(null);
@@ -37,15 +36,30 @@ const Player = ({ modalOpen, setModalOpen }) => {
 
   return (
     <>
-      <PlayerInfos
-        people={people}
-        statInfo={statInfo}
-        picture={picture}
-        setModalOpen={setModalOpen}
-        modalOpen={modalOpen}
-      />
+      <MainContainer>
+        <PlayerInfos
+          people={people}
+          statInfo={statInfo}
+          picture={picture}
+          setModalOpen={setModalOpen}
+          modalOpen={modalOpen}
+        />
+      </MainContainer>
     </>
   );
 };
+
+/*
+ */
+
+const ModalContainer = styled.div`
+  position: absolute;
+  inset: 0;
+  background-color: black;
+  opacity: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 export default Player;
