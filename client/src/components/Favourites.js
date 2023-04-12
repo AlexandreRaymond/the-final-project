@@ -18,6 +18,7 @@ const MainContainer = styled.div`
   margin-top: 80px;
   align-items: center;
   justify-content: center;
+  background-color: darkgreen;
 `;
 
 export default Favourites;

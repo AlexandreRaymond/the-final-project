@@ -36,7 +36,7 @@ const StyledHeader = styled.div`
   gap: 25px;
   padding-left: 10px;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   background-color: black;
   height: 80px;
   z-index: 2;

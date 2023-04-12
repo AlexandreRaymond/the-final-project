@@ -11,20 +11,20 @@ import {
 } from "./Teams";
 import PlayerInfos from "./PlayerInfos";
 
-const Player = ({ modalOpen, setModalOpen, players }) => {
+const Player = ({ modalOpen, setModalOpen, player }) => {
   const [people, setPeople] = useState(null);
   const [statInfo, setStatInfo] = useState(null);
   const [picture, setPicture] = useState(null);
   console.log("modalplayer", modalOpen);
-  const { id } = useParams();
+  console.log("playerplayer", player);
 
   useEffect(() => {
-    axios.get(`/api/player/${id}`).then((response) => {
+    axios.get(`/api/player/${player.person.id}`).then((response) => {
       setPeople(response.data.player);
       setStatInfo(response.data.stats);
       setPicture(response.data.pic);
     });
-  }, [id]);
+  }, []);
 
   if (!people && !statInfo) {
     return (
