@@ -71,8 +71,8 @@ const Roster = ({ modalOpen, setModalOpen }) => {
         <ModalDiv>
           <ModalInfo onClick={(e) => e.stopPropagation()}>
             <Player player={playerData} />
+            <button onClick={() => setModalOpen(false)}>X</button>
           </ModalInfo>
-          <button onClick={() => setModalOpen(false)}>X</button>
         </ModalDiv>
       )}
     </MainContainer>

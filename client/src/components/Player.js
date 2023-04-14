@@ -56,7 +56,7 @@ const ModalContainer = styled.div`
   position: absolute;
   inset: 0;
   background-color: black;
-  opacity: 40%;
+  opacity: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
