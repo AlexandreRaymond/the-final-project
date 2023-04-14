@@ -73,6 +73,9 @@ const PlayerInfos = ({
           </AddToPool>
         </AddDisplay>
         <ButtonDisplay>
+          <Button autoFocus id="infos" onClick={() => setCurrentFocus("infos")}>
+            Infos
+          </Button>
           <Button autoFocus id="stats" onClick={() => setCurrentFocus("stats")}>
             Stats
           </Button>
@@ -82,6 +85,9 @@ const PlayerInfos = ({
         </ButtonDisplay>
         <WhiteFiller></WhiteFiller>
         <SocialDisplay>
+          {currentFocus === "infos" && (
+            <Infos people={people} statInfo={statInfo} />
+          )}
           {currentFocus === "stats" && (
             <PlayerStats people={people} statInfo={statInfo} />
           )}
@@ -108,7 +114,7 @@ const ModalContainer = styled.div`
   position: absolute;
   inset: 0;
   background-color: black;
-  opacity: 40%;
+  opacity: 60%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,10 +122,10 @@ const ModalContainer = styled.div`
 
 const PlayerContainer = styled.div`
   inset: 0;
-  height: 600px;
-  width: 500px;
+  height: 800px;
+  width: 600px;
   border-radius: 10px;
-  background-color: whitesmoke;
+  background-color: white;
 `;
 
 const PlayerDisplay = styled.div`
@@ -156,7 +162,7 @@ const Position = styled.p`
 
 const Button = styled.button`
   border: none;
-  width: 50%;
+  width: 33%;
   font-weight: bold;
   background-color: inherit;
 
@@ -219,13 +225,14 @@ const AddToPool = styled.button`
 `;
 
 const SocialDisplay = styled.div`
-  background-color: blue;
-  width: inherit;
-  height: 225px;
+  background-color: lightgray;
+  width: relative;
+  height: 370px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 5px;
+  //overflow-y: auto;
 `;
 
 const WhiteFiller = styled.div`

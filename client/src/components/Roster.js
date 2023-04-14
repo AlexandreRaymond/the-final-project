@@ -71,7 +71,6 @@ const Roster = ({ modalOpen, setModalOpen }) => {
         <ModalDiv>
           <ModalInfo onClick={(e) => e.stopPropagation()}>
             <Player player={playerData} />
-            <button onClick={() => setModalOpen(false)}>X</button>
           </ModalInfo>
         </ModalDiv>
       )}
@@ -133,8 +132,8 @@ const ModalDiv = styled.div`
 `;
 
 const ModalInfo = styled.div`
-  width: 500px;
-  height: 600px;
+  width: 800px;
+  height: 650px;
   display: flex;
   flex-direction: column;
   align-items: center;

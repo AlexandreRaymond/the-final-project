@@ -8,28 +8,54 @@ const PlayerStats = ({ people, statInfo }) => {
 
   return (
     <>
-      <div>
-        <p>
-          GP : <span>{stats.games}</span>
-        </p>
-        <p>
-          Goals : <span>{stats.goals}</span>
-        </p>
-        <p>
-          Assists : <span>{stats.assists}</span>
-        </p>
-        <p>
-          Points : <span>{stats.points}</span>
-        </p>
-        <p>
-          +/- : <span>{stats.plusMinus}</span>
-        </p>
-        <p>
-          PIM : <span>{stats.goals}</span>
-        </p>
-      </div>
+      <SeasonDiv>
+        <h3>Regular season</h3>
+      </SeasonDiv>
+      <StatDiv>
+        <div>
+          <p>GP </p>
+          <br></br>
+          <span>{stats.games}</span>
+        </div>
+        <div>
+          <p>G </p> <br></br>
+          <span>{stats.goals}</span>
+        </div>
+        <div>
+          <p>A </p> <br></br>
+          <span>{stats.assists}</span>
+        </div>
+        <div>
+          <p>P </p> <br></br>
+          <span>{stats.points}</span>
+        </div>
+        <div>
+          <p>+/- </p> <br></br>
+          <span>{stats.plusMinus}</span>
+        </div>
+      </StatDiv>
     </>
   );
 };
+
+const StatDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+  font-size: 25px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  background-color: inherit;
+  border-radius: 5px;
+  & p {
+    color: grey;
+    margin: 0;
+  }
+`;
+
+const SeasonDiv = styled.div`
+  position: absolute;
+  margin-bottom: 200px;
+`;
 
 export default PlayerStats;
