@@ -1,10 +1,37 @@
-import React from "react";
+import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
+import { InfoContext } from "./InfoContext";
+import { useNavigate } from "react-router-dom";
+import Login from "./Login";
 
 const Profile = () => {
+  const navigate = useNavigate();
+  const {
+    actions: { setLogged },
+  } = useContext(InfoContext);
+  const {
+    state: { logged },
+  } = useContext(InfoContext);
+
+  if (logged === false) {
+    return (
+      <>
+        <Login />
+      </>
+    );
+  }
+
   return (
     <MainContainer>
       <h1>Profile</h1>
+      <button
+        onClick={() => {
+          setLogged(false);
+          navigate("/");
+        }}
+      >
+        <p>Logout</p>
+      </button>
     </MainContainer>
   );
 };

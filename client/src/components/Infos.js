@@ -9,22 +9,23 @@ const Infos = ({ people, statInfo }) => {
   return (
     <>
       <InfoDiv>
-        <h3>{player.fullName}</h3>
+        <H3>{player.fullName}</H3>
         <p>
-          <span>Position: </span>
+          <Span>Position: </Span>
           {player.primaryPosition.name}
         </p>
         <p>
-          <span>Born: </span>
+          <Span>Born: </Span>
           {player.birthDate}
         </p>
         <p>
-          <span>Birthplace: </span>
+          <Span>Birthplace: </Span>
           {player.birthCity}, {player.birthStateProvince}, {player.birthCountry}
         </p>
         <p>
-          <span>Shoots: </span>
-          {player.shootsCatches}
+          <Span>Shoots: </Span>
+          {player.shootsCatches === "L" && <span>Left</span>}
+          {player.shootsCatches === "R" && <span>Right</span>}
         </p>
       </InfoDiv>
     </>
@@ -32,11 +33,19 @@ const Infos = ({ people, statInfo }) => {
 };
 
 const InfoDiv = styled.div`
-  font-size: 18px;
-  & span {
-    font-weight: bold;
-    padding-right: 5px;
-  }
+  font-size: 25px;
+`;
+
+const H3 = styled.h3`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Span = styled.span`
+  font-weight: bold;
+  padding-right: 5px;
 `;
 
 export default Infos;

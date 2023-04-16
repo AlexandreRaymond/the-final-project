@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import Player from "./Player";
 import Infos from "./Infos";
@@ -8,6 +8,7 @@ import PlayerStats from "./PlayerStats";
 import Chat from "./Chat";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { GiHockey } from "react-icons/gi";
+import teamColors from "../utils/backgrounds";
 
 const PlayerInfos = ({
   people,
@@ -35,6 +36,8 @@ const PlayerInfos = ({
     player.weight +
     " lb | Age: " +
     player.currentAge;
+
+  const color = teamColors[player.currentTeam.name];
 
   return (
     <MainContainer>
@@ -73,14 +76,27 @@ const PlayerInfos = ({
           </AddToPool>
         </AddDisplay>
         <ButtonDisplay>
-          <Button autoFocus id="infos" onClick={() => setCurrentFocus("infos")}>
-            Infos
+          <Button
+            id="infos"
+            backgroundColor={color}
+            onClick={() => setCurrentFocus("infos")}
+          >
+            <ButtonSpan>Infos</ButtonSpan>
           </Button>
-          <Button autoFocus id="stats" onClick={() => setCurrentFocus("stats")}>
-            Stats
+          <Button
+            autoFocus
+            id="stats"
+            backgroundColor={color}
+            onClick={() => setCurrentFocus("stats")}
+          >
+            <ButtonSpan>Stats</ButtonSpan>
           </Button>
-          <Button id="chat" onClick={() => setCurrentFocus("chat")}>
-            Chat
+          <Button
+            id="chat"
+            backgroundColor={color}
+            onClick={() => setCurrentFocus("chat")}
+          >
+            <ButtonSpan>Chat</ButtonSpan>
           </Button>
         </ButtonDisplay>
         <WhiteFiller></WhiteFiller>
@@ -91,7 +107,9 @@ const PlayerInfos = ({
           {currentFocus === "stats" && (
             <PlayerStats people={people} statInfo={statInfo} />
           )}
-          {currentFocus === "chat" && <Chat />}
+          {currentFocus === "chat" && (
+            <Chat teamName={player.currentTeam.name} />
+          )}
         </SocialDisplay>
       </PlayerContainer>
     </MainContainer>
@@ -100,7 +118,7 @@ const PlayerInfos = ({
 
 const PlayerImg = styled.img`
   border-radius: 100px;
-  background-color: green;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -123,7 +141,7 @@ const ModalContainer = styled.div`
 const PlayerContainer = styled.div`
   inset: 0;
   height: 800px;
-  width: 600px;
+  width: 550px;
   border-radius: 10px;
   background-color: white;
 `;
@@ -168,15 +186,19 @@ const Button = styled.button`
 
   &:hover {
     cursor: pointer;
-    transition: 0.1s;
-    border-bottom: 2px solid black;
+    border-bottom: 3px solid black;
   }
   &:focus {
-    transition: 0.1s;
-    color: red;
-    border-bottom: 3px solid red;
+    color: ${(props) => props.backgroundColor};
+    border-bottom: 3px solid ${(props) => props.backgroundColor};
     border-radius: 2px;
   }
+`;
+
+const ButtonSpan = styled.span`
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.5s;
 `;
 
 const ButtonDisplay = styled.div`
@@ -225,13 +247,14 @@ const AddToPool = styled.button`
 `;
 
 const SocialDisplay = styled.div`
-  background-color: lightgray;
-  width: relative;
-  height: 370px;
+  background-color: whitesmoke;
+  width: 530px;
+  height: 355px;
   display: flex;
+  margin: 10px;
   align-items: center;
   justify-content: center;
-  border-radius: 5px;
+  border-radius: 10px;
   //overflow-y: auto;
 `;
 

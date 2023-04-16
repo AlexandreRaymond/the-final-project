@@ -1,13 +1,17 @@
-import React from "react";
+import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
+import { InfoContext } from "./InfoContext";
 
-const Login = ({ setLoggedIn }) => {
+const Login = () => {
   // Logics
   const navigate = useNavigate();
+  const {
+    actions: { setLogged },
+  } = useContext(InfoContext);
 
   const handlechange = () => {
-    setLoggedIn(true);
+    setLogged(true);
     navigate("/home");
   };
 
@@ -15,7 +19,12 @@ const Login = ({ setLoggedIn }) => {
   return (
     <>
       <MainContainer>
-        <StyledButton onClick={() => handlechange}>
+        <StyledButton
+          onClick={() => {
+            setLogged(true);
+            navigate("/home");
+          }}
+        >
           <p>Login</p>
         </StyledButton>
       </MainContainer>
@@ -34,6 +43,9 @@ const MainContainer = styled.div`
   justify-content: center;
 `;
 
-const StyledButton = styled.button``;
+const StyledButton = styled.button`
+  height: 100px;
+  width: 100px;
+`;
 
 export default Login;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
@@ -6,6 +6,7 @@ import { Wrapper, ButtonContainer, NavBrowse, NavButton } from "./Teams";
 import Player from "./Player";
 import PlayerInfos from "./PlayerInfos";
 import teamColors from "../utils/backgrounds";
+import { InfoContext } from "./InfoContext";
 
 const Roster = ({ modalOpen, setModalOpen }) => {
   const [roster, setRoster] = useState(null);
@@ -15,6 +16,16 @@ const Roster = ({ modalOpen, setModalOpen }) => {
   console.log("modalroster", modalOpen);
   const { id } = useParams();
 
+  const {
+    actions: { setCurrentTeam },
+  } = useContext(InfoContext);
+  /*
+  useEffect(() => {
+    if (id) {
+      setCurrentTeam(id);
+    }
+  }, [id]);
+*/
   const checkModal = () => {
     console.log("banana", checkModal);
     if (modalOpen) {
@@ -29,6 +40,7 @@ const Roster = ({ modalOpen, setModalOpen }) => {
       setTeamName(response.data.team.teams[0].name);
       setLogo(response.data.logo);
       setModalOpen(false);
+      setCurrentTeam(response.data.team.teams[0]);
     });
   }, []);
 
@@ -50,7 +62,6 @@ const Roster = ({ modalOpen, setModalOpen }) => {
       <LogoImg src={logo} />
       <ButtonContainer>
         {roster.sort().map((player) => {
-          console.log("bananaplayer", player);
           return (
             <Wrapper>
               {/* <NavBrowse to={`/player/${players.person.id}`}>

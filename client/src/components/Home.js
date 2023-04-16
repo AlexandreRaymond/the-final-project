@@ -1,7 +1,17 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <MainContainer>
       <h1>Homepage</h1>

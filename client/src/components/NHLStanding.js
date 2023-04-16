@@ -12,11 +12,10 @@ const NHLStanding = () => {
     });
   }, []);
 
-  console.log("standings", standing.data.records);
-
   if (!standing) {
     return <div>Loading...</div>;
   }
+  console.log("standings", standing.data.records);
 
   const stand = standing.data.records;
 
@@ -25,11 +24,7 @@ const NHLStanding = () => {
       <div>
         <h1>NHL Standing</h1>
       </div>
-      <div>
-        {stand.sort().map((rank) => {
-          return <></>;
-        })}
-      </div>
+      <div></div>
     </MainContainer>
   );
 };

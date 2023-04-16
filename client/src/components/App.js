@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Profile from "./Profile";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStyle from "./GlobalStyle";
@@ -11,29 +11,23 @@ import Favourites from "./Favourites";
 import Roster from "./Roster";
 import Player from "./Player";
 import NHLStanding from "./NHLStanding";
+import { InfoContext } from "./InfoContext";
 
 const App = () => {
   // Logics
-  const [loggedIn, setLoggedIn] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   console.log("modalApp", modalOpen);
-
-  if (loggedIn === false) {
-    return (
-      <BrowserRouter>
-        <GlobalStyle />
-        <Routes>
-          <Route path="/" element={<Login setLoggedIn={setLoggedIn} />} />
-        </Routes>
-      </BrowserRouter>
-    );
-  }
+  const {
+    state: { logged },
+  } = useContext(InfoContext);
+  console.log("App Logs", logged);
 
   return (
     <BrowserRouter>
       <GlobalStyle />
       <Header />
       <Routes>
+        <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/standings" element={<Standings />} />

@@ -1,29 +1,43 @@
-import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import styled from "styled-components";
+import teamColors from "../utils/backgrounds";
+import axios from "axios";
+import { InfoContext } from "./InfoContext";
 
 const Header = () => {
   // Logics
+  const {
+    state: { currentTeam },
+    actions: { setCurrentTeam },
+  } = useContext(InfoContext);
 
+  console.log("headerteam", currentTeam);
+  let color = "black";
+
+  if (currentTeam) {
+    color = teamColors[currentTeam.name];
+  }
   // On the page
   return (
     <>
-      <StyledHeader>
-        <StyledNav to="/home">
+      <StyledHeader backgroundColor={color}>
+        <StyledNav to="/home" onClick={() => setCurrentTeam(null)}>
           <p>Home</p>
         </StyledNav>
-        <StyledNav to="/profile">
+        <StyledNav to="/profile" onClick={() => setCurrentTeam(null)}>
           <p>Profile</p>
         </StyledNav>
-        <StyledNav to="/standings">
+        <StyledNav to="/standings" onClick={() => setCurrentTeam(null)}>
           <p>Standings</p>
         </StyledNav>
-        <StyledNav to="/teams">
+        <StyledNav to="/teams" onClick={() => setCurrentTeam(null)}>
           <p>Teams</p>
         </StyledNav>
-        <StyledNav to="/favourites">
+        <StyledNav to="/favourites" onClick={() => setCurrentTeam(null)}>
           <p>Favourites</p>
         </StyledNav>
+        <div></div>
       </StyledHeader>
     </>
   );
@@ -37,7 +51,7 @@ const StyledHeader = styled.div`
   padding-left: 10px;
   align-items: center;
   width: 100%;
-  background-color: black;
+  background-color: ${(props) => props.backgroundColor};
   height: 80px;
   z-index: 2;
   color: white;

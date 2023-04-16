@@ -56,6 +56,7 @@ const StatDiv = styled.div`
 const SeasonDiv = styled.div`
   position: absolute;
   margin-bottom: 200px;
+  font-size: 25px;
 `;
 
 export default PlayerStats;

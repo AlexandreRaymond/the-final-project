@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
@@ -10,19 +10,23 @@ import {
   MainContainer,
 } from "./Teams";
 import PlayerInfos from "./PlayerInfos";
+import { InfoContext } from "./InfoContext";
 
 const Player = ({ modalOpen, setModalOpen, player }) => {
   const [people, setPeople] = useState(null);
   const [statInfo, setStatInfo] = useState(null);
   const [picture, setPicture] = useState(null);
   console.log("modalplayer", modalOpen);
-  console.log("playerplayer", player);
+  const {
+    actions: { setCurrentPlayer },
+  } = useContext(InfoContext);
 
   useEffect(() => {
     axios.get(`/api/player/${player.person.id}`).then((response) => {
       setPeople(response.data.player);
       setStatInfo(response.data.stats);
       setPicture(response.data.pic);
+      setCurrentPlayer(response.data.player);
     });
   }, []);
 

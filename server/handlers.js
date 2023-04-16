@@ -29,6 +29,7 @@ let date =
 
 console.log("today is", date);
 
+// /api/player/:id
 const getPlayer = async (req, res) => {
   const { id } = req.params;
   try {
@@ -57,6 +58,7 @@ const getPlayer = async (req, res) => {
   }
 };
 
+// /api/teams
 const getTeams = async (req, res) => {
   const { id } = req.params;
   try {
@@ -77,6 +79,7 @@ const getTeams = async (req, res) => {
   }
 };
 
+// /api/standings/nhl
 const getStanding = async (req, res) => {
   try {
     const result = await axios.get(
@@ -98,6 +101,7 @@ const getStanding = async (req, res) => {
   }
 };
 
+// /api/teams/:id
 const getATeamInfo = async (req, res) => {
   const { id } = req.params;
   try {
