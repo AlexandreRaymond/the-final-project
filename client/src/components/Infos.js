@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import { InfoContext } from "./InfoContext";
 import styled from "styled-components";
 
-const Infos = ({ people, statInfo }) => {
-  const player = people.people[0];
-  const stats = statInfo.stats[0].splits[0].stat;
-  console.log("stats", stats);
+const Infos = () => {
+  const {
+    state: { currentPlayer },
+  } = useContext(InfoContext);
+
+  const player = currentPlayer.people[0];
 
   return (
     <>

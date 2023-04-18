@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { InfoContext } from "./InfoContext";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(false);
+  const {
+    state: { logged },
+  } = useContext(InfoContext);
+  console.log("Home log", logged);
 
   useEffect(() => {
-    if (!user) {
-      navigate("/");
+    if (!logged) {
+      return navigate("/");
     }
   }, []);
 

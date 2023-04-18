@@ -22,22 +22,35 @@ const Header = () => {
   return (
     <>
       <StyledHeader backgroundColor={color}>
-        <StyledNav to="/home" onClick={() => setCurrentTeam(null)}>
-          <p>Home</p>
-        </StyledNav>
-        <StyledNav to="/profile" onClick={() => setCurrentTeam(null)}>
-          <p>Profile</p>
-        </StyledNav>
-        <StyledNav to="/standings" onClick={() => setCurrentTeam(null)}>
-          <p>Standings</p>
-        </StyledNav>
-        <StyledNav to="/teams" onClick={() => setCurrentTeam(null)}>
-          <p>Teams</p>
-        </StyledNav>
-        <StyledNav to="/favourites" onClick={() => setCurrentTeam(null)}>
-          <p>Favourites</p>
-        </StyledNav>
-        <div></div>
+        <MenuWrapper>
+          <StyledNav to="/home" onClick={() => setCurrentTeam(null)}>
+            <p>Home</p>
+          </StyledNav>
+          <StyledNav to="/profile" onClick={() => setCurrentTeam(null)}>
+            <p>Profile</p>
+          </StyledNav>
+          <StyledNav to="/standings" onClick={() => setCurrentTeam(null)}>
+            <p>Standings</p>
+          </StyledNav>
+          <StyledNav to="/teams" onClick={() => setCurrentTeam(null)}>
+            <p>Teams</p>
+          </StyledNav>
+          <StyledNav to="/favourites" onClick={() => setCurrentTeam(null)}>
+            <p>Favourites</p>
+          </StyledNav>
+        </MenuWrapper>
+        <TeamWrapper>
+          {currentTeam && (
+            <TeamHeader>
+              <span>{currentTeam.name}</span>
+              <div>
+                <TeamLogo
+                  src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${currentTeam.id}.svg`}
+                />
+              </div>
+            </TeamHeader>
+          )}
+        </TeamWrapper>
       </StyledHeader>
     </>
   );
@@ -82,6 +95,40 @@ const StyledNav = styled(NavLink)`
   text-decoration: none;
   font-size: 20px;
   cursor: pointer;
+`;
+
+const MenuWrapper = styled.div`
+  position: relative;
+  height: 80px;
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 25px;
+`;
+
+const TeamWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  width: 55%;
+  height: 80px;
+  background-color: green;
+`;
+
+const TeamHeader = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+`;
+
+const TeamLogo = styled.img`
+  position: relative;
+  width: 50px;
+  height: 50px;
+  z-index: 0;
 `;
 
 export default Header;

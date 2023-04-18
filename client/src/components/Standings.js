@@ -1,9 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { NavButton, NavBrowse, ButtonContainer, Wrapper } from "./Teams";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { InfoContext } from "./InfoContext";
 
 const Standings = () => {
+  const navigate = useNavigate();
+  const {
+    state: { logged },
+    actions: { setLogged },
+  } = useContext(InfoContext);
+  console.log("Standing log", logged);
+
+  useEffect(() => {
+    if (!logged) {
+      return navigate("/");
+    }
+  }, []);
+
   return (
     <MainContainer>
       <h1>Standings</h1>

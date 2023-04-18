@@ -15,8 +15,6 @@ import { InfoContext } from "./InfoContext";
 
 const App = () => {
   // Logics
-  const [modalOpen, setModalOpen] = useState(false);
-  console.log("modalApp", modalOpen);
   const {
     state: { logged },
   } = useContext(InfoContext);
@@ -34,10 +32,7 @@ const App = () => {
         <Route path="/standings/nhl" element={<NHLStanding />} />
         <Route path="/teams" element={<Teams />} />
         <Route path="/favourites" element={<Favourites />} />
-        <Route
-          path="/teams/:id/roster"
-          element={<Roster modalOpen={modalOpen} setModalOpen={setModalOpen} />}
-        />
+        <Route path="/teams/:id/roster" element={<Roster />} />
         <Route path="/player/:id" element={<Player />} />
       </Routes>
     </BrowserRouter>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
+import { InfoContext } from "./InfoContext";
 import styled from "styled-components";
-import Player from "./Player";
 import Infos from "./Infos";
 import { MainContainer } from "./Teams";
 import axios from "axios";
@@ -10,17 +10,15 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { GiHockey } from "react-icons/gi";
 import teamColors from "../utils/backgrounds";
 
-const PlayerInfos = ({
-  people,
-  statInfo,
-  picture,
-  modalOpen,
-  setModalOpen,
-}) => {
-  const player = people.people[0];
-  const stats = statInfo.stats[0].splits[0].stat;
+const PlayerInfos = () => {
+  const {
+    state: { currentPlayer, currentStats, currentPic, currentFocus },
+    actions: { setCurrentFocus },
+  } = useContext(InfoContext);
+
+  const player = currentPlayer.people[0];
+  const stats = currentStats.stats[0].splits[0].stat;
   console.log("stats", stats);
-  const [currentFocus, setCurrentFocus] = useState("stats");
   const [favored, setFavored] = useState(false);
 
   const toggleLike = (e) => {
@@ -28,22 +26,13 @@ const PlayerInfos = ({
   };
   console.log("player", player);
 
-  let information =
-    player.primaryPosition.code +
-    " | " +
-    player.height +
-    " | " +
-    player.weight +
-    " lb | Age: " +
-    player.currentAge;
-
   const color = teamColors[player.currentTeam.name];
 
   return (
     <MainContainer>
       <PlayerContainer>
         <PlayerDisplay>
-          <PlayerImg src={picture} />
+          <PlayerImg src={currentPic} />
           <h1>
             {player.fullName}
             {player.alternateCaptain ? " (A)" : ""}
@@ -101,12 +90,8 @@ const PlayerInfos = ({
         </ButtonDisplay>
         <WhiteFiller></WhiteFiller>
         <SocialDisplay>
-          {currentFocus === "infos" && (
-            <Infos people={people} statInfo={statInfo} />
-          )}
-          {currentFocus === "stats" && (
-            <PlayerStats people={people} statInfo={statInfo} />
-          )}
+          {currentFocus === "infos" && <Infos />}
+          {currentFocus === "stats" && <PlayerStats />}
           {currentFocus === "chat" && (
             <Chat teamName={player.currentTeam.name} />
           )}

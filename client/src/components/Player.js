@@ -2,35 +2,25 @@ import { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import {
-  Wrapper,
-  ButtonContainer,
-  NavBrowse,
-  NavButton,
-  MainContainer,
-} from "./Teams";
+import { MainContainer } from "./Teams";
 import PlayerInfos from "./PlayerInfos";
 import { InfoContext } from "./InfoContext";
 
-const Player = ({ modalOpen, setModalOpen, player }) => {
-  const [people, setPeople] = useState(null);
-  const [statInfo, setStatInfo] = useState(null);
-  const [picture, setPicture] = useState(null);
-  console.log("modalplayer", modalOpen);
+const Player = ({ player }) => {
   const {
-    actions: { setCurrentPlayer },
+    state: { currentPlayer, currentStats },
+    actions: { setCurrentPlayer, setCurrentStats, setCurrentPic },
   } = useContext(InfoContext);
 
   useEffect(() => {
     axios.get(`/api/player/${player.person.id}`).then((response) => {
-      setPeople(response.data.player);
-      setStatInfo(response.data.stats);
-      setPicture(response.data.pic);
       setCurrentPlayer(response.data.player);
+      setCurrentStats(response.data.stats);
+      setCurrentPic(response.data.pic);
     });
   }, []);
 
-  if (!people && !statInfo) {
+  if (!currentPlayer && !currentStats) {
     return (
       <>
         <MainContainer>Loading...</MainContainer>
@@ -41,13 +31,7 @@ const Player = ({ modalOpen, setModalOpen, player }) => {
   return (
     <>
       <MainContainer>
-        <PlayerInfos
-          people={people}
-          statInfo={statInfo}
-          picture={picture}
-          setModalOpen={setModalOpen}
-          modalOpen={modalOpen}
-        />
+        <PlayerInfos />
       </MainContainer>
     </>
   );

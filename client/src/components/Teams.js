@@ -1,12 +1,21 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import { InfoContext } from "./InfoContext";
 
 const Teams = () => {
   const [teams, setTeams] = useState(null);
+  const navigate = useNavigate();
+  const {
+    state: { logged },
+  } = useContext(InfoContext);
+  console.log("Home log", logged);
 
   useEffect(() => {
+    if (!logged) {
+      return navigate("/");
+    }
     axios.get(`/api/teams`).then((response) => {
       console.log("response", response.data.teams.teams);
       setTeams(response.data.teams.teams);

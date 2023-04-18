@@ -8,26 +8,20 @@ import PlayerInfos from "./PlayerInfos";
 import teamColors from "../utils/backgrounds";
 import { InfoContext } from "./InfoContext";
 
-const Roster = ({ modalOpen, setModalOpen }) => {
+const Roster = () => {
   const [roster, setRoster] = useState(null);
   const [teamName, setTeamName] = useState(null);
   const [logo, setLogo] = useState(null);
   const [playerData, setPlayerData] = useState({});
-  console.log("modalroster", modalOpen);
+
   const { id } = useParams();
 
   const {
-    actions: { setCurrentTeam },
+    state: { currentLogo, currentRoster, modalOpen },
+    actions: { setCurrentTeam, setCurrentLogo, setCurrentRoster, setModalOpen },
   } = useContext(InfoContext);
-  /*
-  useEffect(() => {
-    if (id) {
-      setCurrentTeam(id);
-    }
-  }, [id]);
-*/
+
   const checkModal = () => {
-    console.log("banana", checkModal);
     if (modalOpen) {
       setModalOpen(false);
     }
@@ -35,16 +29,18 @@ const Roster = ({ modalOpen, setModalOpen }) => {
 
   useEffect(() => {
     axios.get(`/api/teams/${id}`).then((response) => {
-      console.log("roster", response.data.roster);
+      //console.log("roster", response.data.roster);
       setRoster(response.data.roster);
       setTeamName(response.data.team.teams[0].name);
       setLogo(response.data.logo);
       setModalOpen(false);
       setCurrentTeam(response.data.team.teams[0]);
+      setCurrentLogo(response.data.logo);
+      setCurrentRoster(response.data.roster);
     });
   }, []);
 
-  if (!roster && !teamName) {
+  if (!currentRoster && !teamName) {
     return (
       <>
         <MainContainer>Loading...</MainContainer>
@@ -59,13 +55,11 @@ const Roster = ({ modalOpen, setModalOpen }) => {
       <TeamDiv backgroundColor={color}>
         <h1>{teamName}</h1>
       </TeamDiv>
-      <LogoImg src={logo} />
+      <LogoImg src={currentLogo} />
       <ButtonContainer>
-        {roster.sort().map((player) => {
+        {currentRoster.sort().map((player) => {
           return (
             <Wrapper>
-              {/* <NavBrowse to={`/player/${players.person.id}`}>
-              </NavBrowse> */}
               <NavButton
                 onClick={() => {
                   setPlayerData(player);
@@ -89,13 +83,6 @@ const Roster = ({ modalOpen, setModalOpen }) => {
   );
 };
 
-/*
-<NavBrowse to={`/player/${players.person.id}`}>
-                <NavButton onClick={() => setModalOpen(true)}>
-                  {players.person.fullName}
-                </NavButton>
-              </NavBrowse>
-*/
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -104,7 +91,7 @@ const MainContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  background-color: ${(props) => props.backgroundColor};
+  background-color: whitesmoke// ${(props) => props.backgroundColor};
 `;
 
 const TeamDiv = styled.div`

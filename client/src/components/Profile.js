@@ -7,19 +7,16 @@ import Login from "./Login";
 const Profile = () => {
   const navigate = useNavigate();
   const {
+    state: { logged },
     actions: { setLogged },
   } = useContext(InfoContext);
-  const {
-    state: { logged },
-  } = useContext(InfoContext);
+  console.log("Profile log", logged);
 
-  if (logged === false) {
-    return (
-      <>
-        <Login />
-      </>
-    );
-  }
+  useEffect(() => {
+    if (!logged) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <MainContainer>

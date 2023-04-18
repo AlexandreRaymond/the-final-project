@@ -1,7 +1,21 @@
-import React from "react";
+import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { InfoContext } from "./InfoContext";
 
 const Favourites = () => {
+  const navigate = useNavigate();
+  const {
+    state: { logged },
+  } = useContext(InfoContext);
+  console.log("Favourites log", logged);
+
+  useEffect(() => {
+    if (!logged) {
+      return navigate("/");
+    }
+  }, []);
+
   return (
     <MainContainer>
       <h1>Favourites</h1>
