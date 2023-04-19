@@ -2,29 +2,18 @@ import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import { InfoContext } from "./InfoContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Login = () => {
   // Logics
+  const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
   const navigate = useNavigate();
-  const {
-    actions: { setLogged },
-  } = useContext(InfoContext);
-
-  const handlechange = () => {
-    setLogged(true);
-    navigate("/home");
-  };
 
   // On the page
   return (
     <>
       <MainContainer>
-        <StyledButton
-          onClick={() => {
-            setLogged(true);
-            navigate("/home");
-          }}
-        >
+        <StyledButton onClick={() => loginWithRedirect()}>
           <p>Login</p>
         </StyledButton>
       </MainContainer>

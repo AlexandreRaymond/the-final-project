@@ -3,19 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { InfoContext } from "./InfoContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Teams = () => {
   const [teams, setTeams] = useState(null);
   const navigate = useNavigate();
-  const {
-    state: { logged },
-  } = useContext(InfoContext);
-  console.log("Home log", logged);
+  const { isAuthenticated } = useAuth0();
 
   useEffect(() => {
-    if (!logged) {
-      return navigate("/");
-    }
     axios.get(`/api/teams`).then((response) => {
       console.log("response", response.data.teams.teams);
       setTeams(response.data.teams.teams);

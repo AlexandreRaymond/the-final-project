@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { Wrapper, ButtonContainer, NavBrowse, NavButton } from "./Teams";
@@ -7,8 +7,11 @@ import Player from "./Player";
 import PlayerInfos from "./PlayerInfos";
 import teamColors from "../utils/backgrounds";
 import { InfoContext } from "./InfoContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Roster = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth0();
   const [roster, setRoster] = useState(null);
   const [teamName, setTeamName] = useState(null);
   const [logo, setLogo] = useState(null);
@@ -28,6 +31,9 @@ const Roster = () => {
   };
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      return navigate("/");
+    }
     axios.get(`/api/teams/${id}`).then((response) => {
       //console.log("roster", response.data.roster);
       setRoster(response.data.roster);

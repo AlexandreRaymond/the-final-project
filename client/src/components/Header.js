@@ -4,19 +4,25 @@ import styled from "styled-components";
 import teamColors from "../utils/backgrounds";
 import axios from "axios";
 import { InfoContext } from "./InfoContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
   // Logics
+  const auth = useAuth0();
+  console.log("Logged in?", auth.isAuthenticated);
+  console.log("banana", auth.user);
   const {
     state: { currentTeam },
     actions: { setCurrentTeam },
   } = useContext(InfoContext);
 
-  console.log("headerteam", currentTeam);
   let color = "black";
 
   if (currentTeam) {
     color = teamColors[currentTeam.name];
+  }
+  if (auth.isLoading) {
+    return <div>Loading...</div>;
   }
   // On the page
   return (
@@ -38,6 +44,13 @@ const Header = () => {
           <StyledNav to="/favourites" onClick={() => setCurrentTeam(null)}>
             <p>Favourites</p>
           </StyledNav>
+          {auth.isAuthenticated ? (
+            <p>{auth.user.nickname}</p>
+          ) : (
+            <StyledNav onClick={() => auth.loginWithRedirect()}>
+              <p>Login</p>
+            </StyledNav>
+          )}
         </MenuWrapper>
         <TeamWrapper>
           {currentTeam && (

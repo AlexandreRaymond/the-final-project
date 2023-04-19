@@ -12,30 +12,31 @@ import Roster from "./Roster";
 import Player from "./Player";
 import NHLStanding from "./NHLStanding";
 import { InfoContext } from "./InfoContext";
+import { User, useAuth0 } from "@auth0/auth0-react";
+import RequireAuth from "./RequireAuth";
 
 const App = () => {
   // Logics
-  const {
-    state: { logged },
-  } = useContext(InfoContext);
-  console.log("App Logs", logged);
 
   return (
-    <BrowserRouter>
+    <>
       <GlobalStyle />
       <Header />
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/standings" element={<Standings />} />
-        <Route path="/standings/nhl" element={<NHLStanding />} />
-        <Route path="/teams" element={<Teams />} />
-        <Route path="/favourites" element={<Favourites />} />
-        <Route path="/teams/:id/roster" element={<Roster />} />
-        <Route path="/player/:id" element={<Player />} />
+        <Route path="/" element={<Home />} />
       </Routes>
-    </BrowserRouter>
+      <RequireAuth>
+        <Routes>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/standings" element={<Standings />} />
+          <Route path="/standings/nhl" element={<NHLStanding />} />
+          <Route path="/teams" element={<Teams />} />
+          <Route path="/favourites" element={<Favourites />} />
+          <Route path="/teams/:id/roster" element={<Roster />} />
+          <Route path="/player/:id" element={<Player />} />
+        </Routes>
+      </RequireAuth>
+    </>
   );
 };
 

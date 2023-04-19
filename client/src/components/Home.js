@@ -2,19 +2,10 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { InfoContext } from "./InfoContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Home = () => {
   const navigate = useNavigate();
-  const {
-    state: { logged },
-  } = useContext(InfoContext);
-  console.log("Home log", logged);
-
-  useEffect(() => {
-    if (!logged) {
-      return navigate("/");
-    }
-  }, []);
 
   return (
     <MainContainer>

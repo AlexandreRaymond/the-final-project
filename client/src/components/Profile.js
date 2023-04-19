@@ -3,29 +3,19 @@ import styled from "styled-components";
 import { InfoContext } from "./InfoContext";
 import { useNavigate } from "react-router-dom";
 import Login from "./Login";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const {
-    state: { logged },
-    actions: { setLogged },
-  } = useContext(InfoContext);
-  console.log("Profile log", logged);
-
-  useEffect(() => {
-    if (!logged) {
-      navigate("/");
-    }
-  }, []);
+  const { isAuthenticated, logout } = useAuth0();
 
   return (
     <MainContainer>
       <h1>Profile</h1>
       <button
-        onClick={() => {
-          setLogged(false);
-          navigate("/");
-        }}
+        onClick={() =>
+          logout({ logoutParams: { returnTo: window.location.origin } })
+        }
       >
         <p>Logout</p>
       </button>

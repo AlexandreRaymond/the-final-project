@@ -3,20 +3,11 @@ import styled from "styled-components";
 import { NavButton, NavBrowse, ButtonContainer, Wrapper } from "./Teams";
 import { NavLink, useNavigate } from "react-router-dom";
 import { InfoContext } from "./InfoContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Standings = () => {
   const navigate = useNavigate();
-  const {
-    state: { logged },
-    actions: { setLogged },
-  } = useContext(InfoContext);
-  console.log("Standing log", logged);
-
-  useEffect(() => {
-    if (!logged) {
-      return navigate("/");
-    }
-  }, []);
+  const { isAuthenticated } = useAuth0();
 
   return (
     <MainContainer>
