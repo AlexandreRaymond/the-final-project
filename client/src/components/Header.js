@@ -29,7 +29,7 @@ const Header = () => {
     <>
       <StyledHeader backgroundColor={color}>
         <MenuWrapper>
-          <StyledNav to="/home" onClick={() => setCurrentTeam(null)}>
+          <StyledNav to="/" onClick={() => setCurrentTeam(null)}>
             <p>Home</p>
           </StyledNav>
           <StyledNav to="/profile" onClick={() => setCurrentTeam(null)}>
@@ -51,6 +51,9 @@ const Header = () => {
               <p>Login</p>
             </StyledNav>
           )}
+          <StyledNav to="/chat" onClick={() => setCurrentTeam(null)}>
+            <p>Chat</p>
+          </StyledNav>
         </MenuWrapper>
         <TeamWrapper>
           {currentTeam && (

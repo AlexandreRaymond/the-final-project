@@ -97,10 +97,10 @@ const MainContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  background-color: whitesmoke// ${(props) => props.backgroundColor};
+  background-color: whitesmoke;
 `;
 
-const TeamDiv = styled.div`
+export const TeamDiv = styled.div`
   height: 175px;
   width: 100%;
   display: flex;
@@ -113,7 +113,7 @@ const TeamDiv = styled.div`
   font-size: 30px;
 `;
 
-const LogoImg = styled.img`
+export const LogoImg = styled.img`
   height: 80vh;
   width: 80vw;
   position: absolute;
@@ -121,7 +121,7 @@ const LogoImg = styled.img`
   margin-top: 50px;
 `;
 
-const ModalDiv = styled.div`
+export const ModalDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -135,7 +135,7 @@ const ModalDiv = styled.div`
   z-index: 2;
 `;
 
-const ModalInfo = styled.div`
+export const ModalInfo = styled.div`
   width: 800px;
   height: 650px;
   display: flex;

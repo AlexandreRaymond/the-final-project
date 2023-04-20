@@ -14,6 +14,9 @@ import NHLStanding from "./NHLStanding";
 import { InfoContext } from "./InfoContext";
 import { User, useAuth0 } from "@auth0/auth0-react";
 import RequireAuth from "./RequireAuth";
+import ChatMenu from "./ChatMenu";
+import TeamChat from "./TeamChat";
+import PlayerChat from "./PlayerChat";
 
 const App = () => {
   // Logics
@@ -31,9 +34,12 @@ const App = () => {
           <Route path="/standings" element={<Standings />} />
           <Route path="/standings/nhl" element={<NHLStanding />} />
           <Route path="/teams" element={<Teams />} />
-          <Route path="/favourites" element={<Favourites />} />
           <Route path="/teams/:id/roster" element={<Roster />} />
           <Route path="/player/:id" element={<Player />} />
+          <Route path="/favourites" element={<Favourites />} />
+          <Route path="/chat" element={<ChatMenu />} />
+          <Route path="/teams/:id/chat" element={<TeamChat />} />
+          <Route path="/player/:id/chat" element={<PlayerChat />} />
         </Routes>
       </RequireAuth>
     </>

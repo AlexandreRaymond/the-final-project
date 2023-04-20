@@ -7,19 +7,30 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, logout } = useAuth0();
+  const { isAuthenticated, logout, user, isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <MainContainer>
-      <h1>Profile</h1>
-      <button
-        onClick={() =>
-          logout({ logoutParams: { returnTo: window.location.origin } })
-        }
-      >
-        <p>Logout</p>
-      </button>
-    </MainContainer>
+    isAuthenticated && (
+      <MainContainer>
+        <h1>Profile</h1>
+        <div>
+          <img src={user.picture} alt={user.name} />
+          <h2>{user.name}</h2>
+          <p>{user.email}</p>
+        </div>
+        <button
+          onClick={() =>
+            logout({ logoutParams: { returnTo: window.location.origin } })
+          }
+        >
+          <p>Logout</p>
+        </button>
+      </MainContainer>
+    )
   );
 };
 
