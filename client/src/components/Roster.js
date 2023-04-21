@@ -15,7 +15,7 @@ const Roster = () => {
   const [roster, setRoster] = useState(null);
   const [teamName, setTeamName] = useState(null);
   const [logo, setLogo] = useState(null);
-  const [playerData, setPlayerData] = useState({});
+  const [playerData, setPlayerData] = useState(null);
 
   const { id } = useParams();
 
@@ -54,7 +54,7 @@ const Roster = () => {
     );
   }
   const color = teamColors[teamName];
-  console.log("team name", teamName, teamColors, color);
+  console.log("roster current roster", currentRoster);
 
   return (
     <MainContainer backgroundColor={color} onClick={() => checkModal()}>
@@ -78,7 +78,7 @@ const Roster = () => {
           );
         })}
       </ButtonContainer>
-      {modalOpen && (
+      {modalOpen && playerData && (
         <ModalDiv>
           <ModalInfo onClick={(e) => e.stopPropagation()}>
             <Player player={playerData} />
@@ -93,7 +93,7 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh;
+  min-height: 95vh;
   align-items: center;
   justify-content: center;
   position: relative;

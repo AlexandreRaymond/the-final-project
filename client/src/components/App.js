@@ -36,7 +36,6 @@ const App = () => {
           <Route path="/teams" element={<Teams />} />
           <Route path="/teams/:id/roster" element={<Roster />} />
           <Route path="/player/:id" element={<Player />} />
-          <Route path="/favourites" element={<Favourites />} />
           <Route path="/chat" element={<ChatMenu />} />
           <Route path="/teams/:id/chat" element={<TeamChat />} />
           <Route path="/player/:id/chat" element={<PlayerChat />} />

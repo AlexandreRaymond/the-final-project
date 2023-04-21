@@ -4,13 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { InfoContext } from "./InfoContext";
 import { useAuth0 } from "@auth0/auth0-react";
 
-const Favourites = () => {
+const ProfileInfos = () => {
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth0();
 
   return (
     <MainContainer>
-      <h1>{user.nickname}'s favourites</h1>
+      <h1>{user.nickname}'s infos</h1>
+      <div></div>
     </MainContainer>
   );
 };
@@ -26,4 +27,4 @@ const MainContainer = styled.div`
   justify-content: center;
 `;
 
-export default Favourites;
+export default ProfileInfos;

@@ -163,7 +163,7 @@ const Position = styled.p`
   gap: 15px;
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   border: none;
   width: 33%;
   font-weight: bold;
@@ -180,20 +180,20 @@ const Button = styled.button`
   }
 `;
 
-const ButtonSpan = styled.span`
+export const ButtonSpan = styled.span`
   font-weight: bold;
   font-size: 18px;
   transition: 0.5s;
 `;
 
-const ButtonDisplay = styled.div`
+export const ButtonDisplay = styled.div`
   // background-color: green;
   width: inherit;
   height: 12px;
   padding-bottom: 8px;
 `;
 
-const AddDisplay = styled.div`
+export const AddDisplay = styled.div`
   width: inherit;
   height: 100px;
   margin-top: -25px;
@@ -205,7 +205,7 @@ const AddDisplay = styled.div`
   gap: 150px;
 `;
 
-const AddFavorites = styled.button`
+export const AddFavorites = styled.button`
   height: 50px;
   width: 50px;
   font-size: 30px;
@@ -218,7 +218,7 @@ const AddFavorites = styled.button`
   }
 `;
 
-const AddToPool = styled.button`
+export const AddToPool = styled.button`
   height: 50px;
   width: 50px;
   font-size: 30px;
@@ -231,7 +231,7 @@ const AddToPool = styled.button`
   }
 `;
 
-const SocialDisplay = styled.div`
+export const SocialDisplay = styled.div`
   background-color: whitesmoke;
   width: 530px;
   height: 355px;
@@ -243,7 +243,7 @@ const SocialDisplay = styled.div`
   //overflow-y: auto;
 `;
 
-const WhiteFiller = styled.div`
+export const WhiteFiller = styled.div`
   height: 5px;
   background-color: inherit;
 `;

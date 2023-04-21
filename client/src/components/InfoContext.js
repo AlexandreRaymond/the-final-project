@@ -10,6 +10,7 @@ export const InfoProvider = ({ children }) => {
   const [currentLogo, setCurrentLogo] = useState(null);
   const [currentRoster, setCurrentRoster] = useState(null);
   const [currentStanding, setCurrentStanding] = useState(null);
+  const [currentChat, setCurrentChat] = useState(null);
   const [currentFocus, setCurrentFocus] = useState("stats");
   const [copyrights, setCopyrights] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
@@ -29,6 +30,7 @@ export const InfoProvider = ({ children }) => {
           currentRoster,
           modalOpen,
           currentStanding,
+          currentChat,
         },
         actions: {
           setCurrentPlayer,
@@ -42,6 +44,7 @@ export const InfoProvider = ({ children }) => {
           setCurrentRoster,
           setModalOpen,
           setCurrentStanding,
+          setCurrentChat,
         },
       }}
     >

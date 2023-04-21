@@ -32,25 +32,23 @@ const Header = () => {
           <StyledNav to="/" onClick={() => setCurrentTeam(null)}>
             <p>Home</p>
           </StyledNav>
-          <StyledNav to="/profile" onClick={() => setCurrentTeam(null)}>
-            <p>Profile</p>
-          </StyledNav>
+          <span>
+            {auth.isAuthenticated ? (
+              <StyledNav to="/profile" onClick={() => setCurrentTeam(null)}>
+                <p>profile</p>
+              </StyledNav>
+            ) : (
+              <StyledNav onClick={() => auth.loginWithRedirect()}>
+                <p>Login</p>
+              </StyledNav>
+            )}
+          </span>
           <StyledNav to="/standings" onClick={() => setCurrentTeam(null)}>
             <p>Standings</p>
           </StyledNav>
           <StyledNav to="/teams" onClick={() => setCurrentTeam(null)}>
             <p>Teams</p>
           </StyledNav>
-          <StyledNav to="/favourites" onClick={() => setCurrentTeam(null)}>
-            <p>Favourites</p>
-          </StyledNav>
-          {auth.isAuthenticated ? (
-            <p>{auth.user.nickname}</p>
-          ) : (
-            <StyledNav onClick={() => auth.loginWithRedirect()}>
-              <p>Login</p>
-            </StyledNav>
-          )}
           <StyledNav to="/chat" onClick={() => setCurrentTeam(null)}>
             <p>Chat</p>
           </StyledNav>

@@ -25,6 +25,7 @@ const TeamChat = () => {
       setCurrentLogo,
       setCurrentRoster,
       setCurrentPlayer,
+      setCurrentChat,
     },
   } = useContext(InfoContext);
 
@@ -57,7 +58,7 @@ const TeamChat = () => {
           console.log("chat player", player);
           return (
             <Wrapper>
-              <NavBrowse to={`/player/${player.id}/chat`}>
+              <NavBrowse to={`/player/${player.person.id}/chat`}>
                 <NavButton onClick={() => setCurrentPlayer(player)}>
                   {player.person.fullName}
                 </NavButton>

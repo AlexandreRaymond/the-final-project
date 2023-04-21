@@ -10,6 +10,11 @@ const Teams = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth0();
 
+  const {
+    state: { currentTeam },
+    actions: { setCurrentTeam },
+  } = useContext(InfoContext);
+
   useEffect(() => {
     axios.get(`/api/teams`).then((response) => {
       console.log("response", response.data.teams.teams);
@@ -33,7 +38,9 @@ const Teams = () => {
           return (
             <Wrapper>
               <NavBrowse to={`/teams/${team.id}/roster`}>
-                <NavButton>{team.name}</NavButton>
+                <NavButton onClick={() => setCurrentTeam(team)}>
+                  {team.name}
+                </NavButton>
               </NavBrowse>
             </Wrapper>
           );
@@ -47,7 +54,7 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 80%;
-  min-height: 90vh;
+  min-height: 95vh;
   margin: 35px auto;
   margin-top: 80px;
   align-items: center;
