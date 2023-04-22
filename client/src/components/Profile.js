@@ -20,29 +20,6 @@ const Profile = () => {
     actions: { setCurrentFocus },
   } = useContext(InfoContext);
 
-  const doStuff = async () => {
-    try {
-      const accessToken = await getAccessTokenSilently({
-        authorizationParams: {
-          audience: "http://hockeydokey",
-          scope: "read:current_user",
-        },
-      });
-      axios
-        .post("/do-stuff-route", {
-          Authorization: `Bearer ${accessToken}`,
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -73,7 +50,6 @@ const Profile = () => {
           >
             Options
           </Button>
-          <Button onClick={() => doStuff()}>dostuff</Button>
         </ButtonDisplay>
         <WhiteF></WhiteF>
         <FocusedDisplay>

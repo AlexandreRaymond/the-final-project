@@ -10,11 +10,15 @@ const Header = () => {
   // Logics
   const auth = useAuth0();
   console.log("Logged in?", auth.isAuthenticated);
-  console.log("banana", auth.user);
+  console.log("User infos", auth.user);
   const {
     state: { currentTeam },
-    actions: { setCurrentTeam },
+    actions: { setCurrentTeam, setCurrentPlayer },
   } = useContext(InfoContext);
+
+  const firstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
 
   let color = "black";
 
@@ -29,13 +33,18 @@ const Header = () => {
     <>
       <StyledHeader backgroundColor={color}>
         <MenuWrapper>
-          <StyledNav to="/" onClick={() => setCurrentTeam(null)}>
+          <StyledNav
+            to="/"
+            onClick={() => {
+              setCurrentTeam(null);
+            }}
+          >
             <p>Home</p>
           </StyledNav>
           <span>
             {auth.isAuthenticated ? (
               <StyledNav to="/profile" onClick={() => setCurrentTeam(null)}>
-                <p>profile</p>
+                <p>{firstLetter(auth.user.nickname)}</p>
               </StyledNav>
             ) : (
               <StyledNav onClick={() => auth.loginWithRedirect()}>
@@ -56,7 +65,7 @@ const Header = () => {
         <TeamWrapper>
           {currentTeam && (
             <TeamHeader>
-              <span>{currentTeam.name}</span>
+              <SSpan>{currentTeam.name}</SSpan>
               <div>
                 <TeamLogo
                   src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${currentTeam.id}.svg`}
@@ -71,6 +80,7 @@ const Header = () => {
 };
 
 const StyledHeader = styled.div`
+  font-family: "Vollkorn", serif;
   position: fixed;
   display: flex;
   flex-direction: row;
@@ -143,6 +153,11 @@ const TeamLogo = styled.img`
   width: 50px;
   height: 50px;
   z-index: 0;
+`;
+
+const SSpan = styled.span`
+  font-family: "Racing Sans One", cursive;
+  font-size: 40px;
 `;
 
 export default Header;

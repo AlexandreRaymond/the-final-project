@@ -59,7 +59,7 @@ const TeamChat = () => {
           return (
             <Wrapper>
               <NavBrowse to={`/player/${player.person.id}/chat`}>
-                <NavButton onClick={() => setCurrentPlayer(player)}>
+                <NavButton onClick={() => setCurrentChat(player)}>
                   {player.person.fullName}
                 </NavButton>
               </NavBrowse>

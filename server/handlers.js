@@ -1,6 +1,7 @@
 "use strict";
 const { MongoClient, ObjectId } = require("mongodb");
 const axios = require("axios");
+const { v4: uuidv4 } = require("uuid");
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
@@ -132,4 +133,79 @@ const getATeamInfo = async (req, res) => {
   }
 };
 
-module.exports = { getPlayer, getTeams, getATeamInfo, getStanding };
+// /api/post/comment
+const postComment = async (req, res) => {
+  const { comment, player, playerId, user, date, time } = req.body;
+  const client = await getMongoClient();
+
+  try {
+    const db = await client.db("db-name");
+    const reply = await db.collection("comments").insertOne({
+      _id: uuidv4(),
+      comment: comment,
+      player: player,
+      playerId: playerId,
+      user: user.nickname,
+      date: date,
+      time: time,
+    });
+    if (reply.acknowledged) {
+      res.status(200).json({
+        status: 200,
+        data: reply,
+        message: "Successfully posted!",
+      });
+    } else {
+      res.status(404).json({
+        status: 404,
+        data: "Comment not found.",
+      });
+    }
+    //console.log("hahahahahahahaha", comment, user, date, time);
+  } catch (err) {
+    console.log("Error", err);
+  } finally {
+    await client.close();
+    console.log("Disconnected");
+  }
+};
+
+// api/get/comment/:id
+const getComments = async (req, res) => {
+  const { id } = req.params;
+  const client = await getMongoClient();
+  try {
+    const db = await client.db("db-name");
+    const replies = await db
+      .collection("comments")
+      .find({ playerId: id })
+      .toArray();
+    /* if (replies.length > 0) {
+      res.status(200).json({
+        status: 200,
+        data: replies,
+        message: "Successfully posted!",
+      });
+    } else {
+      res.status(404).json({
+        status: 404,
+        data: "Comments not found.",
+      });
+    }*/
+    console.log("getComments", replies);
+  } catch (err) {
+    console.log("Error", err);
+  } finally {
+    await client.close();
+    console.log("Disconnected");
+  }
+};
+
+module.exports = {
+  getPlayer,
+  getTeams,
+  getATeamInfo,
+  getStanding,
+  postComment,
+  getComments,
+};

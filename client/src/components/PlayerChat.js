@@ -9,20 +9,20 @@ import PlayerChatInfos from "./PlayerChatInfos";
 
 const PlayerChat = () => {
   const {
-    state: { currentPlayer, currentStats, currentPic },
+    state: { currentChat, currentStats, currentPic },
     actions: { setCurrentPlayer, setCurrentStats, setCurrentPic },
   } = useContext(InfoContext);
 
-  console.log("chat current player", currentPlayer);
+  console.log("chat currentChat", currentChat);
 
   useEffect(() => {
-    axios.get(`/api/player/${currentPlayer.person.id}`).then((response) => {
+    axios.get(`/api/player/${currentChat.person.id}`).then((response) => {
       setCurrentStats(response.data.stats);
       setCurrentPic(response.data.pic);
     });
   }, []);
 
-  if (!currentPlayer && !currentStats) {
+  if (!currentChat && !currentStats) {
     return (
       <>
         <MainContainer>Loading...</MainContainer>
@@ -35,7 +35,7 @@ const PlayerChat = () => {
       <MainContainer>
         <PlayerDiv>
           <PlayerImg src={currentPic} />
-          <p>{currentPlayer.person.fullName}</p>
+          <p>{currentChat.person.fullName}</p>
         </PlayerDiv>
         <ChatDiv>
           <PlayerChatInfos />
@@ -53,6 +53,9 @@ const PlayerDiv = styled.div`
   width: 90%;
   align-items: center;
   justify-content: space-between;
+  font-family: "Vollkorn", serif;
+  font-weight: bold;
+  font-size: 25px;
 `;
 
 const PlayerImg = styled.img`
@@ -63,13 +66,14 @@ const PlayerImg = styled.img`
 `;
 
 const ChatDiv = styled.div`
+  font-family: "Vollkorn", serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: red;
   width: 90%;
-  height: 650px;
+  height: 700px;
   overflow-y: none;
 `;
 

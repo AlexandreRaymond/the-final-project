@@ -24,7 +24,7 @@ const PlayerInfos = () => {
   const toggleLike = (e) => {
     setFavored(!favored);
   };
-  console.log("player", player);
+  console.log("playerinfo", currentPlayer);
 
   const color = teamColors[player.currentTeam.name];
 

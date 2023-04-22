@@ -17,8 +17,9 @@ const Player = ({ player }) => {
       setCurrentPlayer(response.data.player);
       setCurrentStats(response.data.stats);
       setCurrentPic(response.data.pic);
+      console.log("player player player", response.data);
     });
-  }, []);
+  }, [player]);
 
   if (!currentPlayer && !currentStats) {
     return (

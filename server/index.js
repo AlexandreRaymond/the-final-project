@@ -8,6 +8,8 @@ const {
   getTeams,
   getATeamInfo,
   getStanding,
+  postComment,
+  getComments,
 } = require("./handlers");
 
 // Import handlers here
@@ -40,9 +42,9 @@ express()
 
   .get(`/api/player/:id`, getPlayer)
 
-  //.post(`/do-stuff-route`, )
+  .post(`/api/post/comment`, postComment)
 
-  // for pictures: http://nhl.bamcontent.com/images/headshots/current/168x168/(player id).jpg
+  .get(`/api/get/comment/:id`, getComments)
 
   // Listening on PORT
   .listen(PORT, () => {

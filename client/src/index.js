@@ -14,8 +14,6 @@ root.render(
       clientId="X3AqsxwSQKodgTdl3dI1cFFK72Avp6hX"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: "http://hockeydokey",
-        scope: "read:profile update:current_user_metadata view:user",
       }}
     >
       <InfoProvider>
