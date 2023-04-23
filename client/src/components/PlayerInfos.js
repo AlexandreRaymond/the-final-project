@@ -6,9 +6,9 @@ import { MainContainer } from "./Teams";
 import axios from "axios";
 import PlayerStats from "./PlayerStats";
 import Chat from "./Chat";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { GiHockey } from "react-icons/gi";
 import teamColors from "../utils/backgrounds";
+import AddToFavorites from "./AddToFavorites";
 
 const PlayerInfos = () => {
   const {
@@ -19,11 +19,7 @@ const PlayerInfos = () => {
   const player = currentPlayer.people[0];
   const stats = currentStats.stats[0].splits[0].stat;
   console.log("stats", stats);
-  const [favored, setFavored] = useState(false);
 
-  const toggleLike = (e) => {
-    setFavored(!favored);
-  };
   console.log("playerinfo", currentPlayer);
 
   const color = teamColors[player.currentTeam.name];
@@ -57,9 +53,7 @@ const PlayerInfos = () => {
           </TeamDisplay>
         </PlayerDisplay>
         <AddDisplay>
-          <AddFavorites onClick={(e) => toggleLike(e)}>
-            {favored ? <AiFillHeart /> : <AiOutlineHeart />}
-          </AddFavorites>
+          <AddToFavorites />
           <AddToPool onClick={() => window.alert("Soon!")}>
             <GiHockey />
           </AddToPool>

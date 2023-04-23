@@ -10,6 +10,9 @@ const {
   getStanding,
   postComment,
   getComments,
+  patchProfile,
+  getProfile,
+  AddToFavourites,
 } = require("./handlers");
 
 // Import handlers here
@@ -42,10 +45,15 @@ express()
 
   .get(`/api/player/:id`, getPlayer)
 
-  .post(`/api/post/comment`, postComment)
+  .get(`/api/get/profile/:userId`, getProfile)
 
   .get(`/api/get/comment/:id`, getComments)
 
+  .post(`/api/post/comment`, postComment)
+
+  .post(`/api/post/add-to-favourites/:userId`, AddToFavourites)
+
+  .patch(`/api/patch/profile/:userId`, patchProfile)
   // Listening on PORT
   .listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);

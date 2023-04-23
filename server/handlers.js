@@ -133,6 +133,147 @@ const getATeamInfo = async (req, res) => {
   }
 };
 
+// /api/patch/profile/:userId
+const patchProfile = async (req, res) => {
+  const { userId } = req.params;
+  console.log("userId", userId);
+  // const { firstName, lastName, age, city, province, country } = req.body;
+  const client = await getMongoClient();
+  try {
+    const db = await client.db("db-name");
+    const users = await db.collection("users");
+    console.log("body", req.body);
+    const profile = await users.findOneAndUpdate(
+      { _id: new ObjectId(userId) },
+      { $set: { ...req.body.profileInfo } }
+    );
+    console.log("profile pro", profile);
+    if (profile.value) {
+      res.status(200).json({
+        status: 200,
+        data: profile,
+        message: "Successfully patched!",
+      });
+    } else {
+      res.status(404).json({
+        status: 404,
+        data: "Profile not found.",
+      });
+    }
+  } catch (err) {
+    console.log("Error", err);
+  } finally {
+    await client.close();
+    console.log("Disconnected");
+  }
+};
+
+// /api/get/profile/:userId
+const getProfile = async (req, res) => {
+  const { userId } = req.params;
+  console.log("userId", userId);
+  const client = await getMongoClient();
+  try {
+    const db = await client.db("db-name");
+    const profile = await db
+      .collection("users")
+      .findOne({ _id: new ObjectId(userId) });
+    console.log("prolife profile", profile);
+    if (profile) {
+      res.status(200).json({
+        status: 200,
+        data: profile,
+        message: "Successfully gotten!",
+      });
+    } else {
+      res.status(404).json({
+        status: 404,
+        data: "Profile not found.",
+      });
+    }
+  } catch (err) {
+    console.log("Error", err);
+  } finally {
+    await client.close();
+    console.log("Disconnected");
+  }
+};
+
+// /api/post/add-to-favourites/:userId
+const AddToFavourites = async (req, res) => {
+  const { userId } = req.params;
+  console.log("userId", userId);
+  const {
+    playerId,
+    name,
+    team,
+    picture,
+    jerseyNumber,
+    captain,
+    alternateCaptain,
+    goals,
+    assists,
+    points,
+    gp,
+    plusMinus,
+    wins,
+    losses,
+    ot,
+    gaa,
+  } = req.body;
+  const client = await getMongoClient();
+  try {
+    const db = await client.db("db-name");
+    const users = await db.collection("users");
+    const user = await users.find({ _id: new ObjectId(userId) }).toArray();
+    console.log("user user", user[0]);
+    if (!user[0].favoritePlayers) {
+      const result = await users.findOneAndUpdate(
+        { _id: new ObjectId(userId) },
+        { $set: { favoritePlayers: [{ ...req.body }] } }
+      );
+      return res.status(200).json({
+        status: 200,
+        data: result,
+        message: "Successfully gotten!",
+      });
+    }
+    let checkPlayer = false;
+    let players = user[0].favoritePlayers;
+    console.log("apple", user[0]);
+    for (let i = 0; i < players.length; i++) {
+      const player = players[i];
+      if (player.playerId === playerId) {
+        checkPlayer = true;
+        break;
+      }
+    }
+    if (checkPlayer) {
+      return res.status(400).json({
+        status: 400,
+        message: "Player is already liked!",
+      });
+    }
+    console.log("banana", players);
+    console.log("jalapeno", req.body);
+    players.push({ ...req.body });
+    const result = await users.findOneAndUpdate(
+      { _id: new ObjectId(userId) },
+      { $set: { favoritePlayers: players } }
+    );
+    return res.status(200).json({
+      status: 200,
+      data: result,
+      message: "Successfully gotten!",
+    });
+  } catch (err) {
+    console.log("Error", err);
+  } finally {
+    await client.close();
+    console.log("Disconnected");
+  }
+};
+
 // /api/post/comment
 const postComment = async (req, res) => {
   const { comment, player, playerId, user, date, time } = req.body;
@@ -181,9 +322,10 @@ const getComments = async (req, res) => {
     const replies = await db
       .collection("comments")
       .find({ playerId: number })
-      .sort({ date: 1, time: 1 })
+      .sort({ date: -1, time: -1 })
+      .limit(25)
       .toArray();
-    /* if (replies.length > 0) {
+    if (replies.length >= 0) {
       res.status(200).json({
         status: 200,
         data: replies,
@@ -194,7 +336,7 @@ const getComments = async (req, res) => {
         status: 404,
         data: "Comments not found.",
       });
-    }*/
+    }
     console.log("getComments", replies);
   } catch (err) {
     console.log("Error", err);
@@ -211,4 +353,7 @@ module.exports = {
   getStanding,
   postComment,
   getComments,
+  patchProfile,
+  getProfile,
+  AddToFavourites,
 };

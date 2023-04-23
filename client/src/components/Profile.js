@@ -35,6 +35,7 @@ const Profile = () => {
         </ProfileDisplay>
         <ButtonDisplay>
           <Button
+            autoFocus
             id="profileInfos"
             onClick={() => setCurrentFocus("profileInfos")}
           >
@@ -43,11 +44,7 @@ const Profile = () => {
           <Button id="favourites" onClick={() => setCurrentFocus("favourites")}>
             Favourites
           </Button>
-          <Button
-            autoFocus
-            id="options"
-            onClick={() => setCurrentFocus("options")}
-          >
+          <Button id="options" onClick={() => setCurrentFocus("options")}>
             Options
           </Button>
         </ButtonDisplay>
