@@ -173,12 +173,15 @@ const postComment = async (req, res) => {
 // api/get/comment/:id
 const getComments = async (req, res) => {
   const { id } = req.params;
+  const number = Number(id);
+  console.log("id", typeof number, number);
   const client = await getMongoClient();
   try {
     const db = await client.db("db-name");
     const replies = await db
       .collection("comments")
-      .find({ playerId: id })
+      .find({ playerId: number })
+      .sort({ date: 1, time: 1 })
       .toArray();
     /* if (replies.length > 0) {
       res.status(200).json({
