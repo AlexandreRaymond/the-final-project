@@ -225,7 +225,7 @@ const AddToFavourites = async (req, res) => {
   try {
     const db = await client.db("db-name");
     const users = await db.collection("users");
-    const user = await users.find({ _id: new ObjectId(userId) }).toArray();
+    const user = await users.findOne({ _id: new ObjectId(userId) }).toArray();
     console.log("user user", user[0]);
     if (!user[0].favoritePlayers) {
       const result = await users.findOneAndUpdate(
@@ -302,7 +302,6 @@ const postComment = async (req, res) => {
         data: "Comment not found.",
       });
     }
-    //console.log("hahahahahahahaha", comment, user, date, time);
   } catch (err) {
     console.log("Error", err);
   } finally {

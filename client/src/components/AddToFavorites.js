@@ -2,24 +2,28 @@ import { useState, useEffect, useContext } from "react";
 import { InfoContext } from "./InfoContext";
 import styled from "styled-components";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
-const AddToFavorites = () => {
-  const [favored, setFavored] = useState(false);
-
+const AddToFavorites = ({ favored, setFavored }) => {
   const {
     state: { currentPlayer, currentStats, currentPic },
   } = useContext(InfoContext);
+  const { isAuthenticated, user } = useAuth0();
+
+  let preslice = user.sub;
+  let userId = preslice.slice(6, preslice.length);
 
   let playerId = currentPlayer.people[0].id;
   const player = currentPlayer.people[0];
   const stats = currentStats.stats[0].splits[0].stat;
 
   const toggleLike = (e) => {
-    e.preventDefault();
-    if (favored && player.primaryPosition.type === "Forward") {
-      axios.post(`/api/post/add-to-favourites`, {
+    // e.preventDefault();
+    if (!favored && player.primaryPosition.type === "Forward") {
+      axios.post(`/api/post/add-to-favourites/${userId}`, {
         playerId: playerId,
+        favourites: true,
         name: player.fullName,
         team: player.currentTeam.name,
         picture: currentPic,
@@ -32,10 +36,11 @@ const AddToFavorites = () => {
         gp: stats.games,
         plusMinus: stats.plusMinus,
       });
-      setFavored(!favored);
-    } else if (favored && player.primaryPosition.type === "Defenseman") {
-      axios.post(`/api/post/add-to-favourites`, {
+      setFavored(favored);
+    } else if (!favored && player.primaryPosition.type === "Defenseman") {
+      axios.post(`/api/post/add-to-favourites/${userId}`, {
         playerId: playerId,
+        favourites: true,
         name: player.fullName,
         team: player.currentTeam.name,
         picture: currentPic,
@@ -48,11 +53,12 @@ const AddToFavorites = () => {
         gp: stats.games,
         plusMinus: stats.plusMinus,
       });
-      setFavored(!favored);
-    } else if (favored && player.primaryPosition.type === "Goalie") {
+      setFavored(favored);
+    } else if (!favored && player.primaryPosition.type === "Goalie") {
       let gaa = stats.goalAgainstAverage.toFixed(2);
-      axios.post(`/api/post/add-to-favourites`, {
+      axios.post(`/api/post/add-to-favourites/${userId}`, {
         playerId: playerId,
+        favourites: true,
         name: player.fullName,
         team: player.currentTeam.name,
         picture: currentPic,
@@ -65,14 +71,14 @@ const AddToFavorites = () => {
         gp: stats.games,
         gaa: gaa,
       });
-      setFavored(!favored);
+      setFavored(favored);
     }
   };
 
   return (
     <>
       <AddFavorites onClick={(e) => toggleLike(e)}>
-        {favored ? <AiFillHeart /> : <AiOutlineHeart />}
+        <AiFillHeart />
       </AddFavorites>
     </>
   );

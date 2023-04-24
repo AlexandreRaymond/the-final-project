@@ -9,6 +9,8 @@ import Chat from "./Chat";
 import { GiHockey } from "react-icons/gi";
 import teamColors from "../utils/backgrounds";
 import AddToFavorites from "./AddToFavorites";
+import RemoveOfFavourites from "./RemoveOfFavourites";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
 const PlayerInfos = () => {
   const {
@@ -16,11 +18,14 @@ const PlayerInfos = () => {
     actions: { setCurrentFocus },
   } = useContext(InfoContext);
 
+  const [favored, setFavored] = useState(false);
+
   const player = currentPlayer.people[0];
   const stats = currentStats.stats[0].splits[0].stat;
   console.log("stats", stats);
 
   console.log("playerinfo", currentPlayer);
+  console.log("Liked?", favored);
 
   const color = teamColors[player.currentTeam.name];
 
@@ -53,7 +58,11 @@ const PlayerInfos = () => {
           </TeamDisplay>
         </PlayerDisplay>
         <AddDisplay>
-          <AddToFavorites />
+          {favored ? (
+            <RemoveOfFavourites favored={favored} setFavored={setFavored} />
+          ) : (
+            <AddToFavorites favored={favored} setFavored={setFavored} />
+          )}
           <AddToPool onClick={() => window.alert("Soon!")}>
             <GiHockey />
           </AddToPool>
