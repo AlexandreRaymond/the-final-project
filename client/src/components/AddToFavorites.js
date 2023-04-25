@@ -19,7 +19,7 @@ const AddToFavorites = ({ favored, setFavored }) => {
   const stats = currentStats.stats[0].splits[0].stat;
 
   const toggleLike = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     if (!favored && player.primaryPosition.type === "Forward") {
       axios.post(`/api/post/add-to-favourites/${userId}`, {
         playerId: playerId,
@@ -36,7 +36,6 @@ const AddToFavorites = ({ favored, setFavored }) => {
         gp: stats.games,
         plusMinus: stats.plusMinus,
       });
-      setFavored(favored);
     } else if (!favored && player.primaryPosition.type === "Defenseman") {
       axios.post(`/api/post/add-to-favourites/${userId}`, {
         playerId: playerId,
@@ -53,7 +52,6 @@ const AddToFavorites = ({ favored, setFavored }) => {
         gp: stats.games,
         plusMinus: stats.plusMinus,
       });
-      setFavored(favored);
     } else if (!favored && player.primaryPosition.type === "Goalie") {
       let gaa = stats.goalAgainstAverage.toFixed(2);
       axios.post(`/api/post/add-to-favourites/${userId}`, {

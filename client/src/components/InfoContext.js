@@ -11,7 +11,9 @@ export const InfoProvider = ({ children }) => {
   const [currentRoster, setCurrentRoster] = useState(null);
   const [currentStanding, setCurrentStanding] = useState(null);
   const [currentChat, setCurrentChat] = useState(null);
+  const [currentComments, setCurrentComments] = useState(null);
   const [currentFocus, setCurrentFocus] = useState("stats");
+  const [currentFav, setCurrentFav] = useState(null);
   const [copyrights, setCopyrights] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -31,6 +33,8 @@ export const InfoProvider = ({ children }) => {
           modalOpen,
           currentStanding,
           currentChat,
+          currentFav,
+          currentComments,
         },
         actions: {
           setCurrentPlayer,
@@ -45,6 +49,8 @@ export const InfoProvider = ({ children }) => {
           setModalOpen,
           setCurrentStanding,
           setCurrentChat,
+          setCurrentFav,
+          setCurrentComments,
         },
       }}
     >

@@ -12,7 +12,8 @@ const {
   getComments,
   patchProfile,
   getProfile,
-  AddToFavourites,
+  addToFavourites,
+  getFavourites,
 } = require("./handlers");
 
 // Import handlers here
@@ -47,11 +48,13 @@ express()
 
   .get(`/api/get/profile/:userId`, getProfile)
 
-  .get(`/api/get/comment/:id`, getComments)
+  .get(`/api/get/comments/:id`, getComments)
+
+  .get(`/api/get/favourites/:userId`, getFavourites)
 
   .post(`/api/post/comment`, postComment)
 
-  .post(`/api/post/add-to-favourites/:userId`, AddToFavourites)
+  .post(`/api/post/add-to-favourites/:userId`, addToFavourites)
 
   .patch(`/api/patch/profile/:userId`, patchProfile)
   // Listening on PORT

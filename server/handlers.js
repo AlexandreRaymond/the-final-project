@@ -200,7 +200,7 @@ const getProfile = async (req, res) => {
 };
 
 // /api/post/add-to-favourites/:userId
-const AddToFavourites = async (req, res) => {
+const addToFavourites = async (req, res) => {
   const { userId } = req.params;
   console.log("userId", userId);
   const {
@@ -310,7 +310,7 @@ const postComment = async (req, res) => {
   }
 };
 
-// api/get/comment/:id
+// api/get/comments/:id
 const getComments = async (req, res) => {
   const { id } = req.params;
   const number = Number(id);
@@ -321,7 +321,7 @@ const getComments = async (req, res) => {
     const replies = await db
       .collection("comments")
       .find({ playerId: number })
-      .sort({ date: -1, time: -1 })
+      .sort({ date: 1, time: 1 })
       .limit(25)
       .toArray();
     if (replies.length >= 0) {
@@ -345,6 +345,38 @@ const getComments = async (req, res) => {
   }
 };
 
+// /api/get/favourites/:userId
+const getFavourites = async (req, res) => {
+  const { userId } = req.params;
+  console.log("userId", userId);
+  const client = await getMongoClient();
+  try {
+    const db = await client.db("db-name");
+    const findUser = await db.collection("users");
+    const result = await findUser
+      .find({ _id: new ObjectId(userId) }, { favoritePlayers: 10 })
+      .toArray();
+    console.log("fav playah", result);
+    if (result[0].favoritePlayers.length >= 0) {
+      res.status(200).json({
+        status: 200,
+        data: result[0].favoritePlayers,
+        message: "Favourite players!",
+      });
+    } else {
+      res.status(404).json({
+        status: 404,
+        data: "Favourites not found.",
+      });
+    }
+  } catch (err) {
+    console.log("Error", err);
+  } finally {
+    await client.close();
+    console.log("Disconnected");
+  }
+};
+
 module.exports = {
   getPlayer,
   getTeams,
@@ -354,5 +386,6 @@ module.exports = {
   getComments,
   patchProfile,
   getProfile,
-  AddToFavourites,
+  addToFavourites,
+  getFavourites,
 };

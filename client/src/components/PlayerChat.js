@@ -47,20 +47,24 @@ const PlayerChat = () => {
 
 const PlayerDiv = styled.div`
   position: inherit;
-  background-color: lightblue;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   display: flex;
   flex-direction: row;
-  width: 90%;
+  height: 80px;
+  width: 550px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   font-family: "Vollkorn", serif;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 35px;
+  gap: 50px;
+  margin-bottom: 20px;
+  z-index: 1;
 `;
 
 const PlayerImg = styled.img`
-  border-radius: 50px;
-  height: 100px;
+  border-radius: 100px;
+  height: 120px;
   width: auto;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `;
@@ -71,9 +75,8 @@ const ChatDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: red;
-  width: 90%;
-  height: 700px;
+  width: 600px;
+  height: 650px;
   overflow-y: none;
 `;
 

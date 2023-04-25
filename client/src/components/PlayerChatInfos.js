@@ -4,6 +4,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import teamColors from "../utils/backgrounds";
+import Conversation from "./Conversation";
 
 const PlayerChatInfos = () => {
   const { isAuthenticated, logout, user, isLoading, getAccessTokenSilently } =
@@ -60,9 +61,9 @@ const PlayerChatInfos = () => {
   return (
     isAuthenticated && (
       <>
-        <ChatArea>
+        <ChatArea backgroundColor={color}>
           <div>
-            {currentChat.person.fullName}'s chat {currentChat.person.id}
+            <Conversation chatId={currentChat.person.id} />
           </div>
         </ChatArea>
         <Form onSubmit={handleSubmit}>
@@ -105,10 +106,11 @@ const Form = styled.form`
 `;
 
 const ChatArea = styled.div`
-  background-color: grey;
+  background-color: white;
+  box-shadow: rgba(149, 157, 165, 0.2) 2px 18px 24px;
   font-family: "Vollkorn", serif;
-  height: 800px;
-  width: 950px;
+  height: 110vh;
+  width: 550px;
   margin: 10px 10px 0 10px;
   border: none;
   border-radius: 5px;
@@ -116,14 +118,17 @@ const ChatArea = styled.div`
   align-items: center;
   justify-content: center;
   overflow-y: auto;
-  z-index: 0;
+  z-index: 1;
 `;
 
 const Input = styled.textarea`
+  display: flex;
+  flex-direction: row;
+
   position: relative;
   resize: none;
   height: 80px;
-  width: 950px;
+  width: 550px;
   font-family: "Vollkorn", serif;
   font-size: 16px;
   font-weight: bold;
@@ -152,7 +157,7 @@ const SendComment = styled.button`
   border: none;
   border-radius: 5px;
   margin: 5px 0;
-  width: 950px;
+  width: 550px;
   height: 30px;
   color: whitesmoke;
   font-weight: bold;
