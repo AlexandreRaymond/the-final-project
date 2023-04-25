@@ -24,6 +24,10 @@ const Favourites = () => {
     });
   }, []);
 
+  if (!currentFav) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <MainContainer>
       <div>

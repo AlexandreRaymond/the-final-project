@@ -17,6 +17,7 @@ import RequireAuth from "./RequireAuth";
 import ChatMenu from "./ChatMenu";
 import TeamChat from "./TeamChat";
 import PlayerChat from "./PlayerChat";
+import Footer from "./Footer";
 
 const App = () => {
   // Logics
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/player/:id/chat" element={<PlayerChat />} />
         </Routes>
       </RequireAuth>
+      <Footer />
     </>
   );
 };

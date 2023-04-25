@@ -128,6 +128,7 @@ const MenuWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+
   gap: 25px;
 `;
 
@@ -142,8 +143,7 @@ const TeamWrapper = styled.div`
 `;
 
 const TeamHeader = styled.div`
-  position: absolute;
-  display: flex;
+  position: relative;
   flex-direction: column;
   z-index: 1;
 `;

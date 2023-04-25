@@ -6,14 +6,21 @@ import { InfoContext } from "./InfoContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import { MainContainer } from "./Teams";
 import PlayerChatInfos from "./PlayerChatInfos";
+import teamColors from "../utils/backgrounds";
 
 const PlayerChat = () => {
   const {
-    state: { currentChat, currentStats, currentPic },
+    state: { currentChat, currentStats, currentPic, currentTeam },
     actions: { setCurrentPlayer, setCurrentStats, setCurrentPic },
   } = useContext(InfoContext);
 
   console.log("chat currentChat", currentChat);
+
+  let color = "black";
+
+  if (currentTeam) {
+    color = teamColors[currentTeam.name];
+  }
 
   useEffect(() => {
     axios.get(`/api/player/${currentChat.person.id}`).then((response) => {
@@ -33,7 +40,7 @@ const PlayerChat = () => {
   return (
     <>
       <MainContainer>
-        <PlayerDiv>
+        <PlayerDiv backgroundColor={color}>
           <PlayerImg src={currentPic} />
           <p>{currentChat.person.fullName}</p>
         </PlayerDiv>
@@ -46,7 +53,10 @@ const PlayerChat = () => {
 };
 
 const PlayerDiv = styled.div`
-  position: inherit;
+  position: relative;
+  background-color: ${(props) => props.backgroundColor};
+  color: whitesmoke;
+  border-radius: 10px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   display: flex;
   flex-direction: row;
@@ -60,6 +70,9 @@ const PlayerDiv = styled.div`
   gap: 50px;
   margin-bottom: 20px;
   z-index: 1;
+  & p {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
 `;
 
 const PlayerImg = styled.img`
@@ -76,8 +89,7 @@ const ChatDiv = styled.div`
   justify-content: center;
   align-items: center;
   width: 600px;
-  height: 650px;
-  overflow-y: none;
+  max-height: 100%;
 `;
 
 export default PlayerChat;

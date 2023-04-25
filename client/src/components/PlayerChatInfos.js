@@ -109,7 +109,7 @@ const ChatArea = styled.div`
   background-color: white;
   box-shadow: rgba(149, 157, 165, 0.2) 2px 18px 24px;
   font-family: "Vollkorn", serif;
-  height: 110vh;
+  height: 500px;
   width: 550px;
   margin: 10px 10px 0 10px;
   border: none;

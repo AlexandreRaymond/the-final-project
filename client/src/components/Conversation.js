@@ -6,7 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Conversation = ({ chatId }) => {
   const {
-    state: { currentComments },
+    state: { currentComments, currentTeam },
     actions: { setCurrentComments },
   } = useContext(InfoContext);
 
@@ -102,6 +102,8 @@ const UserSpan = styled.span`
   margin-left: 5px;
 `;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  overflow-y: auto;
+`;
 
 export default Conversation;
