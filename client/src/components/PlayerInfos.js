@@ -11,6 +11,7 @@ import teamColors from "../utils/backgrounds";
 import AddToFavorites from "./AddToFavorites";
 import RemoveOfFavourites from "./RemoveOfFavourites";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const PlayerInfos = () => {
   const {
@@ -18,9 +19,25 @@ const PlayerInfos = () => {
     actions: { setCurrentFocus },
   } = useContext(InfoContext);
 
-  const [favored, setFavored] = useState(false);
+  const { isAuthenticated, user } = useAuth0();
 
+  let preslice = user.sub;
+  let userId = preslice.slice(6, preslice.length);
+
+  const [favored, setFavored] = useState(null);
   const player = currentPlayer.people[0];
+
+  useEffect(() => {
+    axios.get(`/api/get/favourites/${userId}`).then((response) => {
+      console.log("favourite answer", response.data.data);
+      setFavored(
+        !!response.data.data.find((fplayer) => {
+          return fplayer.playerId === player.id;
+        })
+      );
+    });
+  }, [player.id, userId]);
+
   const stats = currentStats.stats[0].splits[0].stat;
   console.log("stats", stats);
 

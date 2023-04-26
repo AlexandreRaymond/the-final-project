@@ -225,8 +225,8 @@ const addToFavourites = async (req, res) => {
   try {
     const db = await client.db("db-name");
     const users = await db.collection("users");
-    const user = await users.findOne({ _id: new ObjectId(userId) }).toArray();
-    console.log("user user", user[0]);
+    const user = await users.find({ _id: new ObjectId(userId) }).toArray();
+
     if (!user[0].favoritePlayers) {
       const result = await users.findOneAndUpdate(
         { _id: new ObjectId(userId) },
@@ -240,7 +240,7 @@ const addToFavourites = async (req, res) => {
     }
     let checkPlayer = false;
     let players = user[0].favoritePlayers;
-    console.log("apple", user[0]);
+
     for (let i = 0; i < players.length; i++) {
       const player = players[i];
       if (player.playerId === playerId) {
@@ -254,8 +254,6 @@ const addToFavourites = async (req, res) => {
         message: "Player is already liked!",
       });
     }
-    console.log("banana", players);
-    console.log("jalapeno", req.body);
     players.push({ ...req.body });
     const result = await users.findOneAndUpdate(
       { _id: new ObjectId(userId) },
@@ -264,7 +262,7 @@ const addToFavourites = async (req, res) => {
     return res.status(200).json({
       status: 200,
       data: result,
-      message: "Successfully gotten!",
+      message: "Successfully liked!",
     });
   } catch (err) {
     console.log("Error", err);
@@ -276,7 +274,7 @@ const addToFavourites = async (req, res) => {
 
 // /api/post/comment
 const postComment = async (req, res) => {
-  const { comment, player, playerId, user, date, time } = req.body;
+  const { comment, player, playerId, user, userID, date, time } = req.body;
   const client = await getMongoClient();
 
   try {
@@ -287,6 +285,7 @@ const postComment = async (req, res) => {
       player: player,
       playerId: playerId,
       user: user.nickname,
+      userId: user.sub.slice(6, user.sub.length),
       date: date,
       time: time,
     });

@@ -10,7 +10,11 @@ const PlayerChatInfos = () => {
   const { isAuthenticated, logout, user, isLoading, getAccessTokenSilently } =
     useAuth0();
 
+  let preslice = user.sub;
+  let userId = preslice.slice(6, preslice.length);
+
   const [yourComment, setYourComment] = useState("");
+  const [shouldUpdate, setShouldUpdate] = useState(true);
   const {
     state: { currentChat, currentTeam },
   } = useContext(InfoContext);
@@ -45,6 +49,7 @@ const PlayerChatInfos = () => {
       .post(`/api/post/comment`, {
         comment: yourComment,
         user: user,
+        userId: userId,
         date: date,
         time: time,
         player: currentChat.person.fullName,
@@ -52,6 +57,7 @@ const PlayerChatInfos = () => {
       })
       .then((response) => {
         console.log("Good response", response);
+        setShouldUpdate(true);
       })
       .catch((err) => {
         console.log("Error", err);
@@ -63,7 +69,11 @@ const PlayerChatInfos = () => {
       <>
         <ChatArea backgroundColor={color}>
           <div>
-            <Conversation chatId={currentChat.person.id} />
+            <Conversation
+              chatId={currentChat.person.id}
+              shouldUpdate={shouldUpdate}
+              setShouldUpdate={setShouldUpdate}
+            />
           </div>
         </ChatArea>
         <Form onSubmit={handleSubmit}>
@@ -103,6 +113,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   padding-top: 10px;
+  width: 550px;
 `;
 
 const ChatArea = styled.div`
@@ -117,8 +128,6 @@ const ChatArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow-y: auto;
-  z-index: 1;
 `;
 
 const Input = styled.textarea`

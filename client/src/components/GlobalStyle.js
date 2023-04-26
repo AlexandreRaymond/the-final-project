@@ -57,6 +57,10 @@ const GlobalStyle = createGlobalStyle`
         border-collapse: collapse;
         border-spacing: 0;
     }
+    * {
+        //border: 1px solid red !important;
+
+    }
 `;
 
 export default GlobalStyle;

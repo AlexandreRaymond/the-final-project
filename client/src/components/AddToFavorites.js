@@ -69,14 +69,14 @@ const AddToFavorites = ({ favored, setFavored }) => {
         gp: stats.games,
         gaa: gaa,
       });
-      setFavored(favored);
     }
+    setFavored(!favored);
   };
 
   return (
     <>
       <AddFavorites onClick={(e) => toggleLike(e)}>
-        <AiFillHeart />
+        <AiOutlineHeart />
       </AddFavorites>
     </>
   );
@@ -91,7 +91,8 @@ const AddFavorites = styled.button`
   & :hover {
     cursor: pointer;
     transition: 0.3s;
-    scale: 1.15;
+    /* scale: 1.15; */
+    font-size: 40px;
   }
 `;
 

@@ -8,7 +8,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 const ProfileInfos = () => {
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth0();
-  const [yourProfile, setYourProfile] = useState("");
+
+  const {
+    state: { yourProfile },
+    actions: { setYourProfile },
+  } = useContext(InfoContext);
 
   let preslice = user.sub;
   let userId = preslice.slice(6, preslice.length);

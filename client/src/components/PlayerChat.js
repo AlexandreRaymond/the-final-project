@@ -88,8 +88,6 @@ const ChatDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 600px;
-  max-height: 100%;
 `;
 
 export default PlayerChat;

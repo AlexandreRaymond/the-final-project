@@ -3,6 +3,7 @@ import { useState, createContext } from "react";
 export const InfoContext = createContext(null);
 export const InfoProvider = ({ children }) => {
   const [logged, setLogged] = useState(false);
+  const [yourProfile, setYourProfile] = useState("");
   const [currentPlayer, setCurrentPlayer] = useState(null);
   const [currentPic, setCurrentPic] = useState(null);
   const [currentStats, setCurrentStats] = useState(null);
@@ -35,6 +36,7 @@ export const InfoProvider = ({ children }) => {
           currentChat,
           currentFav,
           currentComments,
+          yourProfile,
         },
         actions: {
           setCurrentPlayer,
@@ -51,6 +53,7 @@ export const InfoProvider = ({ children }) => {
           setCurrentChat,
           setCurrentFav,
           setCurrentComments,
+          setYourProfile,
         },
       }}
     >

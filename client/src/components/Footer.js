@@ -2,10 +2,21 @@ import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { InfoContext } from "./InfoContext";
+import teamColors from "../utils/backgrounds";
 
 const Footer = () => {
+  let color = "black";
+
+  const {
+    state: { currentTeam },
+  } = useContext(InfoContext);
+
+  if (currentTeam) {
+    color = teamColors[currentTeam.name];
+  }
+
   return (
-    <FootDiv>
+    <FootDiv backgroundColor={color}>
       <p>
         NHL and the NHL Shield are registered trademarks of the National Hockey
         League. NHL and NHL team marks are the property of the NHL and its
@@ -23,8 +34,9 @@ const FootDiv = styled.div`
   height: 50px;
   width: 100avw;
   font-size: 10px;
-  background-color: black;
-  color: lightgray;
+  font-weight: bold;
+  background-color: ${(props) => props.backgroundColor};
+  color: whitesmoke;
 `;
 
 export default Footer;

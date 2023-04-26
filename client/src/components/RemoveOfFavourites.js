@@ -22,7 +22,7 @@ const RemoveOfFavourites = ({ favored, setFavored }) => {
   return (
     <>
       <AddFavorites onClick={(e) => toggleLike(e)}>
-        <AiOutlineHeart />
+        <AiFillHeart />
       </AddFavorites>
     </>
   );

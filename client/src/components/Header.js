@@ -13,7 +13,7 @@ const Header = () => {
   console.log("User infos", auth.user);
   const {
     state: { currentTeam },
-    actions: { setCurrentTeam, setCurrentPlayer },
+    actions: { setCurrentTeam },
   } = useContext(InfoContext);
 
   const firstLetter = (string) => {
@@ -65,7 +65,10 @@ const Header = () => {
         <TeamWrapper>
           {currentTeam && (
             <TeamHeader>
-              <SSpan>{currentTeam.name}</SSpan>
+              <div>
+                <SSpan>{currentTeam.name}</SSpan>
+              </div>
+              <Opacitydiv backgroundColor={color}></Opacitydiv>
               <div>
                 <TeamLogo
                   src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${currentTeam.id}.svg`}
@@ -139,25 +142,47 @@ const TeamWrapper = styled.div`
   justify-content: right;
   width: 55%;
   height: 80px;
-  background-color: green;
+  /* background-color: green; */
 `;
 
 const TeamHeader = styled.div`
   position: relative;
+  display: flex;
   flex-direction: column;
   z-index: 1;
 `;
 
 const TeamLogo = styled.img`
   position: relative;
-  width: 50px;
-  height: 50px;
-  z-index: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  overflow-x: hidden;
+  z-index: 1;
 `;
 
 const SSpan = styled.span`
   font-family: "Racing Sans One", cursive;
   font-size: 40px;
+  width: 300px;
+  z-index: 3;
+  position: absolute;
+  right: 0;
+  top: 22%;
+  text-shadow: -1px 0 black, 0 2px black, 2px 0 black, 0 -1px black;
+`;
+
+const Opacitydiv = styled.div`
+  height: 115px;
+  width: 600px;
+  background-color: ${(props) => props.backgroundColor};
+  position: absolute;
+  right: 10%;
+  opacity: 60%;
+  z-index: 2;
 `;
 
 export default Header;
