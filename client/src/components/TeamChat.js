@@ -2,14 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { InfoContext } from "./InfoContext";
 import { useAuth0 } from "@auth0/auth0-react";
-import {
-  Wrapper,
-  ButtonContainer,
-  NavBrowse,
-  NavButton,
-  MainContainer,
-} from "./Teams";
-import { ModalInfo, ModalDiv, LogoImg, TeamDiv } from "./Roster";
+import { Wrapper, ButtonContainer, NavBrowse, NavButton } from "./Teams";
+import { LogoImg } from "./Roster";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -49,9 +43,7 @@ const TeamChat = () => {
 
   return (
     <MainContainer>
-      <TeamDiv>
-        <h1>{teamName}</h1>
-      </TeamDiv>
+      <TeamDiv></TeamDiv>
       <LogoImg src={currentLogo} />
       <ButtonContainer>
         {currentRoster.sort().map((player) => {
@@ -70,5 +62,29 @@ const TeamChat = () => {
     </MainContainer>
   );
 };
+
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 95vh;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: whitesmoke;
+`;
+
+const TeamDiv = styled.div`
+  height: 175px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: whitesmoke;
+  position: relative;
+  z-index: 1;
+  font-size: 30px;
+`;
 
 export default TeamChat;

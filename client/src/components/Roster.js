@@ -2,9 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import { Wrapper, ButtonContainer, NavBrowse, NavButton } from "./Teams";
+import { Wrapper, ButtonContainer, NavButton } from "./Teams";
 import Player from "./Player";
-import PlayerInfos from "./PlayerInfos";
 import teamColors from "../utils/backgrounds";
 import { InfoContext } from "./InfoContext";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -12,9 +11,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const Roster = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth0();
-  const [roster, setRoster] = useState(null);
   const [teamName, setTeamName] = useState(null);
-  const [logo, setLogo] = useState(null);
   const [playerData, setPlayerData] = useState(null);
 
   const { id } = useParams();
@@ -36,9 +33,7 @@ const Roster = () => {
     }
     axios.get(`/api/teams/${id}`).then((response) => {
       //console.log("roster", response.data.roster);
-      setRoster(response.data.roster);
       setTeamName(response.data.team.teams[0].name);
-      setLogo(response.data.logo);
       setModalOpen(false);
       setCurrentTeam(response.data.team.teams[0]);
       setCurrentLogo(response.data.logo);
@@ -58,9 +53,7 @@ const Roster = () => {
 
   return (
     <MainContainer backgroundColor={color} onClick={() => checkModal()}>
-      <TeamDiv backgroundColor={color}>
-        <h1>{teamName}</h1>
-      </TeamDiv>
+      <TeamDiv backgroundColor={color}></TeamDiv>
       <LogoImg src={currentLogo} />
       <ButtonContainer>
         {currentRoster.sort().map((player) => {
@@ -114,10 +107,10 @@ export const TeamDiv = styled.div`
 `;
 
 export const LogoImg = styled.img`
-  height: 80vh;
-  width: 80vw;
+  height: 90vh;
+  width: 90vw;
   position: absolute;
-  opacity: 69%;
+  opacity: 30%;
   margin-top: 50px;
 `;
 

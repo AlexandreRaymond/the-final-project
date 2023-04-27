@@ -10,7 +10,7 @@ import teamColors from "../utils/backgrounds";
 
 const PlayerChat = () => {
   const {
-    state: { currentChat, currentStats, currentPic, currentTeam },
+    state: { currentChat, currentStats, currentPic, currentTeam, currentLogo },
     actions: { setCurrentPlayer, setCurrentStats, setCurrentPic },
   } = useContext(InfoContext);
 
@@ -40,6 +40,7 @@ const PlayerChat = () => {
   return (
     <>
       <MainContainer>
+        <LogoImg src={currentLogo} />
         <PlayerDiv backgroundColor={color}>
           <PlayerImg src={currentPic} />
           <p>{currentChat.person.fullName}</p>
@@ -80,6 +81,7 @@ const PlayerImg = styled.img`
   height: 120px;
   width: auto;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  z-index: 1;
 `;
 
 const ChatDiv = styled.div`
@@ -88,6 +90,16 @@ const ChatDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 1;
+`;
+
+const LogoImg = styled.img`
+  height: 90vh;
+  width: 90vw;
+  position: absolute;
+  opacity: 30%;
+  margin-top: 50px;
+  z-index: 0;
 `;
 
 export default PlayerChat;

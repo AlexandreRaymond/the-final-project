@@ -376,6 +376,53 @@ const getFavourites = async (req, res) => {
   }
 };
 
+// /api/delete/favourites/:userId
+const deleteFavourites = async (req, res) => {
+  const { userId } = req.params;
+  const { playerId } = req.body;
+  const client = await getMongoClient();
+  console.log("hello");
+  try {
+    const db = await client.db("db-name");
+    const findUser = await db.collection("users");
+    const result = await findUser.find({ _id: new ObjectId(userId) }).toArray();
+    let players = result[0].favoritePlayers;
+    let alist = [];
+    for (let i = 0; i < players.length; i++) {
+      const player = players[i];
+      if (player.playerId === playerId) {
+        console.log("player", player);
+        alist.push({ ...player });
+        break;
+      }
+    }
+    console.log("target zellers", alist);
+    const swipe = await findUser.findOneAndDelete(
+      { _id: new ObjectId(userId) },
+      { $set: { favoritePlayers: alist[0] } }
+    );
+
+    if (alist.length > 1) {
+      res.status(404).json({
+        status: 404,
+
+        message: "Player not found",
+      });
+    } else {
+      res.status(200).json({
+        status: 200,
+        data: swipe,
+        message: "wow!",
+      });
+    }
+  } catch (err) {
+    console.log("Error", err);
+  } finally {
+    await client.close();
+    console.log("Disconnected");
+  }
+};
+
 module.exports = {
   getPlayer,
   getTeams,
@@ -387,4 +434,5 @@ module.exports = {
   getProfile,
   addToFavourites,
   getFavourites,
+  deleteFavourites,
 };

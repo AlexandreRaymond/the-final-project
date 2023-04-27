@@ -12,8 +12,7 @@ import { WhiteFiller, Button, ButtonDisplay, ButtonSpan } from "./PlayerInfos";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, logout, user, isLoading, getAccessTokenSilently } =
-    useAuth0();
+  const { isAuthenticated, logout, user, isLoading } = useAuth0();
 
   const {
     state: { currentFocus },

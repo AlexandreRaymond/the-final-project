@@ -66,10 +66,14 @@ const Header = () => {
           {currentTeam && (
             <TeamHeader>
               <div>
-                <SSpan>{currentTeam.name}</SSpan>
+                <SSpan>
+                  {currentTeam.shortName}
+                  <br></br>
+                  {currentTeam.teamName}
+                </SSpan>
               </div>
-              <Opacitydiv backgroundColor={color}></Opacitydiv>
               <div>
+                <Opacitydiv backgroundColor={color}></Opacitydiv>
                 <TeamLogo
                   src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${currentTeam.id}.svg`}
                 />
@@ -92,9 +96,10 @@ const StyledHeader = styled.div`
   align-items: center;
   width: 100%;
   background-color: ${(props) => props.backgroundColor};
-  height: 80px;
+  height: 100px;
   z-index: 2;
   color: white;
+  box-shadow: rgba(149, 157, 165, 0.2) 2px 18px 24px;
   top: 0;
   & p {
     font-size: 25px;
@@ -147,40 +152,45 @@ const TeamWrapper = styled.div`
 
 const TeamHeader = styled.div`
   position: relative;
+  background-color: blue;
   display: flex;
+  width: 500px;
   flex-direction: column;
-  z-index: 1;
+  z-index: 0;
+  top: -50%;
+  right: 20%;
 `;
 
 const TeamLogo = styled.img`
-  position: relative;
+  position: absolute;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  width: 150px;
-  height: 150px;
-  overflow-x: hidden;
-  z-index: 1;
+  margin-top: -10px;
+  width: 800px;
+  height: 100px;
+  z-index: 0;
+  object-fit: cover;
 `;
 
 const SSpan = styled.span`
   font-family: "Racing Sans One", cursive;
+  display: flex;
   font-size: 40px;
   width: 300px;
   z-index: 3;
   position: absolute;
-  right: 0;
-  top: 22%;
-  text-shadow: -1px 0 black, 0 2px black, 2px 0 black, 0 -1px black;
+  right: -30%;
+
+  text-shadow: -1px 0 black, 0 5px black, 5px 0 black, 0 -1px black;
 `;
 
 const Opacitydiv = styled.div`
-  height: 115px;
-  width: 600px;
+  height: 100px;
+  width: 800px;
+  margin-top: -10px;
   background-color: ${(props) => props.backgroundColor};
   position: absolute;
-  right: 10%;
   opacity: 60%;
   z-index: 2;
 `;
