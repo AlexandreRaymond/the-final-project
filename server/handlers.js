@@ -381,40 +381,56 @@ const deleteFavourites = async (req, res) => {
   const { userId } = req.params;
   const { playerId } = req.body;
   const client = await getMongoClient();
-  console.log("hello");
+  console.log("hello", playerId);
   try {
     const db = await client.db("db-name");
     const findUser = await db.collection("users");
     const result = await findUser.find({ _id: new ObjectId(userId) }).toArray();
+    console.log("resultat", result);
     let players = result[0].favoritePlayers;
     let alist = [];
     for (let i = 0; i < players.length; i++) {
       const player = players[i];
-      if (player.playerId === playerId) {
+      if (player.playerId !== playerId) {
         console.log("player", player);
         alist.push({ ...player });
-        break;
       }
     }
     console.log("target zellers", alist);
-    const swipe = await findUser.findOneAndDelete(
+    const swipe = await findUser.findOneAndUpdate(
       { _id: new ObjectId(userId) },
-      { $set: { favoritePlayers: alist[0] } }
+      { $set: { favoritePlayers: alist } }
     );
 
-    if (alist.length > 1) {
-      res.status(404).json({
-        status: 404,
+    return res.status(200).json({
+      status: 200,
+      data: swipe,
+      message: "wow!",
+    });
+  } catch (err) {
+    console.log("Error", err);
+  } finally {
+    await client.close();
+    console.log("Disconnected");
+  }
+};
 
-        message: "Player not found",
-      });
-    } else {
-      res.status(200).json({
-        status: 200,
-        data: swipe,
-        message: "wow!",
-      });
-    }
+// /api/patch/comment/:commentId
+const editComment = async (req, res) => {
+  const { commentId } = req.params;
+  const client = await getMongoClient();
+  try {
+    const db = await client.db("db-name");
+    const comments = db.collection("comments");
+    const result = await comments.findOneAndUpdate(
+      { _id: new ObjectId(commentId) },
+      { $set: { ...req.body.comment } }
+    );
+    return res.status(200).json({
+      status: 200,
+      data: result,
+      message: "Comment edited!",
+    });
   } catch (err) {
     console.log("Error", err);
   } finally {
@@ -435,4 +451,5 @@ module.exports = {
   addToFavourites,
   getFavourites,
   deleteFavourites,
+  editComment,
 };

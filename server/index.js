@@ -15,6 +15,7 @@ const {
   addToFavourites,
   getFavourites,
   deleteFavourites,
+  editComment,
 } = require("./handlers");
 
 // Import handlers here
@@ -59,7 +60,9 @@ express()
 
   .patch(`/api/patch/profile/:userId`, patchProfile)
 
-  .get(`/api/delete/favourites/:userId`, deleteFavourites)
+  .patch(`/api/delete/favourites/:userId`, deleteFavourites)
+
+  .patch(`/api/patch/comment/:commentId`, editComment)
 
   // Listening on PORT
   .listen(PORT, () => {

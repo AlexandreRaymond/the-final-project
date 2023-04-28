@@ -4,12 +4,15 @@ import styled from "styled-components";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AiFillEdit } from "react-icons/ai";
+import EditComment from "./EditComment";
 
-const Conversation = ({ chatId, shouldUpdate, setShouldUpdate }) => {
+const Conversation = ({ chatId }) => {
   const {
-    state: { currentComments, yourProfile },
-    actions: { setCurrentComments, setYourProfile },
+    state: { currentComments, yourProfile, shouldUpdate },
+    actions: { setCurrentComments, setYourProfile, setShouldUpdate },
   } = useContext(InfoContext);
+
+  const [isEdit, setIsEdit] = useState(null);
 
   const { user } = useAuth0();
 
@@ -47,6 +50,7 @@ const Conversation = ({ chatId, shouldUpdate, setShouldUpdate }) => {
       {/* <div>Conversation {chatId}</div> */}
       <Wrapper>
         {currentComments.sort().map((post) => {
+          let commentId = post["_id"];
           console.log("post", post);
           return (
             <>
@@ -66,9 +70,15 @@ const Conversation = ({ chatId, shouldUpdate, setShouldUpdate }) => {
                     {userId === post.userId || yourProfile.isAdmin ? (
                       <>
                         <div>
-                          <EditButton>
-                            <AiFillEdit />
-                          </EditButton>
+                          {isEdit == commentId ? (
+                            <EditButton onClick={(e) => setIsEdit(null)}>
+                              hello
+                            </EditButton>
+                          ) : (
+                            <EditButton onClick={(e) => setIsEdit(commentId)}>
+                              <AiFillEdit />
+                            </EditButton>
+                          )}
                         </div>
                         <div>
                           <DeleteButton>X</DeleteButton>
@@ -80,12 +90,26 @@ const Conversation = ({ chatId, shouldUpdate, setShouldUpdate }) => {
                   </EditDiv>
                 </TopDiv>
                 <CommentDiv>
-                  <Commentary>{firstLetter(post.comment)}</Commentary>
+                  {isEdit == commentId ? (
+                    <EditComment commentId={commentId} />
+                  ) : (
+                    <Commentary>{firstLetter(post.comment)}</Commentary>
+                  )}
                 </CommentDiv>
 
-                <BottomDiv>
-                  at {post.time} on {post.date}
-                </BottomDiv>
+                {post.editedComment ? (
+                  <>
+                    <BottomDiv>
+                      Edited at {post.editedTime} on {post.editedDate}
+                    </BottomDiv>
+                  </>
+                ) : (
+                  <>
+                    <BottomDiv>
+                      at {post.time} on {post.date}
+                    </BottomDiv>
+                  </>
+                )}
               </CommentDisplay>
             </>
           );

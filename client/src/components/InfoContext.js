@@ -17,6 +17,9 @@ export const InfoProvider = ({ children }) => {
   const [currentFav, setCurrentFav] = useState(null);
   const [copyrights, setCopyrights] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [yourComment, setYourComment] = useState("");
+  const [editedComment, setEditedComment] = useState("");
+  const [shouldUpdate, setShouldUpdate] = useState(true);
 
   return (
     <InfoContext.Provider
@@ -37,6 +40,9 @@ export const InfoProvider = ({ children }) => {
           currentFav,
           currentComments,
           yourProfile,
+          yourComment,
+          editedComment,
+          shouldUpdate,
         },
         actions: {
           setCurrentPlayer,
@@ -54,6 +60,9 @@ export const InfoProvider = ({ children }) => {
           setCurrentFav,
           setCurrentComments,
           setYourProfile,
+          setYourComment,
+          setEditedComment,
+          setShouldUpdate,
         },
       }}
     >

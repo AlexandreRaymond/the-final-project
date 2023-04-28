@@ -13,10 +13,9 @@ const PlayerChatInfos = () => {
   let preslice = user.sub;
   let userId = preslice.slice(6, preslice.length);
 
-  const [yourComment, setYourComment] = useState("");
-  const [shouldUpdate, setShouldUpdate] = useState(true);
   const {
-    state: { currentChat, currentTeam },
+    state: { currentChat, currentTeam, yourComment, shouldUpdate },
+    actions: { setYourComment, setShouldUpdate },
   } = useContext(InfoContext);
 
   const color = teamColors[currentTeam.name];
@@ -71,8 +70,8 @@ const PlayerChatInfos = () => {
           <div>
             <Conversation
               chatId={currentChat.person.id}
-              shouldUpdate={shouldUpdate}
-              setShouldUpdate={setShouldUpdate}
+              // shouldUpdate={shouldUpdate}
+              // setShouldUpdate={setShouldUpdate}
             />
           </div>
         </ChatArea>

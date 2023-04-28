@@ -20,6 +20,7 @@ const TeamChat = () => {
       setCurrentRoster,
       setCurrentPlayer,
       setCurrentChat,
+      setShouldUpdate,
     },
   } = useContext(InfoContext);
 
@@ -51,7 +52,12 @@ const TeamChat = () => {
           return (
             <Wrapper>
               <NavBrowse to={`/player/${player.person.id}/chat`}>
-                <NavButton onClick={() => setCurrentChat(player)}>
+                <NavButton
+                  onClick={() => {
+                    setCurrentChat(player);
+                    setShouldUpdate(true);
+                  }}
+                >
                   {player.person.fullName}
                 </NavButton>
               </NavBrowse>
