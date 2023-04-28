@@ -64,6 +64,8 @@ express()
 
   .patch(`/api/patch/comment/:commentId`, editComment)
 
+  .patch(`/api/delete/comment/:commentId`, deleteComment)
+
   // Listening on PORT
   .listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);

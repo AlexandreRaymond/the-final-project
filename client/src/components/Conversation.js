@@ -4,7 +4,9 @@ import styled from "styled-components";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AiFillEdit } from "react-icons/ai";
+import { TiCancel } from "react-icons/ti";
 import EditComment from "./EditComment";
+import DeleteComment from "./DeleteComment";
 
 const Conversation = ({ chatId }) => {
   const {
@@ -71,17 +73,25 @@ const Conversation = ({ chatId }) => {
                       <>
                         <div>
                           {isEdit == commentId ? (
-                            <EditButton onClick={(e) => setIsEdit(null)}>
-                              hello
-                            </EditButton>
+                            <>
+                              <OptionsDiv>
+                                <CancelButton onClick={(e) => setIsEdit(null)}>
+                                  <TiCancel />
+                                </CancelButton>
+                                <DeleteComment />
+                              </OptionsDiv>
+                            </>
                           ) : (
-                            <EditButton onClick={(e) => setIsEdit(commentId)}>
-                              <AiFillEdit />
-                            </EditButton>
+                            <>
+                              <div>
+                                <EditButton
+                                  onClick={() => setIsEdit(commentId)}
+                                >
+                                  <AiFillEdit />
+                                </EditButton>
+                              </div>
+                            </>
                           )}
-                        </div>
-                        <div>
-                          <DeleteButton>X</DeleteButton>
                         </div>
                       </>
                     ) : (
@@ -91,7 +101,7 @@ const Conversation = ({ chatId }) => {
                 </TopDiv>
                 <CommentDiv>
                   {isEdit == commentId ? (
-                    <EditComment commentId={commentId} />
+                    <EditComment commentId={commentId} setIsEdit={setIsEdit} />
                   ) : (
                     <Commentary>{firstLetter(post.comment)}</Commentary>
                   )}
@@ -206,7 +216,7 @@ const DeleteButton = styled.button`
 `;
 
 const EditButton = styled.button`
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
   color: lightgray;
   border: none;
@@ -215,6 +225,23 @@ const EditButton = styled.button`
     cursor: pointer;
     color: blue;
   }
+`;
+
+const CancelButton = styled.button`
+  font-size: 16px;
+  font-weight: bold;
+  color: lightgray;
+  border: none;
+  background-color: inherit;
+  &:hover {
+    cursor: pointer;
+    color: black;
+  }
+`;
+
+const OptionsDiv = styled.div`
+  display: flex;
+  gap: 5px;
 `;
 
 export default Conversation;

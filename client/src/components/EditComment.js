@@ -5,7 +5,7 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AiOutlineCheck } from "react-icons/ai";
 
-const EditComment = ({ commentId }) => {
+const EditComment = ({ commentId, setIsEdit }) => {
   const {
     state: {
       editedComment,
@@ -16,6 +16,7 @@ const EditComment = ({ commentId }) => {
     },
     actions: { setEditedComment, setShouldUpdate },
   } = useContext(InfoContext);
+  console.log("i wrote", editedComment);
 
   const { isAuthenticated, logout, user, isLoading, getAccessTokenSilently } =
     useAuth0();
@@ -38,18 +39,25 @@ const EditComment = ({ commentId }) => {
 
   let time = `${hours}:${minutes}:${seconds}`;
 
+  const editInfo = {
+    comment: editedComment,
+    editedComment: true,
+    user: user,
+    userId: userId,
+    editedDate: date,
+    editedTime: time,
+    player: currentChat.person.fullName,
+    playerId: playerId,
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (editedComment.length == 0) {
+      return setIsEdit(null);
+    }
     axios
       .patch(`/api/patch/comment/${commentId}`, {
-        comment: editedComment,
-        editedComment: true,
-        user: user,
-        userId: userId,
-        editedDate: date,
-        editedTime: time,
-        player: currentChat.person.fullName,
-        playerId: playerId,
+        editInfo: editInfo,
       })
       .then((response) => {
         console.log("Good response", response);
@@ -58,6 +66,7 @@ const EditComment = ({ commentId }) => {
       .catch((err) => {
         console.log("Error", err);
       });
+    setIsEdit(null);
   };
 
   return (
@@ -91,14 +100,16 @@ const EditComment = ({ commentId }) => {
 };
 
 const EditInput = styled.textarea`
-  font-size: 12px;
+  font-size: 18px;
   font-weight: bold;
   font-family: "Vollkorn", serif;
   padding-left: 12px;
-  border: none;
+  margin-left: 10px;
+  border: 1px solid whitesmoke;
+  border-radius: 5px;
   resize: none;
-  height: 50px;
-  width: 400px;
+  height: 80px;
+  width: 450px;
 `;
 
 const Postin = styled.div`
@@ -113,23 +124,28 @@ const Wordcount = styled.span`
   color: darkgray;
   display: flex;
   flex-direction: row;
-  right: 1.5%;
+  right: 5%;
   bottom: 120%;
 `;
 
 const SendComment = styled.button`
   font-size: 16px;
   font-weight: bold;
-  color: lightgray;
+  margin: 3px 0 0 25px;
+  color: whitesmoke;
   border: none;
-  background-color: blue;
+  border-radius: 50px;
+  background-color: lightgray;
 
   &:hover {
     cursor: pointer;
+    background-color: inherit;
     color: green;
   }
   &:hover:disabled {
     cursor: not-allowed;
+    background-color: red;
+    color: whitesmoke;
   }
 `;
 

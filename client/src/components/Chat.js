@@ -1,29 +1,81 @@
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import teamColors from "../utils/backgrounds";
 import { InfoContext } from "./InfoContext";
+import Conversation from "./Conversation";
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Chat = () => {
-  const [yourComment, setYourComment] = useState("");
+  const { isAuthenticated, logout, user, isLoading, getAccessTokenSilently } =
+    useAuth0();
+
+  const navigate = useNavigate();
+
+  let preslice = user.sub;
+  let userId = preslice.slice(6, preslice.length);
+
   const {
-    state: { currentPlayer },
+    state: { currentPlayer, yourComment },
+    actions: { setYourComment, setShouldUpdate },
   } = useContext(InfoContext);
 
   console.log("blahblahblah", currentPlayer);
   const player = currentPlayer.people[0];
   const color = teamColors[player.currentTeam.name];
 
+  const addZero = (num) => {
+    return num < 10 ? `0${num}` : num;
+  };
+
+  let today = new Date();
+  let date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+
+  let hours = addZero(today.getHours());
+  let minutes = addZero(today.getMinutes());
+  let seconds = addZero(today.getSeconds());
+
+  let time = `${hours}:${minutes}:${seconds}`;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios
+      .post(`/api/post/comment`, {
+        comment: yourComment,
+        user: user,
+        userId: userId,
+        date: date,
+        time: time,
+        player: player.fullName,
+        playerId: player.id,
+      })
+      .then((response) => {
+        console.log("Good response", response);
+        setShouldUpdate(true);
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
+    navigate(`/api/player/${player.id}/chat`);
+  };
+
   return (
     <Wrapper>
-      <ChatArea>Latest on {player.fullName}</ChatArea>
+      <ChatArea>
+        <Conversation chatId={player.id} />
+      </ChatArea>
+      {/* <ChatArea>Latest on {player.fullName}</ChatArea> */}
       <div>
         <GoToDiv>
           <span>
-            Click <>here</> to see {player.fullName}'s comment section.
+            Click <ChatLink to={`/api/player/${player.id}/chat`}>here</ChatLink>{" "}
+            to see {player.fullName}'s comment section.
           </span>
         </GoToDiv>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Input
             rows="60"
             cols="2"
@@ -66,14 +118,15 @@ const Wrapper = styled.div`
 const ChatArea = styled.div`
   background-color: grey;
   height: 150px;
-  width: 500px;
+  width: 520px;
   margin: 10px 10px 10px 10px;
   border: none;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow-y: auto;
+  overflow-y: hidden;
+  overflow-x: hidden;
   z-index: 0;
 `;
 
@@ -142,5 +195,7 @@ const SendComment = styled.button`
     background-color: grey;
   }
 `;
+
+const ChatLink = styled(NavLink)``;
 
 export default Chat;

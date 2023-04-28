@@ -418,19 +418,45 @@ const deleteFavourites = async (req, res) => {
 // /api/patch/comment/:commentId
 const editComment = async (req, res) => {
   const { commentId } = req.params;
+  console.log("patch params", commentId);
   const client = await getMongoClient();
   try {
     const db = await client.db("db-name");
     const comments = db.collection("comments");
     const result = await comments.findOneAndUpdate(
-      { _id: new ObjectId(commentId) },
-      { $set: { ...req.body.comment } }
+      { _id: commentId },
+      { $set: { ...req.body.editInfo } }
     );
-    return res.status(200).json({
-      status: 200,
-      data: result,
-      message: "Comment edited!",
-    });
+    console.log("path of comments", result);
+    if (result.value) {
+      res.status(200).json({
+        status: 200,
+        data: result,
+        message: "Comment edited!",
+      });
+    } else {
+      res.status(404).json({
+        status: 404,
+        data: "No message was edited",
+      });
+    }
+  } catch (err) {
+    console.log("Error", err);
+  } finally {
+    await client.close();
+    console.log("Disconnected");
+  }
+};
+
+// /api/delete/comment/:commentId
+const deleteComment = async (req, res) => {
+  const { commentId } = req.params;
+  console.log("patch params", commentId);
+  const client = await getMongoClient();
+  try {
+    const db = await client.db("db-name");
+    const findComment = await db.collection("comments");
+    const result = await findComment.find({ _id: commentId }).toArray();
   } catch (err) {
     console.log("Error", err);
   } finally {
@@ -452,4 +478,5 @@ module.exports = {
   getFavourites,
   deleteFavourites,
   editComment,
+  deleteComment,
 };
