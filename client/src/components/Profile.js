@@ -79,7 +79,6 @@ const MainContainer = styled.div`
   margin-top: 80px;
   align-items: center;
   justify-content: center;
-  background-color: red;
 `;
 
 const ProfileDisplay = styled.div`
@@ -105,10 +104,11 @@ const ProfileImg = styled.img`
 const ImgDiv = styled.div``;
 
 const FocusedDisplay = styled.div`
-  background-color: green;
   height: 500px;
-  width: 50%;
+  width: 45%;
   overflow-y: auto;
+  box-shadow: rgba(149, 157, 165, 0.2) 2px 18px 24px;
+  background-color: whitesmoke;
 `;
 
 const WhiteF = styled.div`
@@ -125,12 +125,10 @@ const Button = styled.button`
 
   &:hover {
     cursor: pointer;
-    border-bottom: 3px solid black;
+    color: coral;
   }
   &:focus {
-    color: ${(props) => props.backgroundColor};
-    border-bottom: 3px solid ${(props) => props.backgroundColor};
-    border-radius: 2px;
+    color: lightcoral;
   }
 `;
 
@@ -143,6 +141,7 @@ const BigSpan = styled.span`
   font-size: 35px;
   width: 500px;
   padding: 0 20px;
+  margin-left: 30px;
 `;
 
 export default Profile;

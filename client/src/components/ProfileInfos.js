@@ -33,7 +33,7 @@ const ProfileInfos = () => {
           {yourProfile.firstName ? (
             <DDiv>
               <div>
-                <span>First Name:</span>
+                <Sspan>First Name:</Sspan>
               </div>
               <div>
                 <span>{yourProfile.firstName}</span>
@@ -41,67 +41,67 @@ const ProfileInfos = () => {
             </DDiv>
           ) : (
             <div>
-              <span>First Name:</span>
+              <Sspan>First Name:</Sspan>
             </div>
           )}
         </FNameDiv>
         <FNameDiv>
           {yourProfile.lastName ? (
             <DDiv>
-              <span>Last Name:</span>
+              <Sspan>Last Name:</Sspan>
               <span>{yourProfile.lastName}</span>
             </DDiv>
           ) : (
             <div>
-              <span>Last Name:</span>
+              <Sspan>Last Name:</Sspan>
             </div>
           )}
         </FNameDiv>
         <FNameDiv>
           {yourProfile.age ? (
             <DDiv>
-              <span>Age:</span>
+              <Sspan>Age:</Sspan>
               <span>{yourProfile.age}</span>
             </DDiv>
           ) : (
             <div>
-              <span>Age:</span>
+              <Sspan>Age:</Sspan>
             </div>
           )}
         </FNameDiv>
         <FNameDiv>
           {yourProfile.city ? (
             <DDiv>
-              <span>City:</span>
+              <Sspan>City:</Sspan>
               <span>{yourProfile.city}</span>
             </DDiv>
           ) : (
             <div>
-              <span>City:</span>
+              <Sspan>City:</Sspan>
             </div>
           )}
         </FNameDiv>
         <FNameDiv>
           {yourProfile.province ? (
             <DDiv>
-              <span>Province/State:</span>
+              <Sspan>Province/State:</Sspan>
               <span>{yourProfile.province}</span>
             </DDiv>
           ) : (
             <div>
-              <span>Province/State:</span>
+              <Sspan>Province/State:</Sspan>
             </div>
           )}
         </FNameDiv>
         <FNameDiv>
           {yourProfile.country ? (
             <DDiv>
-              <span>Country:</span>
+              <Sspan>Country:</Sspan>
               <span>{yourProfile.country}</span>
             </DDiv>
           ) : (
             <div>
-              <span>Country:</span>
+              <Sspan>Country:</Sspan>
             </div>
           )}
         </FNameDiv>
@@ -133,6 +133,10 @@ const DDiv = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 250px;
+`;
+
+const Sspan = styled.span`
+  font-weight: bold;
 `;
 
 export default ProfileInfos;

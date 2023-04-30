@@ -46,7 +46,7 @@ const ToastDiv = styled.div`
   border: none;
   border-radius: 50px;
   color: whitesmoke;
-  background-color: darkgray;
+  background-color: #383838;
   padding-left: 5px;
   box-shadow: rgba(149, 157, 165, 0.2) 2px 18px 24px;
   transition: width 300ms ease-in-out;

@@ -34,7 +34,7 @@ const RemoveFav = ({ player }) => {
         setShowToast({
           isShowing: true,
           message: "Player successfuly deleted!",
-          duration: 10000,
+          duration: 3000,
         });
         setShouldUpdate(true);
         setDeleteModal(false);

@@ -26,7 +26,7 @@ const DeleteComment = ({ commentId }) => {
       setShowToast({
         isShowing: true,
         message: "Message successfuly deleted!",
-        duration: 10000,
+        duration: 3000,
       });
       setShouldUpdate(true);
       setDeleteModal(false);

@@ -8,6 +8,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 const AddToFavorites = ({ favored, setFavored }) => {
   const {
     state: { currentPlayer, currentStats, currentPic },
+    actions: { setShowToast },
   } = useContext(InfoContext);
   const { isAuthenticated, user } = useAuth0();
 
@@ -70,6 +71,11 @@ const AddToFavorites = ({ favored, setFavored }) => {
         gaa: gaa,
       });
     }
+    setShowToast({
+      isShowing: true,
+      message: `${player.fullName} was added to your favourites!`,
+      duration: 3000,
+    });
     setFavored(!favored);
   };
 

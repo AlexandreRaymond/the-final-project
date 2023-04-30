@@ -15,7 +15,7 @@ const PlayerChatInfos = () => {
 
   const {
     state: { currentChat, currentTeam, yourComment, shouldUpdate },
-    actions: { setYourComment, setShouldUpdate },
+    actions: { setYourComment, setShouldUpdate, setShowToast },
   } = useContext(InfoContext);
 
   const color = teamColors[currentTeam.name];
@@ -55,7 +55,11 @@ const PlayerChatInfos = () => {
         playerId: playerId,
       })
       .then((response) => {
-        console.log("Good response", response);
+        setShowToast({
+          isShowing: true,
+          message: "Message successfuly posted!",
+          duration: 3000,
+        });
         setShouldUpdate(true);
       })
       .catch((err) => {

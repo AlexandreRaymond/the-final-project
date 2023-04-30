@@ -20,7 +20,7 @@ const ProfileOptions = () => {
 
   const {
     state: { shouldUpdate },
-    actions: { setShouldUpdate },
+    actions: { setShouldUpdate, setShowToast },
   } = useContext(InfoContext);
 
   let preslice = user.sub;
@@ -66,7 +66,11 @@ const ProfileOptions = () => {
         profileInfo: filteredInfo,
       })
       .then((response) => {
-        console.log("Profile updated", response);
+        setShowToast({
+          isShowing: true,
+          message: "Profile Updated!",
+          duration: 3000,
+        });
       })
       .catch((err) => {
         console.log("Error", err);
@@ -241,7 +245,6 @@ const PlaceDiv = styled.div`
   flex-direction: row;
   justify-content: space-between;
   gap: 10px;
-  background-color: blue;
 `;
 
 const SubPlaceDiv = styled.div`

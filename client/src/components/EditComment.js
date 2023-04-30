@@ -14,7 +14,7 @@ const EditComment = ({ commentId, setIsEdit }) => {
       currentTeam,
       shouldUpdate,
     },
-    actions: { setEditedComment, setShouldUpdate },
+    actions: { setEditedComment, setShouldUpdate, setShowToast },
   } = useContext(InfoContext);
   console.log("i wrote", editedComment);
 
@@ -66,6 +66,11 @@ const EditComment = ({ commentId, setIsEdit }) => {
       .catch((err) => {
         console.log("Error", err);
       });
+    setShowToast({
+      isShowing: true,
+      message: "Message successfuly edited!",
+      duration: 3000,
+    });
     setIsEdit(null);
   };
 

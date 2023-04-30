@@ -8,6 +8,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 const RemoveOfFavourites = ({ favored, setFavored }) => {
   const {
     state: { currentPlayer, currentStats, currentPic },
+    actions: { setShowToast },
   } = useContext(InfoContext);
 
   const { isAuthenticated, user } = useAuth0();
@@ -26,7 +27,11 @@ const RemoveOfFavourites = ({ favored, setFavored }) => {
       axios.patch(`/api/delete/favourites/${userId}`, {
         playerId: playerId,
       });
-      console.log("removed?", playerId);
+      setShowToast({
+        isShowing: true,
+        message: `${player.fullName} successfuly deleted!`,
+        duration: 3000,
+      });
       setFavored(!favored);
     }
   };
