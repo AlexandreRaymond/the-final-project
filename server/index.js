@@ -16,6 +16,7 @@ const {
   getFavourites,
   deleteFavourites,
   editComment,
+  deleteComment,
 } = require("./handlers");
 
 // Import handlers here
