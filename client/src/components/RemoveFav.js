@@ -5,13 +5,19 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ModalDiv } from "./Roster";
 
-const DeleteComment = ({ commentId }) => {
+const RemoveFav = ({ player }) => {
   const {
     state: { shouldUpdate },
     actions: { setShouldUpdate, setShowToast },
   } = useContext(InfoContext);
 
+  const { isAuthenticated, user } = useAuth0();
+  let preslice = user.sub;
+  let userId = preslice.slice(6, preslice.length);
+
   const [deleteModal, setDeleteModal] = useState(false);
+
+  let playerId = player.playerId;
 
   const checkModal = () => {
     if (deleteModal) {
@@ -22,15 +28,17 @@ const DeleteComment = ({ commentId }) => {
   const handleRemove = (e) => {
     e.preventDefault();
 
-    axios.delete(`/api/delete/comment/${commentId}`).then((response) => {
-      setShowToast({
-        isShowing: true,
-        message: "Message successfuly deleted!",
-        duration: 10000,
+    axios
+      .patch(`/api/delete/favourites/${userId}`, { playerId: playerId })
+      .then((response) => {
+        setShowToast({
+          isShowing: true,
+          message: "Player successfuly deleted!",
+          duration: 10000,
+        });
+        setShouldUpdate(true);
+        setDeleteModal(false);
       });
-      setShouldUpdate(true);
-      setDeleteModal(false);
-    });
   };
 
   return (
@@ -46,7 +54,7 @@ const DeleteComment = ({ commentId }) => {
       {deleteModal && (
         <ModalDiv>
           <DeleteInfo onClick={(e) => e.stopPropagation()}>
-            <div>Are you sure you want to delete this comment?</div>
+            <TextDiv>Are you sure you want to remove this player?</TextDiv>
             <ButtonDiv>
               <YButton onClick={handleRemove}>Yes</YButton>
               <NButton onClick={() => setDeleteModal(false)}>No</NButton>
@@ -61,7 +69,7 @@ const DeleteComment = ({ commentId }) => {
 const Wrapper = styled.div``;
 
 const DeleteButton = styled.button`
-  font-size: 13px;
+  font-size: 15px;
   font-weight: bold;
   color: lightgray;
   border: none;
@@ -113,10 +121,8 @@ const NButton = styled.button`
   }
 `;
 
-const ToastDiv = styled.div`
-  width: 500px;
-  height: 500px;
-  background-color: green;
+const TextDiv = styled.div`
+  color: black;
 `;
 
-export default DeleteComment;
+export default RemoveFav;

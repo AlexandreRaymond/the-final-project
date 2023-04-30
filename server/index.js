@@ -36,6 +36,8 @@ express()
   })
   .use(morgan("tiny"))
   //.use(express.static("./server/assets"))
+  .use(express.json({ limit: "50mb" }))
+  .use(express.urlencoded({ limit: "50mb", extended: true }))
   .use(express.json())
   //.use(express.urlencoded({ extended: false }))
 
@@ -65,7 +67,7 @@ express()
 
   .patch(`/api/patch/comment/:commentId`, editComment)
 
-  .patch(`/api/delete/comment/:commentId`, deleteComment)
+  .delete(`/api/delete/comment/:commentId`, deleteComment)
 
   // Listening on PORT
   .listen(PORT, () => {

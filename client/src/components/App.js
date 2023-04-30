@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import styled from "styled-components";
 import Profile from "./Profile";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStyle from "./GlobalStyle";
@@ -18,12 +19,13 @@ import ChatMenu from "./ChatMenu";
 import TeamChat from "./TeamChat";
 import PlayerChat from "./PlayerChat";
 import Footer from "./Footer";
+import Toast from "./Toast";
 
 const App = () => {
   // Logics
 
   return (
-    <>
+    <Wrapper>
       <GlobalStyle />
       <Header />
       <Routes>
@@ -42,9 +44,14 @@ const App = () => {
           <Route path="/player/:id/chat" element={<PlayerChat />} />
         </Routes>
       </RequireAuth>
+      <Toast />
       <Footer />
-    </>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  position: relative;
+`;
 
 export default App;

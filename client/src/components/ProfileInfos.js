@@ -10,7 +10,7 @@ const ProfileInfos = () => {
   const { isAuthenticated, user } = useAuth0();
 
   const {
-    state: { yourProfile },
+    state: { yourProfile, shouldUpdate },
     actions: { setYourProfile },
   } = useContext(InfoContext);
 
@@ -24,84 +24,87 @@ const ProfileInfos = () => {
       console.log("profile response", response.data.data);
       setYourProfile(response.data.data);
     });
-  }, []);
+  }, [shouldUpdate]);
 
   return (
     <MainContainer>
-      <h1>{user.nickname}'s infos</h1>
       <div>
-        <div>
+        <FNameDiv>
           {yourProfile.firstName ? (
-            <div>
-              <span>First Name:</span>
-              <span>{yourProfile.firstName}</span>
-            </div>
+            <DDiv>
+              <div>
+                <span>First Name:</span>
+              </div>
+              <div>
+                <span>{yourProfile.firstName}</span>
+              </div>
+            </DDiv>
           ) : (
             <div>
               <span>First Name:</span>
             </div>
           )}
-        </div>
-        <div>
+        </FNameDiv>
+        <FNameDiv>
           {yourProfile.lastName ? (
-            <div>
+            <DDiv>
               <span>Last Name:</span>
               <span>{yourProfile.lastName}</span>
-            </div>
+            </DDiv>
           ) : (
             <div>
               <span>Last Name:</span>
             </div>
           )}
-        </div>
-        <div>
+        </FNameDiv>
+        <FNameDiv>
           {yourProfile.age ? (
-            <div>
+            <DDiv>
               <span>Age:</span>
               <span>{yourProfile.age}</span>
-            </div>
+            </DDiv>
           ) : (
             <div>
               <span>Age:</span>
             </div>
           )}
-        </div>
-        <div>
+        </FNameDiv>
+        <FNameDiv>
           {yourProfile.city ? (
-            <div>
+            <DDiv>
               <span>City:</span>
               <span>{yourProfile.city}</span>
-            </div>
+            </DDiv>
           ) : (
             <div>
               <span>City:</span>
             </div>
           )}
-        </div>
-        <div>
+        </FNameDiv>
+        <FNameDiv>
           {yourProfile.province ? (
-            <div>
+            <DDiv>
               <span>Province/State:</span>
               <span>{yourProfile.province}</span>
-            </div>
+            </DDiv>
           ) : (
             <div>
               <span>Province/State:</span>
             </div>
           )}
-        </div>
-        <div>
+        </FNameDiv>
+        <FNameDiv>
           {yourProfile.country ? (
-            <div>
+            <DDiv>
               <span>Country:</span>
               <span>{yourProfile.country}</span>
-            </div>
+            </DDiv>
           ) : (
             <div>
               <span>Country:</span>
             </div>
           )}
-        </div>
+        </FNameDiv>
       </div>
     </MainContainer>
   );
@@ -110,12 +113,26 @@ const ProfileInfos = () => {
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 400px;
   min-height: 200px;
-  margin: 35px auto;
-  margin-top: 80px;
   align-items: center;
   justify-content: center;
+`;
+
+const FNameDiv = styled.div`
+  width: 300px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+`;
+
+const DDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 250px;
 `;
 
 export default ProfileInfos;

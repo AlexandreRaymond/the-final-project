@@ -20,6 +20,11 @@ export const InfoProvider = ({ children }) => {
   const [yourComment, setYourComment] = useState("");
   const [editedComment, setEditedComment] = useState("");
   const [shouldUpdate, setShouldUpdate] = useState(true);
+  const [showToast, setShowToast] = useState({
+    isShowing: false,
+    message: "",
+    duration: 3000,
+  });
 
   return (
     <InfoContext.Provider
@@ -43,6 +48,7 @@ export const InfoProvider = ({ children }) => {
           yourComment,
           editedComment,
           shouldUpdate,
+          showToast,
         },
         actions: {
           setCurrentPlayer,
@@ -63,6 +69,7 @@ export const InfoProvider = ({ children }) => {
           setYourComment,
           setEditedComment,
           setShouldUpdate,
+          setShowToast,
         },
       }}
     >

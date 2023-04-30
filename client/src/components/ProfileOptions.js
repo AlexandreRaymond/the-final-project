@@ -15,7 +15,13 @@ const ProfileOptions = () => {
     city: "",
     province: "",
     country: "",
+    picture: "",
   });
+
+  const {
+    state: { shouldUpdate },
+    actions: { setShouldUpdate },
+  } = useContext(InfoContext);
 
   let preslice = user.sub;
   let userId = preslice.slice(6, preslice.length);
@@ -24,6 +30,22 @@ const ProfileOptions = () => {
 
   const handleChange = (value, name) => {
     setProfileInfo({ ...profileInfo, [name]: value });
+  };
+
+  const handlePicture = (e) => {
+    const photo = e.target.files[0];
+    console.log(photo);
+    if (photo && photo.size > 700000) {
+      return console.log("file too large");
+    } else {
+      const reader = new FileReader();
+      reader.readAsDataURL(photo);
+      reader.onloadend = () => {
+        setProfileInfo({ ...profileInfo, picture: reader.result });
+        setShouldUpdate(true);
+      };
+    }
+    console.log("good to go!");
   };
 
   const handleSumbit = (e) => {
@@ -39,8 +61,6 @@ const ProfileOptions = () => {
     });
     console.log("filter", filteredInfo);
 
-    //if (/* dont update property if empty string*/ )
-
     axios
       .patch(`/api/patch/profile/${userId}`, {
         profileInfo: filteredInfo,
@@ -55,10 +75,13 @@ const ProfileOptions = () => {
 
   return (
     <MainContainer>
-      <h1>{user.nickname}'s options</h1>
+      <h1>Options</h1>
+      <BLine></BLine>
+      <HTitle>Main Infos</HTitle>
+      <BLine></BLine>
       <div>
-        <form onSubmit={(e) => handleSumbit(e)}>
-          <div>
+        <Form onSubmit={(e) => handleSumbit(e)}>
+          <NameDiv>
             <span>Name:</span>
             <input
               name="firstName"
@@ -74,8 +97,8 @@ const ProfileOptions = () => {
               maxLength="25"
               onChange={(e) => handleChange(e.target.value, e.target.name)}
             />
-          </div>
-          <div>
+          </NameDiv>
+          <AgeDiv>
             <span>Age:</span>
             <input
               name="age"
@@ -85,43 +108,57 @@ const ProfileOptions = () => {
               max="150"
               onChange={(e) => handleChange(e.target.value, e.target.name)}
             />
-          </div>
-          <div>
+          </AgeDiv>
+          <PlaceDiv>
             <span>Address:</span>
+            <SubPlaceDiv>
+              <input
+                name="city"
+                type="text"
+                placeholder={"Your city"}
+                maxLength="20"
+                onChange={(e) => handleChange(e.target.value, e.target.name)}
+              />
+              <input
+                name="province"
+                type="text"
+                placeholder={"Your Province or State"}
+                maxLength="20"
+                onChange={(e) => handleChange(e.target.value, e.target.name)}
+              />
+              <input
+                name="country"
+                type="text"
+                placeholder={"Your country"}
+                maxLength="20"
+                onChange={(e) => handleChange(e.target.value, e.target.name)}
+              />
+            </SubPlaceDiv>
+          </PlaceDiv>
+          <div>
             <input
-              name="city"
-              type="text"
-              placeholder={"Your city"}
-              maxLength="20"
-              onChange={(e) => handleChange(e.target.value, e.target.name)}
-            />
-            <input
-              name="province"
-              type="text"
-              placeholder={"Your Province or State"}
-              maxLength="20"
-              onChange={(e) => handleChange(e.target.value, e.target.name)}
-            />
-            <input
-              name="country"
-              type="text"
-              placeholder={"Your country"}
-              maxLength="20"
-              onChange={(e) => handleChange(e.target.value, e.target.name)}
+              name="picture"
+              type="file"
+              accept="image/png, image/jpeg"
+              onChange={(e) => handlePicture(e)}
             />
           </div>
           <button type="submit">Save changes</button>
-        </form>
+        </Form>
       </div>
       <div>
-        <h3>Other</h3>
-        <LogOut
-          onClick={() =>
-            logout({ logoutParams: { returnTo: window.location.origin } })
-          }
-        >
-          <p>Logout</p>
-        </LogOut>
+        <BLine></BLine>
+        <HTitle>Others</HTitle>
+        <BLine></BLine>
+        <BadDiv>
+          <LogOut
+            onClick={() =>
+              logout({ logoutParams: { returnTo: window.location.origin } })
+            }
+          >
+            <p>Logout</p>
+          </LogOut>
+        </BadDiv>
       </div>
     </MainContainer>
   );
@@ -136,6 +173,34 @@ const MainContainer = styled.div`
   margin-top: 80px;
   align-items: center;
   justify-content: center;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  & span {
+    font-weight: bold;
+  }
+
+  & button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: limegreen;
+    border: none;
+    border-radius: 10px;
+    height: 30px;
+    font-weight: bold;
+    font-size: 16px;
+    color: whitesmoke;
+    &:hover {
+      cursor: pointer;
+      opacity: 90%;
+    }
+  }
 `;
 
 const LogOut = styled.button`
@@ -153,6 +218,58 @@ const LogOut = styled.button`
     cursor: pointer;
     opacity: 80%;
   }
+`;
+
+const NameDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  background-color: blue;
+`;
+
+const AgeDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  background-color: blue;
+`;
+
+const PlaceDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  background-color: blue;
+`;
+
+const SubPlaceDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const BLine = styled.div`
+  background-color: black;
+  height: 3px;
+  margin: 10px;
+  width: 400px;
+  /* border: 1px solid black; */
+`;
+
+const HTitle = styled.h3`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  margin: 20px;
+`;
+
+const BadDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 30px;
 `;
 
 export default ProfileOptions;

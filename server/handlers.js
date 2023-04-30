@@ -456,7 +456,20 @@ const deleteComment = async (req, res) => {
   try {
     const db = await client.db("db-name");
     const findComment = await db.collection("comments");
-    const result = await findComment.find({ _id: commentId }).toArray();
+    const result = await findComment.deleteOne({
+      _id: commentId,
+    });
+    if (result.deletedCount == 0) {
+      res.status(404).json({
+        status: 404,
+        data: "Message not found",
+      });
+    }
+    res.status(200).json({
+      status: 200,
+      data: result,
+      message: "Comment deleted!",
+    });
   } catch (err) {
     console.log("Error", err);
   } finally {

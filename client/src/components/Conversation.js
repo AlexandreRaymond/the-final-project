@@ -78,7 +78,7 @@ const Conversation = ({ chatId }) => {
                                 <CancelButton onClick={(e) => setIsEdit(null)}>
                                   <TiCancel />
                                 </CancelButton>
-                                <DeleteComment />
+                                <DeleteComment commentId={commentId} />
                               </OptionsDiv>
                             </>
                           ) : (
