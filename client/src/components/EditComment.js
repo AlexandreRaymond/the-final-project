@@ -13,8 +13,10 @@ const EditComment = ({ commentId, setIsEdit }) => {
       currentChat,
       currentTeam,
       shouldUpdate,
+      adminPost,
+      yourProfile,
     },
-    actions: { setEditedComment, setShouldUpdate, setShowToast },
+    actions: { setEditedComment, setShouldUpdate, setShowToast, setAdminPost },
   } = useContext(InfoContext);
   console.log("i wrote", editedComment);
 
@@ -48,6 +50,16 @@ const EditComment = ({ commentId, setIsEdit }) => {
     editedTime: time,
     player: currentChat.person.fullName,
     playerId: playerId,
+    adminPost: adminPost,
+  };
+
+  const toggleAdmin = (e) => {
+    if (adminPost === false) {
+      return setAdminPost(true);
+    }
+    if (adminPost === true) {
+      return setAdminPost(false);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -62,6 +74,7 @@ const EditComment = ({ commentId, setIsEdit }) => {
       .then((response) => {
         console.log("Good response", response);
         setShouldUpdate(true);
+        setEditedComment("");
       })
       .catch((err) => {
         console.log("Error", err);
@@ -97,6 +110,11 @@ const EditComment = ({ commentId, setIsEdit }) => {
               </SendComment>
             )}
           </span>
+          {yourProfile.isAdmin && adminPost ? (
+            <AdminButton onClick={toggleAdmin}>Admin</AdminButton>
+          ) : (
+            <NormalButton onClick={toggleAdmin}>Normal</NormalButton>
+          )}
           <Wordcount>{editedComment.length}</Wordcount>
         </Postin>
       </form>
@@ -151,6 +169,44 @@ const SendComment = styled.button`
     cursor: not-allowed;
     background-color: red;
     color: whitesmoke;
+  }
+`;
+
+const AdminButton = styled.button`
+  position: absolute;
+  font-size: 10px;
+  font-weight: bold;
+  border: none;
+  height: 20px;
+  width: 20px;
+  color: limegreen;
+  background-color: inherit;
+  display: flex;
+  flex-direction: row;
+  right: 18%;
+  bottom: 100%;
+  &:hover {
+    cursor: pointer;
+    color: lime;
+  }
+`;
+
+const NormalButton = styled.button`
+  position: absolute;
+  font-size: 10px;
+  font-weight: bold;
+  border: none;
+  height: 20px;
+  width: 20px;
+  color: blue;
+  background-color: inherit;
+  display: flex;
+  flex-direction: row;
+  right: 18%;
+  bottom: 100%;
+  &:hover {
+    cursor: pointer;
+    color: lightblue;
   }
 `;
 

@@ -274,7 +274,8 @@ const addToFavourites = async (req, res) => {
 
 // /api/post/comment
 const postComment = async (req, res) => {
-  const { comment, player, playerId, user, userID, date, time } = req.body;
+  const { comment, player, playerId, user, userID, date, time, adminPost } =
+    req.body;
   const client = await getMongoClient();
 
   try {
@@ -288,6 +289,7 @@ const postComment = async (req, res) => {
       userId: user.sub.slice(6, user.sub.length),
       date: date,
       time: time,
+      adminPost: adminPost,
     });
     if (reply.acknowledged) {
       res.status(200).json({
@@ -336,6 +338,38 @@ const getComments = async (req, res) => {
       });
     }
     console.log("getComments", replies);
+  } catch (err) {
+    console.log("Error", err);
+  } finally {
+    await client.close();
+    console.log("Disconnected");
+  }
+};
+
+// /api/get/homefeed
+const getHomeFeed = async (req, res) => {
+  const client = await getMongoClient();
+  try {
+    const db = await client.db("db-name");
+    const result = await db
+      .collection("comments")
+      .find({ adminPost: true })
+      .sort({ date: 1, time: 1 })
+      .limit(20)
+      .toArray();
+    if (result.length >= 0) {
+      res.status(200).json({
+        status: 200,
+        data: result,
+        message: "Here's your homefeed",
+      });
+    } else {
+      res.status(404).json({
+        status: 404,
+        data: "Comments not found.",
+      });
+    }
+    console.log("Get HomeFeed", result);
   } catch (err) {
     console.log("Error", err);
   } finally {
@@ -492,4 +526,5 @@ module.exports = {
   deleteFavourites,
   editComment,
   deleteComment,
+  getHomeFeed,
 };

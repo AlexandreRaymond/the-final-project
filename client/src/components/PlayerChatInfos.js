@@ -14,8 +14,8 @@ const PlayerChatInfos = () => {
   let userId = preslice.slice(6, preslice.length);
 
   const {
-    state: { currentChat, currentTeam, yourComment, shouldUpdate },
-    actions: { setYourComment, setShouldUpdate, setShowToast },
+    state: { currentChat, currentTeam, yourComment, yourProfile, adminPost },
+    actions: { setYourComment, setShouldUpdate, setShowToast, setAdminPost },
   } = useContext(InfoContext);
 
   const color = teamColors[currentTeam.name];
@@ -41,6 +41,16 @@ const PlayerChatInfos = () => {
   console.log("today is", date);
   let playerId = currentChat.person.id;
 
+  const toggleAdmin = (e) => {
+    if (adminPost === false) {
+      return setAdminPost(true);
+    }
+    if (adminPost === true) {
+      return setAdminPost(false);
+    }
+  };
+  console.log("admin?", adminPost);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -53,6 +63,7 @@ const PlayerChatInfos = () => {
         time: time,
         player: currentChat.person.fullName,
         playerId: playerId,
+        adminPost: adminPost,
       })
       .then((response) => {
         setShowToast({
@@ -61,11 +72,21 @@ const PlayerChatInfos = () => {
           duration: 3000,
         });
         setShouldUpdate(true);
+        setAdminPost(false);
+        setYourComment("");
       })
       .catch((err) => {
         console.log("Error", err);
       });
   };
+
+  let wordLimit = 100;
+
+  if (adminPost) {
+    wordLimit = 200;
+  } else {
+    wordLimit = 100;
+  }
 
   return (
     isAuthenticated && (
@@ -84,14 +105,19 @@ const PlayerChatInfos = () => {
             rows="60"
             cols="2"
             value={yourComment}
-            maxLength="125"
+            maxLength={wordLimit + 5}
             placeholder={" Comment here"}
             onChange={(e) => setYourComment(e.target.value)}
           />
           <Postin>
+            {yourProfile.isAdmin && adminPost ? (
+              <AdminButton onClick={toggleAdmin}>Admin</AdminButton>
+            ) : (
+              <NormalButton onClick={toggleAdmin}>Normal</NormalButton>
+            )}
             <Wordcount>{yourComment.length}</Wordcount>
             <span>
-              {yourComment.length > 100 ? (
+              {yourComment.length > wordLimit ? (
                 <SendComment
                   type="submit"
                   disabled="disabled"
@@ -183,6 +209,44 @@ const SendComment = styled.button`
     cursor: not-allowed;
     opacity: 50%;
     background-color: grey;
+  }
+`;
+
+const AdminButton = styled.button`
+  position: absolute;
+  font-size: 10px;
+  font-weight: bold;
+  border: none;
+  height: 20px;
+  width: 20px;
+  color: limegreen;
+  background-color: inherit;
+  display: flex;
+  flex-direction: row;
+  right: 15%;
+  bottom: 110%;
+  &:hover {
+    cursor: pointer;
+    color: lime;
+  }
+`;
+
+const NormalButton = styled.button`
+  position: absolute;
+  font-size: 10px;
+  font-weight: bold;
+  border: none;
+  height: 20px;
+  width: 20px;
+  color: blue;
+  background-color: inherit;
+  display: flex;
+  flex-direction: row;
+  right: 15%;
+  bottom: 110%;
+  &:hover {
+    cursor: pointer;
+    color: lightblue;
   }
 `;
 

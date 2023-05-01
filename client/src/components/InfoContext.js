@@ -19,6 +19,7 @@ export const InfoProvider = ({ children }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [yourComment, setYourComment] = useState("");
   const [editedComment, setEditedComment] = useState("");
+  const [adminPost, setAdminPost] = useState(false);
   const [shouldUpdate, setShouldUpdate] = useState(true);
   const [showToast, setShowToast] = useState({
     isShowing: false,
@@ -49,6 +50,7 @@ export const InfoProvider = ({ children }) => {
           editedComment,
           shouldUpdate,
           showToast,
+          adminPost,
         },
         actions: {
           setCurrentPlayer,
@@ -70,6 +72,7 @@ export const InfoProvider = ({ children }) => {
           setEditedComment,
           setShouldUpdate,
           setShowToast,
+          setAdminPost,
         },
       }}
     >

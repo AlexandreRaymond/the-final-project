@@ -5,6 +5,10 @@ import teamColors from "../utils/backgrounds";
 import axios from "axios";
 import { InfoContext } from "./InfoContext";
 import { useAuth0 } from "@auth0/auth0-react";
+import { ImHome, ImMenu } from "react-icons/im";
+import { BsFillChatLeftDotsFill } from "react-icons/bs";
+import { FaUserAlt } from "react-icons/fa";
+import { RiTeamFill } from "react-icons/ri";
 
 const Header = () => {
   // Logics
@@ -12,7 +16,7 @@ const Header = () => {
   console.log("Logged in?", auth.isAuthenticated);
   console.log("User infos", auth.user);
   const {
-    state: { currentTeam },
+    state: { currentTeam, yourProfile },
     actions: { setCurrentTeam },
   } = useContext(InfoContext);
 
@@ -26,40 +30,54 @@ const Header = () => {
     color = teamColors[currentTeam.name];
   }
   if (auth.isLoading) {
-    return <div>Loading...</div>;
+    return <StyledHeader>Loading...</StyledHeader>;
   }
   // On the page
   return (
     <>
       <StyledHeader backgroundColor={color}>
         <MenuWrapper>
+          <span>
+            {auth.isAuthenticated ? (
+              <StyledNav to="/profile" onClick={() => setCurrentTeam(null)}>
+                {yourProfile.picture ? (
+                  <ProfileImg src={yourProfile.picture} alt={auth.name} />
+                ) : (
+                  <ProfileImg src={auth.picture} alt={auth.name} />
+                )}
+              </StyledNav>
+            ) : (
+              <StyledNav onClick={() => auth.loginWithRedirect()}>
+                <p>
+                  <FaUserAlt />
+                </p>
+              </StyledNav>
+            )}
+          </span>
           <StyledNav
             to="/"
             onClick={() => {
               setCurrentTeam(null);
             }}
           >
-            <p>Home</p>
+            <p>
+              <ImHome />
+            </p>
           </StyledNav>
-          <span>
-            {auth.isAuthenticated ? (
-              <StyledNav to="/profile" onClick={() => setCurrentTeam(null)}>
-                <p>{firstLetter(auth.user.nickname)}</p>
-              </StyledNav>
-            ) : (
-              <StyledNav onClick={() => auth.loginWithRedirect()}>
-                <p>Login</p>
-              </StyledNav>
-            )}
-          </span>
           <StyledNav to="/standings" onClick={() => setCurrentTeam(null)}>
-            <p>Standings</p>
+            <p>
+              <ImMenu />
+            </p>
           </StyledNav>
           <StyledNav to="/teams" onClick={() => setCurrentTeam(null)}>
-            <p>Teams</p>
+            <p>
+              <RiTeamFill />
+            </p>
           </StyledNav>
           <StyledNav to="/chat" onClick={() => setCurrentTeam(null)}>
-            <p>Chat</p>
+            <p>
+              <BsFillChatLeftDotsFill />
+            </p>
           </StyledNav>
         </MenuWrapper>
         <TeamWrapper>
@@ -193,6 +211,22 @@ const Opacitydiv = styled.div`
   position: absolute;
   opacity: 60%;
   z-index: 2;
+`;
+
+const ProfileImg = styled.img`
+  height: 40px;
+  width: 40px;
+  border-radius: 200px;
+  border: none;
+  box-shadow: rgba(149, 157, 165, 0.2) 2px 18px 24px;
+  margin: 15px;
+  padding: 2px;
+  background-color: white;
+  border: 2px solid red;
+  position: relative;
+  &:hover {
+    border: 2px solid limegreen;
+  }
 `;
 
 export default Header;

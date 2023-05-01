@@ -99,7 +99,7 @@ const Conversation = ({ chatId }) => {
                     )}
                   </EditDiv>
                 </TopDiv>
-                <CommentDiv>
+                <CommentDiv props={post.adminPost}>
                   {isEdit == commentId ? (
                     <EditComment commentId={commentId} setIsEdit={setIsEdit} />
                   ) : (
@@ -133,7 +133,7 @@ const CommentDisplay = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: ${(post) => (post.adminPost ? "red" : "white")};
   border: none;
   border-radius: 8px;
   box-shadow: rgba(149, 157, 165, 0.2) 2px 18px 24px;

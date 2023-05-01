@@ -17,6 +17,7 @@ const {
   deleteFavourites,
   editComment,
   deleteComment,
+  getHomeFeed,
 } = require("./handlers");
 
 // Import handlers here
@@ -56,6 +57,8 @@ express()
   .get(`/api/get/comments/:id`, getComments)
 
   .get(`/api/get/favourites/:userId`, getFavourites)
+
+  .get(`/api/get/homefeed`, getHomeFeed)
 
   .post(`/api/post/comment`, postComment)
 

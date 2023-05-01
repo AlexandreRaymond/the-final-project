@@ -33,7 +33,11 @@ const Profile = () => {
       <MainContainer>
         <ProfileDisplay>
           <ImgDiv>
-            <ProfileImg src={yourProfile.picture} alt={user.name} />
+            {yourProfile.picture ? (
+              <ProfileImg src={yourProfile.picture} alt={user.name} />
+            ) : (
+              <ProfileImg src={user.picture} alt={user.name} />
+            )}
           </ImgDiv>
           <InfoDiv>
             <span>
