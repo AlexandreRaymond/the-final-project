@@ -83,7 +83,7 @@ const InfoDiv = styled.div`
   position: absolute;
   background-color: black;
   width: 100%;
-  height: 150px;
+  height: 12.6%;
   opacity: 70%;
   display: flex;
   flex-direction: row;

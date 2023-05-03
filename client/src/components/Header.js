@@ -47,7 +47,10 @@ const Header = () => {
                 )}
               </StyledNav>
             ) : (
-              <StyledNav onClick={() => auth.loginWithRedirect()}>
+              <StyledNav
+                style={{ width: 50, paddingRight: 50 }}
+                onClick={() => auth.loginWithRedirect()}
+              >
                 <p>
                   <FaUserAlt />
                 </p>
@@ -118,7 +121,7 @@ const StyledHeader = styled.div`
   display: flex;
   flex-direction: row;
   gap: 25px;
-  padding-left: 10px;
+  padding-left: 30px;
   align-items: center;
   width: 100%;
   background-color: ${(props) => props.backgroundColor};
@@ -130,12 +133,48 @@ const StyledHeader = styled.div`
   & p {
     font-size: 25px;
     cursor: pointer;
+    line-height: 20px;
+    background: ${(props) => props.backgroundColor};
+    height: 50px;
+    width: 50px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: -12%;
+    left: 20%;
+    border-radius: 100%;
+    color: silver;
+    transition: 0.5s;
     & a {
       text-decoration: none;
       color: white;
     }
   }
-  & p:after {
+  & p::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: whitesmoke;
+    transition: 0.5s;
+    transform: scale(0.9);
+    z-index: -1;
+  }
+  & p:hover::before {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px lightgray;
+  }
+
+  & p:hover {
+    color: whitesmoke;
+    box-shadow: 0 0 5px whitesmoke;
+    text-shadow: 0 0 5px whitesmoke;
+  }
+  /* & p:after {
     display: block;
     content: "";
     margin-top: 5px;
@@ -145,14 +184,20 @@ const StyledHeader = styled.div`
   }
   & p:hover:after {
     transform: scaleX(1);
-  }
+  } */
 `;
 
 const StyledNav = styled(NavLink)`
   color: white;
   text-decoration: none;
-  font-size: 20px;
   cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  /* gap: 10px; */
+  width: 15%;
+  height: 80px;
+  text-align: center;
 `;
 
 const MenuWrapper = styled.div`
@@ -162,8 +207,6 @@ const MenuWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-
-  gap: 25px;
 `;
 
 const TeamWrapper = styled.div`
@@ -236,5 +279,67 @@ const ProfileImg = styled.img`
     border: 2px solid limegreen;
   }
 `;
+
+/*
+body {
+  margin: 0;
+  padding: 0;
+  background: #262626;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+ul li {
+  list-style: none;
+  margin: 0 15px;
+}
+
+ul li a {
+  position: relative; 
+  display: block;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  line-height: 63px;
+  background: #333;
+  border-radius: 50%;
+  font-size: 30px;
+  color: #666;
+  transition: .5s;
+}
+
+ul li a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #ffee10;
+  transition: .5s;
+  transform: scale(.9);
+  z-index: -1;
+}
+
+ul li a:hover::before {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px #ffee10;
+}
+
+ul li a:hover {
+  color: #ffee10;
+  box-shadow: 0 0 5px #ffee10;
+  text-shadow: 0 0 5px #ffee10;
+}
+*/
 
 export default Header;

@@ -4,7 +4,6 @@ import styled from "styled-components";
 import axios from "axios";
 import { InfoContext } from "./InfoContext";
 import { useAuth0 } from "@auth0/auth0-react";
-import { MainContainer } from "./Teams";
 import PlayerChatInfos from "./PlayerChatInfos";
 import teamColors from "../utils/backgrounds";
 import { withBaseIcon } from "react-icons-kit";
@@ -27,10 +26,12 @@ const PlayerChat = () => {
   }
 
   useEffect(() => {
-    axios.get(`/api/player/${currentChat.person.id}`).then((response) => {
-      setCurrentStats(response.data.stats);
-      setCurrentPic(response.data.pic);
-    });
+    if (currentChat) {
+      axios.get(`/api/player/${currentChat.person.id}`).then((response) => {
+        setCurrentStats(response.data.stats);
+        setCurrentPic(response.data.pic);
+      });
+    }
   }, []);
 
   if (!currentChat && !currentStats) {
@@ -57,6 +58,19 @@ const PlayerChat = () => {
   );
 };
 
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  min-height: 95vh;
+  margin: 35px auto;
+  padding-top: 10px;
+  align-items: center;
+  justify-content: center;
+  font-family: "Racing Sans One", cursive;
+  font-size: 25px;
+`;
+
 const PlayerDiv = styled.div`
   position: relative;
   background-color: ${(props) => props.backgroundColor};
@@ -73,7 +87,7 @@ const PlayerDiv = styled.div`
   font-weight: bold;
   font-size: 35px;
   gap: 50px;
-  margin-bottom: 20px;
+  margin: 20px 0;
   z-index: 1;
   & p {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;

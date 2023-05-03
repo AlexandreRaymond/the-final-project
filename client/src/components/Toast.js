@@ -45,9 +45,10 @@ const ToastDiv = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  bottom: 20%;
+  text-align: center;
+  bottom: 10%;
   left: 50px;
-  height: 50px;
+  height: 60px;
   border: none;
   border-radius: 50px;
   color: whitesmoke;
@@ -55,7 +56,7 @@ const ToastDiv = styled.div`
   padding-left: 5px;
   box-shadow: rgba(149, 157, 165, 0.2) 2px 18px 24px;
   transition: width 300ms ease-in-out;
-  width: 300px;
+  width: 400px;
   font-family: "Vollkorn", serif;
 `;
 

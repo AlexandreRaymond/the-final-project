@@ -8,6 +8,7 @@ import Conversation from "./Conversation";
 import { withBaseIcon } from "react-icons-kit";
 import { spinner3 } from "react-icons-kit/icomoon/spinner3";
 import { Spinner } from "./Home";
+import AdminButtons from "./AdminButtons";
 
 const PlayerChatInfos = () => {
   const SpinnerIcon = withBaseIcon({ size: 50 });
@@ -49,14 +50,6 @@ const PlayerChatInfos = () => {
   console.log("today is", date);
   let playerId = currentChat.person.id;
 
-  const toggleAdmin = (e) => {
-    if (adminPost === false) {
-      return setAdminPost(true);
-    }
-    if (adminPost === true) {
-      return setAdminPost(false);
-    }
-  };
   console.log("admin?", adminPost);
 
   const handleSubmit = (e) => {
@@ -96,6 +89,8 @@ const PlayerChatInfos = () => {
     wordLimit = 100;
   }
 
+  console.log("are you?", yourProfile.isAdmin);
+
   return (
     isAuthenticated && (
       <>
@@ -118,11 +113,7 @@ const PlayerChatInfos = () => {
             onChange={(e) => setYourComment(e.target.value)}
           />
           <Postin>
-            {yourProfile.isAdmin && adminPost ? (
-              <AdminButton onClick={toggleAdmin}>Admin</AdminButton>
-            ) : (
-              <NormalButton onClick={toggleAdmin}>Normal</NormalButton>
-            )}
+            {yourProfile.isAdmin ? <AdminButtons /> : <div></div>}
             <Wordcount>{yourComment.length}</Wordcount>
             <span>
               {yourComment.length > wordLimit ? (

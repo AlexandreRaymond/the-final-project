@@ -51,10 +51,10 @@ const AddFavorites = styled.button`
   font-size: 30px;
   border: none;
   background-color: inherit;
+  color: crimson;
+  cursor: pointer;
   & :hover {
-    cursor: pointer;
-    transition: 0.3s;
-    scale: 1.15;
+    color: salmon;
   }
 `;
 

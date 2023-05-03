@@ -89,16 +89,18 @@ const AddToFavorites = ({ favored, setFavored }) => {
 };
 
 const AddFavorites = styled.button`
+  position: relative;
   height: 50px;
   width: 50px;
   font-size: 30px;
   border: none;
   background-color: inherit;
+  /* transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s; */
+  cursor: pointer;
   & :hover {
-    cursor: pointer;
-    transition: 0.3s;
-    /* scale: 1.15; */
-    font-size: 40px;
+    transition-duration: 0.25s;
+    color: crimson;
   }
 `;
 

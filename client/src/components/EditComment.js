@@ -4,6 +4,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AiOutlineCheck } from "react-icons/ai";
+import AdminButtons from "./AdminButtons";
 
 const EditComment = ({ commentId, setIsEdit }) => {
   const {
@@ -110,11 +111,7 @@ const EditComment = ({ commentId, setIsEdit }) => {
               </SendComment>
             )}
           </span>
-          {yourProfile.isAdmin && adminPost ? (
-            <AdminButton onClick={toggleAdmin}>Admin</AdminButton>
-          ) : (
-            <NormalButton onClick={toggleAdmin}>Normal</NormalButton>
-          )}
+          {yourProfile.isAdmin ? <AdminButtons /> : <div></div>}
           <Wordcount>{editedComment.length}</Wordcount>
         </Postin>
       </form>

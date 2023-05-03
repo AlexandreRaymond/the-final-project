@@ -43,6 +43,7 @@ const PlayerInfos = () => {
 
   console.log("playerinfo", currentPlayer);
   console.log("Liked?", favored);
+  console.log("photo", currentPic);
 
   const color = teamColors[player.currentTeam.name];
 
@@ -75,14 +76,18 @@ const PlayerInfos = () => {
           </TeamDisplay>
         </PlayerDisplay>
         <AddDisplay>
-          {favored ? (
-            <RemoveOfFavourites favored={favored} setFavored={setFavored} />
-          ) : (
-            <AddToFavorites favored={favored} setFavored={setFavored} />
-          )}
-          <AddToPool onClick={() => window.alert("Soon!")}>
-            <GiHockey />
-          </AddToPool>
+          <LikeDiv>
+            {favored ? (
+              <RemoveOfFavourites favored={favored} setFavored={setFavored} />
+            ) : (
+              <AddToFavorites favored={favored} setFavored={setFavored} />
+            )}
+          </LikeDiv>
+          <div>
+            <AddToPool onClick={() => window.alert("Soon!")}>
+              <GiHockey />
+            </AddToPool>
+          </div>
         </AddDisplay>
         <ButtonDisplay>
           <Button
@@ -267,6 +272,47 @@ export const SocialDisplay = styled.div`
 export const WhiteFiller = styled.div`
   height: 5px;
   background-color: inherit;
+`;
+
+const LikeDiv = styled.div`
+  background-color: inherit;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s;
+  & :hover {
+    transition-duration: 0.25s;
+    color: crimson;
+  }
+  & ::after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 4em;
+    left: 0;
+    top: 0;
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+    transition: all 0.5s;
+    box-shadow: 0 0 10px 40px whitesmoke;
+  }
+  & :active::after {
+    box-shadow: 0 0 0 0 whitesmoke;
+    position: absolute;
+    border-radius: 4em;
+    left: 0;
+    top: 0;
+    opacity: 1;
+    transition: 0s;
+  }
+  & :active {
+    top: 1px;
+  }
 `;
 
 export default PlayerInfos;

@@ -22,12 +22,11 @@ const Conversation = ({ chatId }) => {
 
   const { user } = useAuth0();
 
+  // const firstLetter = (string) => {
+  //   return string?.charAt(0)?.toUpperCase() + string.slice(1);
+  // };
   let preslice = user.sub;
   let userId = preslice.slice(6, preslice.length);
-
-  const firstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
 
   useEffect(() => {
     if (chatId && shouldUpdate) {
@@ -57,7 +56,6 @@ const Conversation = ({ chatId }) => {
 
   return (
     <>
-      {/* <div>Conversation {chatId}</div> */}
       <Wrapper>
         {currentComments.sort().map((post) => {
           let commentId = post["_id"];
@@ -72,7 +70,10 @@ const Conversation = ({ chatId }) => {
                     ) : (
                       <>
                         <Span>by</Span>
-                        <UserSpan> {firstLetter(post.user)}</UserSpan>
+                        <UserSpan>
+                          {" "}
+                          {/*firstLetter(post.user)*/ post.user}
+                        </UserSpan>
                       </>
                     )}
                   </div>
@@ -111,10 +112,11 @@ const Conversation = ({ chatId }) => {
                   {isEdit == commentId ? (
                     <EditComment commentId={commentId} setIsEdit={setIsEdit} />
                   ) : (
-                    <Commentary>{firstLetter(post.comment)}</Commentary>
+                    <Commentary>
+                      {/*firstLetter(post.comment)*/ post.comment}
+                    </Commentary>
                   )}
                 </CommentDiv>
-
                 {post.editedComment ? (
                   <>
                     <BottomDiv>
