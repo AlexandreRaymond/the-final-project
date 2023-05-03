@@ -17,15 +17,18 @@ const Player = ({ player }) => {
   } = useContext(InfoContext);
 
   useEffect(() => {
-    axios.get(`/api/player/${player.person.id}`).then((response) => {
-      setCurrentPlayer(response.data.player);
-      setCurrentStats(response.data.stats);
-      setCurrentPic(response.data.pic);
-      console.log("player player player", response.data);
-    });
+    axios
+      .get(`/api/player/${player.person.id}`)
+      .then((response) => {
+        setCurrentPlayer(response.data.player);
+        setCurrentStats(response.data.stats);
+        setCurrentPic(response.data.pic);
+        console.log("player player player", response.data);
+      })
+      .catch((err) => window.alert("Couldn't load player details"));
   }, [player]);
 
-  if (!currentPlayer && !currentStats) {
+  if (!currentPlayer || !currentStats) {
     return (
       <Spinner>
         <SpinnerIcon icon={spinner3} />

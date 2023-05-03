@@ -187,6 +187,7 @@ const Span = styled.span`
 const UserSpan = styled.span`
   font-weight: bold;
   color: darkblue;
+  font-size: 18px;
 `;
 
 const YourSpan = styled.span`

@@ -91,6 +91,7 @@ const MainContainer = styled.div`
   margin-top: 80px;
   align-items: center;
   justify-content: center;
+  font-family: "Vollkorn", serif;
 `;
 
 const ProfileDisplay = styled.div`

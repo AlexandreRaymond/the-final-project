@@ -38,7 +38,7 @@ const PlayerInfos = () => {
     });
   }, [player.id, userId]);
 
-  const stats = currentStats.stats[0].splits[0].stat;
+  const stats = currentStats?.stats[0]?.splits[0]?.stat;
   console.log("stats", stats);
 
   console.log("playerinfo", currentPlayer);
