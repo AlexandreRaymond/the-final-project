@@ -9,8 +9,12 @@ import Favourites from "./Favourites";
 import ProfileInfos from "./ProfileInfos";
 import ProfileOptions from "./ProfileOptions";
 import { ButtonDisplay, ButtonSpan } from "./PlayerInfos";
+import { withBaseIcon } from "react-icons-kit";
+import { spinner3 } from "react-icons-kit/icomoon/spinner3";
+import { Spinner } from "./Home";
 
 const Profile = () => {
+  const SpinnerIcon = withBaseIcon({ size: 50 });
   const navigate = useNavigate();
   const { isAuthenticated, logout, user, isLoading } = useAuth0();
 
@@ -24,7 +28,11 @@ const Profile = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Spinner>
+        <SpinnerIcon icon={spinner3} />
+      </Spinner>
+    );
   }
   console.log("Profile User", user);
 

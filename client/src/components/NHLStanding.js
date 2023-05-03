@@ -5,8 +5,12 @@ import { MainContainer } from "./Teams";
 import styled from "styled-components";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+import { withBaseIcon } from "react-icons-kit";
+import { spinner3 } from "react-icons-kit/icomoon/spinner3";
+import { Spinner } from "./Home";
 
 const NHLStanding = () => {
+  const SpinnerIcon = withBaseIcon({ size: 50 });
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth0();
   const {
@@ -21,7 +25,11 @@ const NHLStanding = () => {
   }, []);
 
   if (!currentStanding) {
-    return <div>Loading...</div>;
+    return (
+      <Spinner>
+        <SpinnerIcon icon={spinner3} />
+      </Spinner>
+    );
   }
   console.log("standings", currentStanding.data.records);
 
@@ -62,7 +70,7 @@ const NHLStanding = () => {
                   return (
                     <>
                       <tr>
-                        <TDDivisionRank>{team.divisionRank}</TDDivisionRank>
+                        <TDDivisionRank>{team.divisionRank}.</TDDivisionRank>
                         <TDLogo>
                           <LogoImg
                             src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${team.team.id}.svg`}
@@ -101,6 +109,8 @@ const NHLStanding = () => {
 
 const TitleDiv = styled.div`
   margin-top: 50px;
+  font-family: "Racing Sans One", cursive;
+  font-size: 25px;
 `;
 
 const DivDiv = styled.div`
@@ -123,6 +133,9 @@ const StandingTable = styled.table`
     color: whitesmoke;
     text-align: left;
   }
+  & td {
+    font-family: "Vollkorn", serif;
+  }
 `;
 
 const LogoImg = styled.img`
@@ -136,6 +149,7 @@ const TDDivisionRank = styled.td`
   width: 5px;
   padding: 10px;
   font-weight: bold;
+  font-family: "Vollkorn", serif;
 `;
 
 const THDivisionName = styled.th`
@@ -145,8 +159,11 @@ const THDivisionName = styled.th`
 `;
 
 const TDTeamName = styled.td`
-  width: 185px;
+  width: 190px;
+  font-size: 18px;
+  padding-left: 5px;
   font-weight: bold;
+  font-family: "Vollkorn", serif;
 `;
 
 const TDLogo = styled.td`
@@ -157,6 +174,7 @@ const TDLogo = styled.td`
 
 const TDClinch = styled.td`
   width: 60px;
+  padding-right: 15px;
   text-align: center;
   flex-direction: row;
   align-items: center;
@@ -167,8 +185,8 @@ const TDClinch = styled.td`
 
 const Span = styled.span`
   background-color: lightgray;
-  padding: 5px;
-  border-radius: 5px;
+  padding: 0 10px;
+  border-radius: 10px;
 `;
 
 const TDPoints = styled.td`

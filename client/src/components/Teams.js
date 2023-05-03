@@ -4,8 +4,12 @@ import styled from "styled-components";
 import axios from "axios";
 import { InfoContext } from "./InfoContext";
 import { useAuth0 } from "@auth0/auth0-react";
+import { withBaseIcon } from "react-icons-kit";
+import { spinner3 } from "react-icons-kit/icomoon/spinner3";
+import { Spinner } from "./Home";
 
 const Teams = () => {
+  const SpinnerIcon = withBaseIcon({ size: 50 });
   const [teams, setTeams] = useState(null);
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth0();
@@ -24,9 +28,9 @@ const Teams = () => {
 
   if (!teams) {
     return (
-      <>
-        <MainContainer>Loading...</MainContainer>
-      </>
+      <Spinner>
+        <SpinnerIcon icon={spinner3} />
+      </Spinner>
     );
   }
 
@@ -56,9 +60,10 @@ export const MainContainer = styled.div`
   width: 80%;
   min-height: 95vh;
   margin: 35px auto;
-  margin-top: 80px;
   align-items: center;
   justify-content: center;
+  font-family: "Racing Sans One", cursive;
+  font-size: 25px;
 `;
 
 export const ButtonContainer = styled.div`
@@ -75,13 +80,13 @@ export const NavButton = styled.button`
   position: relative;
   display: inline-block;
   height: 70px;
-
+  font-family: "Vollkorn", serif;
   width: 100%;
   transition: all 200ms ease-in-out;
   & span {
     font-size: 25px;
     font-weight: 600;
-    font-family: "Raleway", sans-serif;
+    font-family: "Vollkorn", serif;
   }
 
   &:hover {

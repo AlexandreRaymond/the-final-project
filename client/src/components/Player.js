@@ -5,8 +5,12 @@ import axios from "axios";
 import { MainContainer } from "./Teams";
 import PlayerInfos from "./PlayerInfos";
 import { InfoContext } from "./InfoContext";
+import { withBaseIcon } from "react-icons-kit";
+import { spinner3 } from "react-icons-kit/icomoon/spinner3";
+import { Spinner } from "./Home";
 
 const Player = ({ player }) => {
+  const SpinnerIcon = withBaseIcon({ size: 50 });
   const {
     state: { currentPlayer, currentStats },
     actions: { setCurrentPlayer, setCurrentStats, setCurrentPic },
@@ -23,9 +27,9 @@ const Player = ({ player }) => {
 
   if (!currentPlayer && !currentStats) {
     return (
-      <>
-        <MainContainer>Loading...</MainContainer>
-      </>
+      <Spinner>
+        <SpinnerIcon icon={spinner3} />
+      </Spinner>
     );
   }
 

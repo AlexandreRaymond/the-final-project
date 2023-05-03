@@ -13,24 +13,29 @@ const Toast = () => {
 
   const [count, setCount] = useState(3);
   useEffect(() => {
-    const threeSec = setTimeout(() => {
-      clearTimeout(threeSec);
-      clearInterval(everySecond);
-      setShowToast({
-        isShowing: false,
-        message: "",
-        duration: 3000,
-      });
-    }, showToast.duration);
+    if (showToast.isShowing) {
+      const threeSec = setTimeout(() => {
+        clearTimeout(threeSec);
+        clearInterval(everySecond);
+        setShowToast({
+          isShowing: false,
+          message: "",
+          duration: 3000,
+        });
+      }, showToast.duration);
 
-    const everySecond = setInterval(() => {
-      setCount((prev) => prev - 1);
-    }, 1000);
-    return () => {
-      clearTimeout(threeSec);
-      clearInterval(everySecond);
-    };
+      const everySecond = setInterval(() => {
+        setCount((prev) => prev - 1);
+      }, 1000);
+      return () => {
+        clearTimeout(threeSec);
+        clearInterval(everySecond);
+      };
+    }
   }, [showToast]);
+  if (!showToast.isShowing) {
+    return null;
+  }
   return <>{showToast.isShowing && <ToastDiv>{showToast.message}</ToastDiv>}</>;
 };
 
@@ -51,6 +56,7 @@ const ToastDiv = styled.div`
   box-shadow: rgba(149, 157, 165, 0.2) 2px 18px 24px;
   transition: width 300ms ease-in-out;
   width: 300px;
+  font-family: "Vollkorn", serif;
 `;
 
 export default Toast;

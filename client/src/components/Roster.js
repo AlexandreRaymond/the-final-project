@@ -7,8 +7,12 @@ import Player from "./Player";
 import teamColors from "../utils/backgrounds";
 import { InfoContext } from "./InfoContext";
 import { useAuth0 } from "@auth0/auth0-react";
+import { withBaseIcon } from "react-icons-kit";
+import { spinner3 } from "react-icons-kit/icomoon/spinner3";
+import { Spinner } from "./Home";
 
 const Roster = () => {
+  const SpinnerIcon = withBaseIcon({ size: 50 });
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth0();
   const [teamName, setTeamName] = useState(null);
@@ -18,7 +22,13 @@ const Roster = () => {
 
   const {
     state: { currentLogo, currentRoster, modalOpen },
-    actions: { setCurrentTeam, setCurrentLogo, setCurrentRoster, setModalOpen },
+    actions: {
+      setCurrentTeam,
+      setCurrentLogo,
+      setCurrentRoster,
+      setModalOpen,
+      setCurrentChat,
+    },
   } = useContext(InfoContext);
 
   const checkModal = () => {
@@ -43,9 +53,9 @@ const Roster = () => {
 
   if (!currentRoster && !teamName) {
     return (
-      <>
-        <MainContainer>Loading...</MainContainer>
-      </>
+      <Spinner>
+        <SpinnerIcon icon={spinner3} />
+      </Spinner>
     );
   }
   const color = teamColors[teamName];
@@ -63,6 +73,7 @@ const Roster = () => {
                 onClick={() => {
                   setPlayerData(player);
                   setModalOpen(true);
+                  setCurrentChat(player);
                 }}
               >
                 {player.person.fullName}

@@ -59,20 +59,16 @@ const Chat = () => {
       .catch((err) => {
         console.log("Error", err);
       });
-    navigate(`/api/player/${player.id}/chat`);
+    navigate(`/player/${player.id}/chat`);
   };
 
   return (
     <Wrapper>
-      <ChatArea>
-        <Conversation chatId={player.id} />
-      </ChatArea>
-      {/* <ChatArea>Latest on {player.fullName}</ChatArea> */}
       <div>
         <GoToDiv>
           <span>
-            Click <ChatLink to={`/api/player/${player.id}/chat`}>here</ChatLink>{" "}
-            to see {player.fullName}'s comment section.
+            Click <ChatLink to={`/player/${player.id}/chat`}>here</ChatLink> to
+            see {player.fullName}'s comment section.
           </span>
         </GoToDiv>
         <Form onSubmit={handleSubmit}>
@@ -115,21 +111,6 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const ChatArea = styled.div`
-  background-color: grey;
-  height: 150px;
-  width: 520px;
-  margin: 10px 10px 10px 10px;
-  border: none;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  z-index: 0;
-`;
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -163,6 +144,7 @@ const Wordcount = styled.span`
   flex-direction: row;
   right: 1.5%;
   bottom: 120%;
+  font-size: 20px;
 `;
 
 const GoToDiv = styled.div`
@@ -170,8 +152,9 @@ const GoToDiv = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-bottom: 25px;
   & span {
-    font-size: 12px;
+    font-size: 18px;
   }
 `;
 
@@ -196,6 +179,8 @@ const SendComment = styled.button`
   }
 `;
 
-const ChatLink = styled(NavLink)``;
+const ChatLink = styled(NavLink)`
+  font-weight: bold;
+`;
 
 export default Chat;

@@ -7,8 +7,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { MainContainer } from "./Teams";
 import PlayerChatInfos from "./PlayerChatInfos";
 import teamColors from "../utils/backgrounds";
+import { withBaseIcon } from "react-icons-kit";
+import { spinner3 } from "react-icons-kit/icomoon/spinner3";
+import { Spinner } from "./Home";
 
 const PlayerChat = () => {
+  const SpinnerIcon = withBaseIcon({ size: 50 });
   const {
     state: { currentChat, currentStats, currentPic, currentTeam, currentLogo },
     actions: { setCurrentPlayer, setCurrentStats, setCurrentPic },
@@ -31,9 +35,9 @@ const PlayerChat = () => {
 
   if (!currentChat && !currentStats) {
     return (
-      <>
-        <MainContainer>Loading...</MainContainer>
-      </>
+      <Spinner>
+        <SpinnerIcon icon={spinner3} />
+      </Spinner>
     );
   }
 

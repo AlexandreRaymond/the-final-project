@@ -149,6 +149,7 @@ const PlayerContainer = styled.div`
   width: 550px;
   border-radius: 10px;
   background-color: white;
+  font-family: "Vollkorn", serif;
 `;
 
 const PlayerDisplay = styled.div`
@@ -254,7 +255,7 @@ export const AddToPool = styled.button`
 export const SocialDisplay = styled.div`
   background-color: whitesmoke;
   width: 530px;
-  height: 355px;
+  height: 300px;
   display: flex;
   margin: 10px;
   align-items: center;

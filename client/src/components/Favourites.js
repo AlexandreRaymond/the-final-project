@@ -1,5 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
+import { withBaseIcon } from "react-icons-kit";
+import { spinner3 } from "react-icons-kit/icomoon/spinner3";
+import { Spinner } from "./Home";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { InfoContext } from "./InfoContext";
@@ -8,6 +11,7 @@ import teamColors from "../utils/backgrounds";
 import RemoveFav from "./RemoveFav";
 
 const Favourites = () => {
+  const SpinnerIcon = withBaseIcon({ size: 50 });
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth0();
 
@@ -27,7 +31,11 @@ const Favourites = () => {
   }, [shouldUpdate]);
 
   if (!currentFav) {
-    return <div>Loading...</div>;
+    return (
+      <Spinner>
+        <SpinnerIcon icon={spinner3} />
+      </Spinner>
+    );
   }
   console.log("current fav", currentFav);
 

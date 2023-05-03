@@ -4,10 +4,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { InfoContext } from "./InfoContext";
 import { useAuth0 } from "@auth0/auth0-react";
+import { withBaseIcon } from "react-icons-kit";
+import { spinner3 } from "react-icons-kit/icomoon/spinner3";
+import { Spinner } from "./Home";
 
 const ProfileInfos = () => {
+  const SpinnerIcon = withBaseIcon({ size: 50 });
   const navigate = useNavigate();
-  const { isAuthenticated, user } = useAuth0();
+  const { isAuthenticated, user, isLoading } = useAuth0();
 
   const {
     state: { yourProfile, shouldUpdate },
@@ -25,6 +29,14 @@ const ProfileInfos = () => {
       setYourProfile(response.data.data);
     });
   }, [shouldUpdate]);
+
+  if (isLoading) {
+    return (
+      <Spinner>
+        <SpinnerIcon icon={spinner3} />
+      </Spinner>
+    );
+  }
 
   return (
     <MainContainer>

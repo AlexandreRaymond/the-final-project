@@ -19,6 +19,7 @@ export const InfoProvider = ({ children }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [yourComment, setYourComment] = useState("");
   const [editedComment, setEditedComment] = useState("");
+  const [homeFeed, setHomeFeed] = useState("");
   const [adminPost, setAdminPost] = useState(false);
   const [shouldUpdate, setShouldUpdate] = useState(true);
   const [showToast, setShowToast] = useState({
@@ -51,6 +52,7 @@ export const InfoProvider = ({ children }) => {
           shouldUpdate,
           showToast,
           adminPost,
+          homeFeed,
         },
         actions: {
           setCurrentPlayer,
@@ -73,6 +75,7 @@ export const InfoProvider = ({ children }) => {
           setShouldUpdate,
           setShowToast,
           setAdminPost,
+          setHomeFeed,
         },
       }}
     >

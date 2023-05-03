@@ -7,8 +7,12 @@ import { AiFillEdit } from "react-icons/ai";
 import { TiCancel } from "react-icons/ti";
 import EditComment from "./EditComment";
 import DeleteComment from "./DeleteComment";
+import { withBaseIcon } from "react-icons-kit";
+import { spinner3 } from "react-icons-kit/icomoon/spinner3";
+import { Spinner } from "./Home";
 
 const Conversation = ({ chatId }) => {
+  const SpinnerIcon = withBaseIcon({ size: 50 });
   const {
     state: { currentComments, yourProfile, shouldUpdate },
     actions: { setCurrentComments, setYourProfile, setShouldUpdate },
@@ -42,7 +46,11 @@ const Conversation = ({ chatId }) => {
   }, [chatId, shouldUpdate, userId]);
 
   if (!currentComments) {
-    return <div>Loading...</div>;
+    return (
+      <Spinner>
+        <SpinnerIcon icon={spinner3} />
+      </Spinner>
+    );
   }
 
   console.log("you are", currentComments[0]);
@@ -56,7 +64,7 @@ const Conversation = ({ chatId }) => {
           console.log("post", post);
           return (
             <>
-              <CommentDisplay>
+              <CommentDisplay adminPost={post.adminPost}>
                 <TopDiv>
                   <div>
                     {userId === post.userId ? (
@@ -99,7 +107,7 @@ const Conversation = ({ chatId }) => {
                     )}
                   </EditDiv>
                 </TopDiv>
-                <CommentDiv props={post.adminPost}>
+                <CommentDiv>
                   {isEdit == commentId ? (
                     <EditComment commentId={commentId} setIsEdit={setIsEdit} />
                   ) : (
@@ -133,13 +141,13 @@ const CommentDisplay = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: ${(post) => (post.adminPost ? "red" : "white")};
+  background-color: ${(props) => (props.adminPost ? "beige" : "white")};
   border: none;
   border-radius: 8px;
   box-shadow: rgba(149, 157, 165, 0.2) 2px 18px 24px;
   gap: 5px;
   width: 500px;
-
+  font-family: "Vollkorn", serif;
   margin: 12px 0;
 `;
 

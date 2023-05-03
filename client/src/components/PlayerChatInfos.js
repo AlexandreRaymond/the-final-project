@@ -5,8 +5,12 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import teamColors from "../utils/backgrounds";
 import Conversation from "./Conversation";
+import { withBaseIcon } from "react-icons-kit";
+import { spinner3 } from "react-icons-kit/icomoon/spinner3";
+import { Spinner } from "./Home";
 
 const PlayerChatInfos = () => {
+  const SpinnerIcon = withBaseIcon({ size: 50 });
   const { isAuthenticated, logout, user, isLoading, getAccessTokenSilently } =
     useAuth0();
 
@@ -21,7 +25,11 @@ const PlayerChatInfos = () => {
   const color = teamColors[currentTeam.name];
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Spinner>
+        <SpinnerIcon icon={spinner3} />
+      </Spinner>
+    );
   }
 
   const addZero = (num) => {

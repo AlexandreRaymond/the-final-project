@@ -9,12 +9,12 @@ import { ImHome, ImMenu } from "react-icons/im";
 import { BsFillChatLeftDotsFill } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
 import { RiTeamFill } from "react-icons/ri";
+import { FaHockeyPuck } from "react-icons/fa";
 
 const Header = () => {
   // Logics
   const auth = useAuth0();
-  console.log("Logged in?", auth.isAuthenticated);
-  console.log("User infos", auth.user);
+  //console.log("Logged In?", auth.isAuthenticated);
   const {
     state: { currentTeam, yourProfile },
     actions: { setCurrentTeam },
@@ -66,7 +66,7 @@ const Header = () => {
           </StyledNav>
           <StyledNav to="/standings" onClick={() => setCurrentTeam(null)}>
             <p>
-              <ImMenu />
+              <FaHockeyPuck />
             </p>
           </StyledNav>
           <StyledNav to="/teams" onClick={() => setCurrentTeam(null)}>
@@ -81,7 +81,7 @@ const Header = () => {
           </StyledNav>
         </MenuWrapper>
         <TeamWrapper>
-          {currentTeam && (
+          {currentTeam ? (
             <TeamHeader>
               <div>
                 <SSpan>
@@ -95,6 +95,14 @@ const Header = () => {
                 <TeamLogo
                   src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${currentTeam.id}.svg`}
                 />
+              </div>
+            </TeamHeader>
+          ) : (
+            <TeamHeader>
+              <div>
+                <SSpan>
+                  Hockey<br></br> Dockey
+                </SSpan>
               </div>
             </TeamHeader>
           )}

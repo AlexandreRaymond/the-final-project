@@ -87,20 +87,22 @@ const ProfileOptions = () => {
         <Form onSubmit={(e) => handleSumbit(e)}>
           <NameDiv>
             <span>Name:</span>
-            <input
-              name="firstName"
-              type="text"
-              placeholder={"Your first name"}
-              maxLength="25"
-              onChange={(e) => handleChange(e.target.value, e.target.name)}
-            />
-            <input
-              name="lastName"
-              type="text"
-              placeholder={"Your last name"}
-              maxLength="25"
-              onChange={(e) => handleChange(e.target.value, e.target.name)}
-            />
+            <SubNameDiv>
+              <input
+                name="firstName"
+                type="text"
+                placeholder={"Your first name"}
+                maxLength="25"
+                onChange={(e) => handleChange(e.target.value, e.target.name)}
+              />
+              <input
+                name="lastName"
+                type="text"
+                placeholder={"Your last name"}
+                maxLength="25"
+                onChange={(e) => handleChange(e.target.value, e.target.name)}
+              />
+            </SubNameDiv>
           </NameDiv>
           <AgeDiv>
             <span>Age:</span>
@@ -139,14 +141,15 @@ const ProfileOptions = () => {
               />
             </SubPlaceDiv>
           </PlaceDiv>
-          <div>
-            <input
+          <PicDiv>
+            <span>Picture</span>
+            <Input
               name="picture"
               type="file"
               accept="image/png, image/jpeg"
               onChange={(e) => handlePicture(e)}
             />
-          </div>
+          </PicDiv>
           <button type="submit">Save changes</button>
         </Form>
       </div>
@@ -174,15 +177,17 @@ const MainContainer = styled.div`
   width: 80%;
   min-height: 200px;
   margin: 35px auto;
-  margin-top: 80px;
+  margin: 0 40px;
   align-items: center;
   justify-content: center;
+  font-family: "Vollkorn", serif;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 30px;
+  padding: 20px 0;
 
   & span {
     font-weight: bold;
@@ -220,7 +225,7 @@ const LogOut = styled.button`
   color: whitesmoke;
   &:hover {
     cursor: pointer;
-    opacity: 80%;
+    background-color: crimson;
   }
 `;
 
@@ -229,7 +234,11 @@ const NameDiv = styled.div`
   flex-direction: row;
   justify-content: space-between;
   gap: 10px;
-  background-color: blue;
+`;
+
+const SubNameDiv = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const AgeDiv = styled.div`
@@ -237,7 +246,18 @@ const AgeDiv = styled.div`
   flex-direction: row;
   justify-content: space-between;
   gap: 10px;
-  background-color: blue;
+`;
+
+const PicDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+`;
+
+const Input = styled.input`
+  margin-left: 50px;
 `;
 
 const PlaceDiv = styled.div`

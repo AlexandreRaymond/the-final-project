@@ -4,6 +4,9 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { InfoContext } from "./InfoContext";
 import styled from "styled-components";
 import axios from "axios";
+import { withBaseIcon } from "react-icons-kit";
+import { spinner3 } from "react-icons-kit/icomoon/spinner3";
+import { Spinner } from "./Home";
 import {
   MainContainer,
   ButtonContainer,
@@ -13,6 +16,7 @@ import {
 } from "./Teams";
 
 const ChatMenu = () => {
+  const SpinnerIcon = withBaseIcon({ size: 50 });
   const { isAuthenticated } = useAuth0();
 
   const [teams, setTeams] = useState(null);
@@ -25,9 +29,9 @@ const ChatMenu = () => {
 
   if (!teams) {
     return (
-      <>
-        <MainContainer>Loading...</MainContainer>
-      </>
+      <Spinner>
+        <SpinnerIcon icon={spinner3} />
+      </Spinner>
     );
   }
 

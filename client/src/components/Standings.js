@@ -33,6 +33,8 @@ const MainContainer = styled.div`
   margin-top: 80px;
   align-items: center;
   justify-content: center;
+  font-family: "Racing Sans One", cursive;
+  font-size: 25px;
 `;
 
 export default Standings;
