@@ -41,6 +41,7 @@ const GlobalStyle = createGlobalStyle`
     body {
         line-height: 1;
         font-family: "Raleway", sans-serif;
+        
     }
     ol, ul {
         list-style: none;

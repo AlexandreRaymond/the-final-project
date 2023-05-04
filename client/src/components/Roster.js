@@ -84,11 +84,10 @@ const Roster = () => {
                     src={`http://nhl.bamcontent.com/images/headshots/current/168x168/${player.person.id}.jpg`}
                   />
                   <Position>
-                    <span>{player.person.fullName}</span>
-                    <span> |</span>
-                    <span> {player.position.type}</span>
-                    <span> |</span>
-                    <span> #{player.jerseyNumber}</span>
+                    <span>
+                      {player.person.fullName}
+                      <br></br>#{player.jerseyNumber}
+                    </span>
                   </Position>
                 </CardWrapper>
               </RosterButton>
@@ -176,15 +175,16 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  height: 700px;
-  width: 800px;
+  height: 800px;
+  width: 80%;
+  flex-wrap: wrap;
 `;
 
 const RosterButton = styled.button`
-  width: 700px;
-  height: 400px;
-  transform: perspective(850px) translate3d(0px, 0px, -250px) rotateX(27deg)
-    scale(0.9, 0.9);
+  width: 150px;
+  height: 225px;
+  transform: perspective(750px) translate3d(0px, 0px, -250px) rotateX(27deg)
+    scale(0.75, 0.75);
   border-radius: 20px;
   border: 5px solid ${(props) => props.backgroundColor};
   box-shadow: 0 70px 40px -20px rgba(0, 0, 0, 0.2);
@@ -197,13 +197,13 @@ const RosterButton = styled.button`
 `;
 
 const Position = styled.p`
-  margin: -10px 0;
+  margin: 10px 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   gap: 15px;
   & span {
-    font-size: 30px;
+    font-size: 20px;
   }
 `;
 
@@ -217,8 +217,8 @@ const PlayerImg = styled.img`
   justify-content: center;
   margin-top: 10px;
   position: inherit;
-  height: 300px;
-  width: 300px;
+  height: 80px;
+  width: 80px;
 `;
 
 const CardWrapper = styled.div`
@@ -226,7 +226,7 @@ const CardWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 35px;
+  /* gap: 35px; */
   font-family: "Vollkorn", serif;
   font-weight: bold;
 `;

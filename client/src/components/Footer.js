@@ -28,15 +28,16 @@ const Footer = () => {
 
 const FootDiv = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 50px;
+  min-height: 80px;
   width: 100avw;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: bold;
   background-color: ${(props) => props.backgroundColor};
   color: whitesmoke;
+  margin-top: auto;
 `;
 
 export default Footer;

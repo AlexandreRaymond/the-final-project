@@ -52,6 +52,7 @@ const App = () => {
 
 const Wrapper = styled.div`
   position: relative;
+  min-height: 100avh;
 `;
 
 export default App;
