@@ -66,7 +66,7 @@ const CardButton = styled.button`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 150px;
+  width: 125px;
   height: 250px;
   transform: perspective(750px) translate3d(0px, 0px, -250px) rotateX(27deg)
     scale(0.9, 0.9);
@@ -103,7 +103,7 @@ const CardWrapper = styled.div`
 const TeamLogo = styled.img`
   width: 225px;
   height: 225px;
-  background-color: inherit;
+  background-color: transparent;
 `;
 
 export default ChatMenu;

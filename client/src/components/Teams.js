@@ -60,7 +60,7 @@ const Teams = () => {
 export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 95%;
+  width: 98%;
   min-height: 100vh;
   margin: 35px auto;
   align-items: center;
@@ -126,9 +126,9 @@ const CardButton = styled.button`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 150px;
+  width: 125px;
   height: 250px;
-  transform: perspective(750px) translate3d(0px, 0px, -250px) rotateX(27deg)
+  transform: perspective(750px) translate3d(0px, 0px, -250px) rotateX(30deg)
     scale(0.9, 0.9);
   border: none;
   /* box-shadow: 0 70px 40px -20px rgba(0, 0, 0, 0.2); */
@@ -146,7 +146,6 @@ const CardPosition = styled.p`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
   font-size: 30px;
 `;
 
@@ -155,15 +154,16 @@ const CardWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* gap: 35px; */
+  gap: 35px;
   font-family: "Vollkorn", serif;
   font-weight: bold;
 `;
 
 const TeamLogo = styled.img`
+  position: relative;
   width: 225px;
   height: 225px;
-  background-color: inherit;
+  background-color: transparent;
 `;
 
 export default Teams;
