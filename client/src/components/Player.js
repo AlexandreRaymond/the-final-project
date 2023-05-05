@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { MainContainer } from "./Teams";
@@ -23,7 +22,6 @@ const Player = ({ player }) => {
         setCurrentPlayer(response.data.player);
         setCurrentStats(response.data.stats);
         setCurrentPic(response.data.pic);
-        console.log("player player player", response.data);
       })
       .catch((err) => window.alert("Couldn't load player details"));
   }, [player]);
@@ -44,18 +42,5 @@ const Player = ({ player }) => {
     </>
   );
 };
-
-/*
- */
-
-const ModalContainer = styled.div`
-  position: absolute;
-  inset: 0;
-  background-color: black;
-  opacity: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 
 export default Player;

@@ -1,17 +1,13 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
-import { NavButton, NavBrowse, ButtonContainer, Wrapper } from "./Teams";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavButton, NavBrowse, Wrapper } from "./Teams";
 import { InfoContext } from "./InfoContext";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const Standings = () => {
-  const navigate = useNavigate();
-  const { isAuthenticated } = useAuth0();
-
   return (
     <MainContainer>
       <h1>Standings</h1>
+
       <Wrapper>
         <NavBrowse to="/standings/nhl">
           <NavButton>NHL Standing</NavButton>

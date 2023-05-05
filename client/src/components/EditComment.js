@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { InfoContext } from "./InfoContext";
 import styled from "styled-components";
 import axios from "axios";
@@ -8,21 +8,11 @@ import AdminButtons from "./AdminButtons";
 
 const EditComment = ({ commentId, setIsEdit }) => {
   const {
-    state: {
-      editedComment,
-      yourComment,
-      currentChat,
-      currentTeam,
-      shouldUpdate,
-      adminPost,
-      yourProfile,
-    },
+    state: { editedComment, yourComment, currentChat, adminPost, yourProfile },
     actions: { setEditedComment, setShouldUpdate, setShowToast, setAdminPost },
   } = useContext(InfoContext);
-  console.log("i wrote", editedComment);
 
-  const { isAuthenticated, logout, user, isLoading, getAccessTokenSilently } =
-    useAuth0();
+  const { user } = useAuth0();
 
   let playerId = currentChat.person.id;
   let preslice = user.sub;
@@ -45,22 +35,13 @@ const EditComment = ({ commentId, setIsEdit }) => {
   const editInfo = {
     comment: editedComment,
     editedComment: true,
-    user: user,
+    user: user.nickname,
     userId: userId,
     editedDate: date,
     editedTime: time,
     player: currentChat.person.fullName,
     playerId: playerId,
     adminPost: adminPost,
-  };
-
-  const toggleAdmin = (e) => {
-    if (adminPost === false) {
-      return setAdminPost(true);
-    }
-    if (adminPost === true) {
-      return setAdminPost(false);
-    }
   };
 
   const handleSubmit = (e) => {
@@ -166,44 +147,6 @@ const SendComment = styled.button`
     cursor: not-allowed;
     background-color: red;
     color: whitesmoke;
-  }
-`;
-
-const AdminButton = styled.button`
-  position: absolute;
-  font-size: 10px;
-  font-weight: bold;
-  border: none;
-  height: 20px;
-  width: 20px;
-  color: limegreen;
-  background-color: inherit;
-  display: flex;
-  flex-direction: row;
-  right: 18%;
-  bottom: 100%;
-  &:hover {
-    cursor: pointer;
-    color: lime;
-  }
-`;
-
-const NormalButton = styled.button`
-  position: absolute;
-  font-size: 10px;
-  font-weight: bold;
-  border: none;
-  height: 20px;
-  width: 20px;
-  color: blue;
-  background-color: inherit;
-  display: flex;
-  flex-direction: row;
-  right: 18%;
-  bottom: 100%;
-  &:hover {
-    cursor: pointer;
-    color: lightblue;
   }
 `;
 

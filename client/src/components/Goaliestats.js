@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { InfoContext } from "./InfoContext";
 import styled from "styled-components";
 
@@ -7,12 +7,9 @@ const Goaliestats = () => {
     state: { currentStats },
   } = useContext(InfoContext);
 
-  //console.log("goalie", currentStats.stats[0].splits[0].stat);
   const stats = currentStats.stats[0].splits[0].stat;
   let gaa = stats.goalAgainstAverage.toFixed(2);
   let saves = stats.savePercentage.toFixed(3);
-
-  // console.log("goalie goalie", saves);
 
   return (
     <StatDiv>

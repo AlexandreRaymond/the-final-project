@@ -1,6 +1,5 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { InfoContext } from "./InfoContext";
 import teamColors from "../utils/backgrounds";
 

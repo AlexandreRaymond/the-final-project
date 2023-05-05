@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { InfoContext } from "./InfoContext";
 import styled from "styled-components";
 
@@ -7,7 +7,6 @@ const SkaterStats = () => {
     state: { currentStats },
   } = useContext(InfoContext);
 
-  //console.log("Skater", currentStats.stats[0].splits[0].stat);
   const stats = currentStats.stats[0].splits[0].stat;
 
   return (

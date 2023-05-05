@@ -1,9 +1,7 @@
-import { useState, useEffect, useContext } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useEffect, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { InfoContext } from "./InfoContext";
-import { useAuth0 } from "@auth0/auth0-react";
 import PlayerChatInfos from "./PlayerChatInfos";
 import teamColors from "../utils/backgrounds";
 import { withBaseIcon } from "react-icons-kit";
@@ -14,10 +12,8 @@ const PlayerChat = () => {
   const SpinnerIcon = withBaseIcon({ size: 50 });
   const {
     state: { currentChat, currentStats, currentPic, currentTeam, currentLogo },
-    actions: { setCurrentPlayer, setCurrentStats, setCurrentPic },
+    actions: { setCurrentStats, setCurrentPic },
   } = useContext(InfoContext);
-
-  console.log("chat currentChat", currentChat);
 
   let color = "black";
 

@@ -1,6 +1,5 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { InfoContext } from "./InfoContext";
-import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 
 const AdminButtons = () => {

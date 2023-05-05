@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { InfoContext } from "./InfoContext";
 import styled from "styled-components";
 import axios from "axios";
@@ -12,8 +12,7 @@ import AdminButtons from "./AdminButtons";
 
 const PlayerChatInfos = () => {
   const SpinnerIcon = withBaseIcon({ size: 50 });
-  const { isAuthenticated, logout, user, isLoading, getAccessTokenSilently } =
-    useAuth0();
+  const { isAuthenticated, user, isLoading } = useAuth0();
 
   let preslice = user.sub;
   let userId = preslice.slice(6, preslice.length);
@@ -47,10 +46,7 @@ const PlayerChatInfos = () => {
 
   let time = `${hours}:${minutes}:${seconds}`;
 
-  console.log("today is", date);
   let playerId = currentChat.person.id;
-
-  console.log("admin?", adminPost);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -89,18 +85,12 @@ const PlayerChatInfos = () => {
     wordLimit = 100;
   }
 
-  console.log("are you?", yourProfile.isAdmin);
-
   return (
     isAuthenticated && (
       <>
         <ChatArea backgroundColor={color}>
           <div>
-            <Conversation
-              chatId={currentChat.person.id}
-              // shouldUpdate={shouldUpdate}
-              // setShouldUpdate={setShouldUpdate}
-            />
+            <Conversation chatId={currentChat.person.id} />
           </div>
         </ChatArea>
         <Form onSubmit={handleSubmit}>
@@ -208,44 +198,6 @@ const SendComment = styled.button`
     cursor: not-allowed;
     opacity: 50%;
     background-color: grey;
-  }
-`;
-
-const AdminButton = styled.button`
-  position: absolute;
-  font-size: 10px;
-  font-weight: bold;
-  border: none;
-  height: 20px;
-  width: 20px;
-  color: limegreen;
-  background-color: inherit;
-  display: flex;
-  flex-direction: row;
-  right: 15%;
-  bottom: 110%;
-  &:hover {
-    cursor: pointer;
-    color: lime;
-  }
-`;
-
-const NormalButton = styled.button`
-  position: absolute;
-  font-size: 10px;
-  font-weight: bold;
-  border: none;
-  height: 20px;
-  width: 20px;
-  color: blue;
-  background-color: inherit;
-  display: flex;
-  flex-direction: row;
-  right: 15%;
-  bottom: 110%;
-  &:hover {
-    cursor: pointer;
-    color: lightblue;
   }
 `;
 

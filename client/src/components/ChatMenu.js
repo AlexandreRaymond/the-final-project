@@ -1,7 +1,4 @@
-import { useState, useContext, useEffect } from "react";
-import { User, useAuth0 } from "@auth0/auth0-react";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import { InfoContext } from "./InfoContext";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { withBaseIcon } from "react-icons-kit";
@@ -17,7 +14,6 @@ import {
 
 const ChatMenu = () => {
   const SpinnerIcon = withBaseIcon({ size: 50 });
-  const { isAuthenticated } = useAuth0();
 
   const [teams, setTeams] = useState(null);
 
@@ -42,7 +38,7 @@ const ChatMenu = () => {
         {teams.sort().map((team) => {
           return (
             <CardWrapper>
-              <NavBrowse to={`/teams/${team.id}/roster`}>
+              <NavBrowse to={`/teams/${team.id}/chat`}>
                 <CardButton>
                   <TeamLogo
                     src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${team.id}.svg`}
@@ -68,10 +64,9 @@ const CardButton = styled.button`
   align-items: center;
   width: 125px;
   height: 250px;
-  transform: perspective(750px) translate3d(0px, 0px, -250px) rotateX(27deg)
+  transform: perspective(750px) translate3d(0px, 0px, -250px) rotateX(30deg)
     scale(0.9, 0.9);
   border: none;
-  /* box-shadow: 0 70px 40px -20px rgba(0, 0, 0, 0.2); */
   transition: 0.4s ease-in-out transform;
   background-color: white;
   &:hover {
@@ -86,7 +81,6 @@ const CardPosition = styled.p`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
   font-size: 30px;
 `;
 
@@ -95,7 +89,7 @@ const CardWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* gap: 35px; */
+  gap: 35px;
   font-family: "Vollkorn", serif;
   font-weight: bold;
 `;

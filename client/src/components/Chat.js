@@ -1,15 +1,13 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import teamColors from "../utils/backgrounds";
 import { InfoContext } from "./InfoContext";
-import Conversation from "./Conversation";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Chat = () => {
-  const { isAuthenticated, logout, user, isLoading, getAccessTokenSilently } =
-    useAuth0();
+  const { user } = useAuth0();
 
   const navigate = useNavigate();
 
@@ -21,7 +19,6 @@ const Chat = () => {
     actions: { setYourComment, setShouldUpdate },
   } = useContext(InfoContext);
 
-  console.log("blahblahblah", currentPlayer);
   const player = currentPlayer.people[0];
   const color = teamColors[player.currentTeam.name];
 

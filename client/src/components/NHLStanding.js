@@ -1,18 +1,14 @@
-import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useContext } from "react";
 import { InfoContext } from "./InfoContext";
 import { MainContainer } from "./Teams";
 import styled from "styled-components";
 import axios from "axios";
-import { useAuth0 } from "@auth0/auth0-react";
 import { withBaseIcon } from "react-icons-kit";
 import { spinner3 } from "react-icons-kit/icomoon/spinner3";
 import { Spinner } from "./Home";
 
 const NHLStanding = () => {
   const SpinnerIcon = withBaseIcon({ size: 50 });
-  const navigate = useNavigate();
-  const { isAuthenticated } = useAuth0();
   const {
     state: { currentStanding },
     actions: { setCurrentStanding },
@@ -31,7 +27,6 @@ const NHLStanding = () => {
       </Spinner>
     );
   }
-  console.log("standings", currentStanding.data.records);
 
   const stand = currentStanding.data.records;
   return (
@@ -41,7 +36,6 @@ const NHLStanding = () => {
       </TitleDiv>
       <DivDiv>
         {stand.sort().map((division) => {
-          console.log("division", division);
           return (
             <StandingTable>
               <thead>
@@ -64,7 +58,6 @@ const NHLStanding = () => {
 
               <tbody>
                 {division.teamRecords.sort().map((team) => {
-                  console.log("teams", team.team.id);
                   let percentage = team.pointsPercentage.toFixed(3) * 1000;
                   let plusMinus = team.goalsScored - team.goalsAgainst;
                   return (

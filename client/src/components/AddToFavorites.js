@@ -1,16 +1,16 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { InfoContext } from "./InfoContext";
 import styled from "styled-components";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { AiOutlineHeart } from "react-icons/ai";
 
 const AddToFavorites = ({ favored, setFavored }) => {
   const {
     state: { currentPlayer, currentStats, currentPic },
     actions: { setShowToast },
   } = useContext(InfoContext);
-  const { isAuthenticated, user } = useAuth0();
+  const { user } = useAuth0();
 
   let preslice = user.sub;
   let userId = preslice.slice(6, preslice.length);
@@ -95,8 +95,6 @@ const AddFavorites = styled.button`
   font-size: 30px;
   border: none;
   background-color: inherit;
-  /* transition-duration: 0.4s;
-  -webkit-transition-duration: 0.4s; */
   cursor: pointer;
   & :hover {
     transition-duration: 0.25s;

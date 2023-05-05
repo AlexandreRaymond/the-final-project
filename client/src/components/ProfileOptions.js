@@ -1,13 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { InfoContext } from "./InfoContext";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const ProfileOptions = () => {
-  const navigate = useNavigate();
-  const { isAuthenticated, logout, user } = useAuth0();
+  const { logout, user } = useAuth0();
   const [profileInfo, setProfileInfo] = useState({
     firstName: "",
     lastName: "",
@@ -19,14 +17,11 @@ const ProfileOptions = () => {
   });
 
   const {
-    state: { shouldUpdate },
     actions: { setShouldUpdate, setShowToast },
   } = useContext(InfoContext);
 
   let preslice = user.sub;
   let userId = preslice.slice(6, preslice.length);
-
-  console.log("submarine", userId);
 
   const handleChange = (value, name) => {
     setProfileInfo({ ...profileInfo, [name]: value });
@@ -34,7 +29,6 @@ const ProfileOptions = () => {
 
   const handlePicture = (e) => {
     const photo = e.target.files[0];
-    console.log(photo);
     if (photo && photo.size > 700000) {
       return console.log("file too large");
     } else {
@@ -45,7 +39,6 @@ const ProfileOptions = () => {
         setShouldUpdate(true);
       };
     }
-    console.log("good to go!");
   };
 
   const handleSumbit = (e) => {
@@ -55,11 +48,9 @@ const ProfileOptions = () => {
     const entries = Object.entries(profileInfo);
     entries.forEach((entry) => {
       if (entry[1] !== "") {
-        console.log("entry", entry);
         filteredInfo[entry[0]] = entry[1];
       }
     });
-    console.log("filter", filteredInfo);
 
     axios
       .patch(`/api/patch/profile/${userId}`, {
@@ -223,6 +214,7 @@ const LogOut = styled.button`
   align-items: center;
   justify-content: center;
   color: whitesmoke;
+  margin-bottom: 15px;
   &:hover {
     cursor: pointer;
     background-color: crimson;
@@ -277,7 +269,6 @@ const BLine = styled.div`
   height: 3px;
   margin: 10px;
   width: 400px;
-  /* border: 1px solid black; */
 `;
 
 const HTitle = styled.h3`

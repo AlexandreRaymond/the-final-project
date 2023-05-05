@@ -24,7 +24,6 @@ const GlobalStyle = createGlobalStyle`
         border: 0;
         font-size: 100%;
         font: inherit;
-         /* vertical-align: baseline;  */
     }
 
     input {
@@ -59,7 +58,7 @@ const GlobalStyle = createGlobalStyle`
         border-spacing: 0;
     }
     * {
-        //border: 1px solid red !important;
+     
 
     }
 `;

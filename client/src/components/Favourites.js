@@ -1,10 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import styled from "styled-components";
 import { withBaseIcon } from "react-icons-kit";
 import { spinner3 } from "react-icons-kit/icomoon/spinner3";
 import { Spinner } from "./Home";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { InfoContext } from "./InfoContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import teamColors from "../utils/backgrounds";
@@ -12,8 +11,7 @@ import RemoveFav from "./RemoveFav";
 
 const Favourites = () => {
   const SpinnerIcon = withBaseIcon({ size: 50 });
-  const navigate = useNavigate();
-  const { isAuthenticated, user } = useAuth0();
+  const { user } = useAuth0();
 
   let preslice = user.sub;
   let userId = preslice.slice(6, preslice.length);
@@ -25,7 +23,6 @@ const Favourites = () => {
 
   useEffect(() => {
     axios.get(`/api/get/favourites/${userId}`).then((response) => {
-      console.log("favourite answer", response.data.data);
       setCurrentFav(response.data.data);
     });
   }, [shouldUpdate]);
@@ -37,7 +34,6 @@ const Favourites = () => {
       </Spinner>
     );
   }
-  console.log("current fav", currentFav);
 
   return (
     <MainContainer>

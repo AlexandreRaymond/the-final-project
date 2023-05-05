@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { useEffect, useContext } from "react";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import teamColors from "../utils/backgrounds";
 import axios from "axios";
@@ -12,44 +12,49 @@ import { RiTeamFill } from "react-icons/ri";
 import { FaHockeyPuck } from "react-icons/fa";
 
 const Header = () => {
-  // Logics
-  const auth = useAuth0();
-  //console.log("Logged In?", auth.isAuthenticated);
+  const { user, isLoading, isAuthenticated, loginWithRedirect } = useAuth0();
+
   const {
     state: { currentTeam, yourProfile },
-    actions: { setCurrentTeam },
+    actions: { setCurrentTeam, setYourProfile },
   } = useContext(InfoContext);
 
-  const firstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
+  useEffect(() => {
+    if (user) {
+      let preslice = user.sub;
+      let userId = preslice.slice(6, preslice.length);
+      axios.get(`/api/get/profile/${userId}`).then((response) => {
+        setYourProfile(response.data.data);
+      });
+    }
+  }, []);
 
   let color = "black";
 
   if (currentTeam) {
     color = teamColors[currentTeam.name];
   }
-  if (auth.isLoading) {
+  if (isLoading) {
     return <StyledHeader>Loading...</StyledHeader>;
   }
-  // On the page
+
   return (
     <>
       <StyledHeader backgroundColor={color}>
         <MenuWrapper>
           <span>
-            {auth.isAuthenticated ? (
+            {isAuthenticated ? (
               <StyledNav to="/profile" onClick={() => setCurrentTeam(null)}>
                 {yourProfile.picture ? (
-                  <ProfileImg src={yourProfile.picture} alt={auth.name} />
+                  <ProfileImg src={yourProfile.picture} alt={user.name} />
                 ) : (
-                  <ProfileImg src={auth.picture} alt={auth.name} />
+                  <ProfileImg src={user.picture} alt={user.name} />
                 )}
               </StyledNav>
             ) : (
               <StyledNav
                 style={{ width: 50, paddingRight: 50 }}
-                onClick={() => auth.loginWithRedirect()}
+                onClick={() => loginWithRedirect()}
               >
                 <p>
                   <FaUserAlt />
@@ -174,17 +179,6 @@ const StyledHeader = styled.div`
     box-shadow: 0 0 5px whitesmoke;
     text-shadow: 0 0 5px whitesmoke;
   }
-  /* & p:after {
-    display: block;
-    content: "";
-    margin-top: 5px;
-    border-bottom: solid 3px white;
-    transform: scaleX(0);
-    transition: transform 500ms ease-in-out;
-  }
-  & p:hover:after {
-    transform: scaleX(1);
-  } */
 `;
 
 const StyledNav = styled(NavLink)`
@@ -194,7 +188,6 @@ const StyledNav = styled(NavLink)`
   position: relative;
   display: flex;
   justify-content: center;
-  /* gap: 10px; */
   width: 15%;
   height: 80px;
   text-align: center;
@@ -216,7 +209,6 @@ const TeamWrapper = styled.div`
   justify-content: right;
   width: 55%;
   height: 80px;
-  /* background-color: green; */
 `;
 
 const TeamHeader = styled.div`
@@ -279,67 +271,5 @@ const ProfileImg = styled.img`
     border: 2px solid limegreen;
   }
 `;
-
-/*
-body {
-  margin: 0;
-  padding: 0;
-  background: #262626;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-ul li {
-  list-style: none;
-  margin: 0 15px;
-}
-
-ul li a {
-  position: relative; 
-  display: block;
-  width: 60px;
-  height: 60px;
-  text-align: center;
-  line-height: 63px;
-  background: #333;
-  border-radius: 50%;
-  font-size: 30px;
-  color: #666;
-  transition: .5s;
-}
-
-ul li a::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: #ffee10;
-  transition: .5s;
-  transform: scale(.9);
-  z-index: -1;
-}
-
-ul li a:hover::before {
-  transform: scale(1.1);
-  box-shadow: 0 0 15px #ffee10;
-}
-
-ul li a:hover {
-  color: #ffee10;
-  box-shadow: 0 0 5px #ffee10;
-  text-shadow: 0 0 5px #ffee10;
-}
-*/
 
 export default Header;

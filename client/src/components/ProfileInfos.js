@@ -1,7 +1,6 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { InfoContext } from "./InfoContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import { withBaseIcon } from "react-icons-kit";
@@ -10,8 +9,7 @@ import { Spinner } from "./Home";
 
 const ProfileInfos = () => {
   const SpinnerIcon = withBaseIcon({ size: 50 });
-  const navigate = useNavigate();
-  const { isAuthenticated, user, isLoading } = useAuth0();
+  const { user, isLoading } = useAuth0();
 
   const {
     state: { yourProfile, shouldUpdate },
@@ -21,11 +19,8 @@ const ProfileInfos = () => {
   let preslice = user.sub;
   let userId = preslice.slice(6, preslice.length);
 
-  console.log("submarine", userId);
-
   useEffect(() => {
     axios.get(`/api/get/profile/${userId}`).then((response) => {
-      console.log("profile response", response.data.data);
       setYourProfile(response.data.data);
     });
   }, [shouldUpdate]);

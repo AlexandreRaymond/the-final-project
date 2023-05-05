@@ -1,8 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-// import { Wrapper, ButtonContainer, NavButton } from "./Teams";
 import Player from "./Player";
 import teamColors from "../utils/backgrounds";
 import { InfoContext } from "./InfoContext";
@@ -10,7 +9,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { withBaseIcon } from "react-icons-kit";
 import { spinner3 } from "react-icons-kit/icomoon/spinner3";
 import { Spinner } from "./Home";
-import PlayerCard from "./PlayerCard";
 
 const Roster = () => {
   const SpinnerIcon = withBaseIcon({ size: 50 });
@@ -22,7 +20,7 @@ const Roster = () => {
   const { id } = useParams();
 
   const {
-    state: { currentLogo, currentRoster, modalOpen, currentPic },
+    state: { currentLogo, currentRoster, modalOpen },
     actions: {
       setCurrentTeam,
       setCurrentLogo,
@@ -43,7 +41,6 @@ const Roster = () => {
       return navigate("/");
     }
     axios.get(`/api/teams/${id}`).then((response) => {
-      //console.log("roster", response.data.roster);
       setTeamName(response.data.team.teams[0].name);
       setModalOpen(false);
       setCurrentTeam(response.data.team.teams[0]);
@@ -60,7 +57,6 @@ const Roster = () => {
     );
   }
   const color = teamColors[teamName];
-  console.log("roster current roster", currentRoster);
 
   return (
     <MainContainer backgroundColor={color} onClick={() => checkModal()}>
@@ -68,9 +64,8 @@ const Roster = () => {
       <LogoImg src={currentLogo} />
       <ButtonContainer>
         {currentRoster.sort().map((player) => {
-          console.log("Nami nami", player);
           return (
-            <Wrapper>
+            <>
               <RosterButton
                 backgroundColor={color}
                 onClick={() => {
@@ -81,6 +76,7 @@ const Roster = () => {
               >
                 <CardWrapper>
                   <PlayerImg
+                    backgroundColor={color}
                     src={`http://nhl.bamcontent.com/images/headshots/current/168x168/${player.person.id}.jpg`}
                   />
                   <Position>
@@ -91,7 +87,7 @@ const Roster = () => {
                   </Position>
                 </CardWrapper>
               </RosterButton>
-            </Wrapper>
+            </>
           );
         })}
       </ButtonContainer>
@@ -165,29 +161,27 @@ export const ModalInfo = styled.div`
   z-index: 1;
 `;
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   z-index: 1;
 `;
 
-const ButtonContainer = styled.div`
+export const ButtonContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-  height: 800px;
+  flex-direction: row;
   width: 80%;
   flex-wrap: wrap;
 `;
 
-const RosterButton = styled.button`
+export const RosterButton = styled.button`
   width: 150px;
   height: 225px;
   transform: perspective(750px) translate3d(0px, 0px, -250px) rotateX(27deg)
     scale(0.75, 0.75);
   border-radius: 20px;
-  border: 5px solid ${(props) => props.backgroundColor};
-  box-shadow: 0 70px 40px -20px rgba(0, 0, 0, 0.2);
+  border: none;
+  background-color: transparent;
   transition: 0.4s ease-in-out transform;
 
   &:hover {
@@ -196,7 +190,7 @@ const RosterButton = styled.button`
   }
 `;
 
-const Position = styled.p`
+export const Position = styled.p`
   margin: 10px 0;
   display: flex;
   flex-direction: row;
@@ -207,9 +201,9 @@ const Position = styled.p`
   }
 `;
 
-const PlayerImg = styled.img`
+export const PlayerImg = styled.img`
   border-radius: 200px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: 0 70px 40px -20px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -217,16 +211,17 @@ const PlayerImg = styled.img`
   justify-content: center;
   margin-top: 10px;
   position: inherit;
-  height: 80px;
-  width: 80px;
+  height: 100px;
+  width: 100px;
+  border: 5px solid ${(props) => props.backgroundColor};
+  background: url(http://goo.gl/vyAs27) no-repeat center;
 `;
 
-const CardWrapper = styled.div`
+export const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* gap: 35px; */
   font-family: "Vollkorn", serif;
   font-weight: bold;
 `;

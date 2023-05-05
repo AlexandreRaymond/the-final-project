@@ -88,7 +88,7 @@ const InfoDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  top: 32.2%;
+  top: 31.2%;
 `;
 
 const TextDiv = styled.div`

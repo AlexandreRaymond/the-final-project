@@ -10,7 +10,6 @@ import { GiHockey } from "react-icons/gi";
 import teamColors from "../utils/backgrounds";
 import AddToFavorites from "./AddToFavorites";
 import RemoveOfFavourites from "./RemoveOfFavourites";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const PlayerInfos = () => {
@@ -19,7 +18,7 @@ const PlayerInfos = () => {
     actions: { setCurrentFocus },
   } = useContext(InfoContext);
 
-  const { isAuthenticated, user } = useAuth0();
+  const { user } = useAuth0();
 
   let preslice = user.sub;
   let userId = preslice.slice(6, preslice.length);
@@ -29,7 +28,6 @@ const PlayerInfos = () => {
 
   useEffect(() => {
     axios.get(`/api/get/favourites/${userId}`).then((response) => {
-      console.log("favourite answer", response.data.data);
       setFavored(
         !!response.data.data.find((fplayer) => {
           return fplayer.playerId === player.id;
@@ -37,13 +35,6 @@ const PlayerInfos = () => {
       );
     });
   }, [player.id, userId]);
-
-  const stats = currentStats?.stats[0]?.splits[0]?.stat;
-  console.log("stats", stats);
-
-  console.log("playerinfo", currentPlayer);
-  console.log("Liked?", favored);
-  console.log("photo", currentPic);
 
   const color = teamColors[player.currentTeam.name];
 
@@ -138,16 +129,6 @@ const PlayerImg = styled.img`
   position: inherit;
 `;
 
-const ModalContainer = styled.div`
-  position: absolute;
-  inset: 0;
-  background-color: black;
-  opacity: 60%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const PlayerContainer = styled.div`
   inset: 0;
   height: 800px;
@@ -158,7 +139,6 @@ const PlayerContainer = styled.div`
 `;
 
 const PlayerDisplay = styled.div`
-  // background-color: green;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -213,7 +193,6 @@ export const ButtonSpan = styled.span`
 `;
 
 export const ButtonDisplay = styled.div`
-  // background-color: green;
   width: inherit;
   height: 12px;
   padding-bottom: 8px;
@@ -266,7 +245,6 @@ export const SocialDisplay = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  //overflow-y: auto;
 `;
 
 export const WhiteFiller = styled.div`

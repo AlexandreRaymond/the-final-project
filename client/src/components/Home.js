@@ -1,5 +1,4 @@
-import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useContext } from "react";
 import styled, { keyframes } from "styled-components";
 import { withBaseIcon } from "react-icons-kit";
 import axios from "axios";
@@ -10,11 +9,10 @@ import { spinner3 } from "react-icons-kit/icomoon/spinner3";
 
 const Home = () => {
   const SpinnerIcon = withBaseIcon({ size: 50 });
-  const navigate = useNavigate();
   const auth = useAuth0();
   const {
-    state: { homeFeed, shouldUpdate, yourProfile },
-    actions: { setHomeFeed, setShouldUpdate },
+    state: { homeFeed },
+    actions: { setHomeFeed },
   } = useContext(InfoContext);
 
   const firstLetter = (string) => {
@@ -23,7 +21,6 @@ const Home = () => {
 
   useEffect(() => {
     axios.get(`/api/get/homefeed`).then((response) => {
-      console.log("homefeed", response.data.data);
       setHomeFeed(response.data.data);
     });
   }, []);

@@ -1,19 +1,15 @@
 import { useState, useContext } from "react";
 import styled from "styled-components";
 import Profile from "./Profile";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import GlobalStyle from "./GlobalStyle";
 import Header from "./Header";
 import Home from "./Home";
 import Standings from "./Standings";
 import Teams from "./Teams";
-import Login from "./Login";
-import Favourites from "./Favourites";
 import Roster from "./Roster";
 import Player from "./Player";
 import NHLStanding from "./NHLStanding";
-import { InfoContext } from "./InfoContext";
-import { User, useAuth0 } from "@auth0/auth0-react";
 import RequireAuth from "./RequireAuth";
 import ChatMenu from "./ChatMenu";
 import TeamChat from "./TeamChat";
@@ -22,8 +18,6 @@ import Footer from "./Footer";
 import Toast from "./Toast";
 
 const App = () => {
-  // Logics
-
   return (
     <Wrapper>
       <GlobalStyle />

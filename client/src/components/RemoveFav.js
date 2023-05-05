@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { InfoContext } from "./InfoContext";
 import styled from "styled-components";
 import axios from "axios";
@@ -7,11 +7,10 @@ import { ModalDiv } from "./Roster";
 
 const RemoveFav = ({ player }) => {
   const {
-    state: { shouldUpdate },
     actions: { setShouldUpdate, setShowToast },
   } = useContext(InfoContext);
 
-  const { isAuthenticated, user } = useAuth0();
+  const { user } = useAuth0();
   let preslice = user.sub;
   let userId = preslice.slice(6, preslice.length);
 

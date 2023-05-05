@@ -1,9 +1,8 @@
 import { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { InfoContext } from "./InfoContext";
-import { useAuth0 } from "@auth0/auth0-react";
 import { withBaseIcon } from "react-icons-kit";
 import { spinner3 } from "react-icons-kit/icomoon/spinner3";
 import { Spinner } from "./Home";
@@ -11,17 +10,13 @@ import { Spinner } from "./Home";
 const Teams = () => {
   const SpinnerIcon = withBaseIcon({ size: 50 });
   const [teams, setTeams] = useState(null);
-  const navigate = useNavigate();
-  const { isAuthenticated } = useAuth0();
 
   const {
-    state: { currentTeam },
     actions: { setCurrentTeam },
   } = useContext(InfoContext);
 
   useEffect(() => {
     axios.get(`/api/teams`).then((response) => {
-      console.log("response", response.data.teams.teams);
       setTeams(response.data.teams.teams);
     });
   }, []);
@@ -62,7 +57,7 @@ export const MainContainer = styled.div`
   flex-direction: column;
   width: 98%;
   min-height: 100vh;
-  margin: 35px auto;
+  margin: 135px auto;
   align-items: center;
   justify-content: center;
   font-family: "Racing Sans One", cursive;
@@ -75,9 +70,7 @@ export const ButtonContainer = styled.div`
   flex-wrap: wrap;
   height: fit-content;
   width: 70%;
-  height: 700px;
-  overflow-y: auto;
-  margin: 5px auto;
+  margin: 5px 5px 5px 5px;
   gap: 2%;
 `;
 
@@ -92,7 +85,6 @@ export const NavButton = styled.button`
   & span {
     font-size: 25px;
     font-weight: 600;
-    font-family: "Vollkorn", serif;
   }
 
   &:hover {
@@ -109,15 +101,6 @@ export const NavBrowse = styled(Link)`
   text-decoration: none;
 `;
 
-const ButtonCardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-  height: 800px;
-  width: 85%;
-  flex-wrap: wrap;
-`;
-
 const CardButton = styled.button`
   z-index: 1;
   font-family: "Racing Sans One", cursive;
@@ -131,7 +114,6 @@ const CardButton = styled.button`
   transform: perspective(750px) translate3d(0px, 0px, -250px) rotateX(30deg)
     scale(0.9, 0.9);
   border: none;
-  /* box-shadow: 0 70px 40px -20px rgba(0, 0, 0, 0.2); */
   transition: 0.4s ease-in-out transform;
   background-color: white;
   &:hover {

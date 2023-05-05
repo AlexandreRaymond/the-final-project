@@ -22,23 +22,21 @@ const Conversation = ({ chatId }) => {
 
   const { user } = useAuth0();
 
-  // const firstLetter = (string) => {
-  //   return string?.charAt(0)?.toUpperCase() + string.slice(1);
-  // };
+  const firstLetter = (string) => {
+    return string?.charAt(0)?.toUpperCase() + string.slice(1);
+  };
   let preslice = user.sub;
   let userId = preslice.slice(6, preslice.length);
 
   useEffect(() => {
     if (chatId && shouldUpdate) {
       axios.get(`/api/get/comments/${chatId}`).then((response) => {
-        console.log("all the convos", response.data.data);
         setCurrentComments(response.data.data);
       });
       setShouldUpdate(false);
     }
     if (userId) {
       axios.get(`/api/get/profile/${userId}`).then((response) => {
-        console.log("profile response", response.data.data);
         setYourProfile(response.data.data);
       });
     }
@@ -52,14 +50,11 @@ const Conversation = ({ chatId }) => {
     );
   }
 
-  console.log("you are", currentComments[0]);
-
   return (
     <>
       <Wrapper>
         {currentComments.sort().map((post) => {
           let commentId = post["_id"];
-          console.log("post", post);
           return (
             <>
               <CommentDisplay adminPost={post.adminPost}>
@@ -70,10 +65,7 @@ const Conversation = ({ chatId }) => {
                     ) : (
                       <>
                         <Span>by</Span>
-                        <UserSpan>
-                          {" "}
-                          {/*firstLetter(post.user)*/ post.user}
-                        </UserSpan>
+                        <UserSpan> {firstLetter(post.user)}</UserSpan>
                       </>
                     )}
                   </div>
@@ -112,9 +104,7 @@ const Conversation = ({ chatId }) => {
                   {isEdit == commentId ? (
                     <EditComment commentId={commentId} setIsEdit={setIsEdit} />
                   ) : (
-                    <Commentary>
-                      {/*firstLetter(post.comment)*/ post.comment}
-                    </Commentary>
+                    <Commentary>{firstLetter(post.comment)}</Commentary>
                   )}
                 </CommentDiv>
                 {post.editedComment ? (
@@ -212,18 +202,6 @@ const EditDiv = styled.div`
   display: flex;
   flex-direction: row;
   gap: 5px;
-`;
-
-const DeleteButton = styled.button`
-  font-size: 13px;
-  font-weight: bold;
-  color: lightgray;
-  border: none;
-  background-color: inherit;
-  &:hover {
-    cursor: pointer;
-    color: red;
-  }
 `;
 
 const EditButton = styled.button`

@@ -1,13 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { InfoContext } from "./InfoContext";
 import styled from "styled-components";
 import axios from "axios";
-import { useAuth0 } from "@auth0/auth0-react";
 import { ModalDiv } from "./Roster";
 
 const DeleteComment = ({ commentId }) => {
   const {
-    state: { shouldUpdate },
     actions: { setShouldUpdate, setShowToast },
   } = useContext(InfoContext);
 
@@ -111,12 +109,6 @@ const NButton = styled.button`
     cursor: pointer;
     color: green;
   }
-`;
-
-const ToastDiv = styled.div`
-  width: 500px;
-  height: 500px;
-  background-color: green;
 `;
 
 export default DeleteComment;

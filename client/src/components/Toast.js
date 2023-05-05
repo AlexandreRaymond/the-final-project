@@ -1,14 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { InfoContext } from "./InfoContext";
 import styled from "styled-components";
-import axios from "axios";
-import { useAuth0 } from "@auth0/auth0-react";
-import { ModalDiv } from "./Roster";
 
 const Toast = () => {
   const {
-    state: { shouldUpdate, showToast },
-    actions: { setShouldUpdate, setShowToast },
+    state: { showToast },
+    actions: { setShowToast },
   } = useContext(InfoContext);
 
   const [count, setCount] = useState(3);
