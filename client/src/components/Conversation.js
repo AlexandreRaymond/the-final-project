@@ -52,79 +52,90 @@ const Conversation = ({ chatId }) => {
 
   return (
     <>
-      <Wrapper>
-        {currentComments.sort().map((post) => {
-          let commentId = post["_id"];
-          return (
-            <>
-              <CommentDisplay adminPost={post.adminPost}>
-                <TopDiv>
-                  <div>
-                    {userId === post.userId ? (
-                      <YourSpan>You wrote</YourSpan>
+      {currentComments.length === 0 ? (
+        <Wrapper>
+          <NoComments>Be the first to comment!</NoComments>
+        </Wrapper>
+      ) : (
+        <Wrapper>
+          {currentComments.sort().map((post) => {
+            let commentId = post["_id"];
+            return (
+              <>
+                <CommentDisplay adminPost={post.adminPost}>
+                  <TopDiv>
+                    <div>
+                      {userId === post.userId ? (
+                        <YourSpan>You wrote</YourSpan>
+                      ) : (
+                        <>
+                          <Span>by</Span>
+                          <UserSpan> {firstLetter(post.user)}</UserSpan>
+                        </>
+                      )}
+                    </div>
+                    <EditDiv>
+                      {userId === post.userId || yourProfile.isAdmin ? (
+                        <>
+                          <div>
+                            {isEdit == commentId ? (
+                              <>
+                                <OptionsDiv>
+                                  <CancelButton
+                                    onClick={(e) => setIsEdit(null)}
+                                  >
+                                    <TiCancel />
+                                  </CancelButton>
+                                  <DeleteComment commentId={commentId} />
+                                </OptionsDiv>
+                              </>
+                            ) : (
+                              <>
+                                <div>
+                                  <EditButton
+                                    onClick={() => setIsEdit(commentId)}
+                                  >
+                                    <AiFillEdit />
+                                  </EditButton>
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        </>
+                      ) : (
+                        <div></div>
+                      )}
+                    </EditDiv>
+                  </TopDiv>
+                  <CommentDiv>
+                    {isEdit == commentId ? (
+                      <EditComment
+                        commentId={commentId}
+                        setIsEdit={setIsEdit}
+                      />
                     ) : (
-                      <>
-                        <Span>by</Span>
-                        <UserSpan> {firstLetter(post.user)}</UserSpan>
-                      </>
+                      <Commentary>{firstLetter(post.comment)}</Commentary>
                     )}
-                  </div>
-                  <EditDiv>
-                    {userId === post.userId || yourProfile.isAdmin ? (
-                      <>
-                        <div>
-                          {isEdit == commentId ? (
-                            <>
-                              <OptionsDiv>
-                                <CancelButton onClick={(e) => setIsEdit(null)}>
-                                  <TiCancel />
-                                </CancelButton>
-                                <DeleteComment commentId={commentId} />
-                              </OptionsDiv>
-                            </>
-                          ) : (
-                            <>
-                              <div>
-                                <EditButton
-                                  onClick={() => setIsEdit(commentId)}
-                                >
-                                  <AiFillEdit />
-                                </EditButton>
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      </>
-                    ) : (
-                      <div></div>
-                    )}
-                  </EditDiv>
-                </TopDiv>
-                <CommentDiv>
-                  {isEdit == commentId ? (
-                    <EditComment commentId={commentId} setIsEdit={setIsEdit} />
+                  </CommentDiv>
+                  {post.editedComment ? (
+                    <>
+                      <BottomDiv>
+                        Edited at {post.editedTime} on {post.editedDate}
+                      </BottomDiv>
+                    </>
                   ) : (
-                    <Commentary>{firstLetter(post.comment)}</Commentary>
+                    <>
+                      <BottomDiv>
+                        at {post.time} on {post.date}
+                      </BottomDiv>
+                    </>
                   )}
-                </CommentDiv>
-                {post.editedComment ? (
-                  <>
-                    <BottomDiv>
-                      Edited at {post.editedTime} on {post.editedDate}
-                    </BottomDiv>
-                  </>
-                ) : (
-                  <>
-                    <BottomDiv>
-                      at {post.time} on {post.date}
-                    </BottomDiv>
-                  </>
-                )}
-              </CommentDisplay>
-            </>
-          );
-        })}
-      </Wrapper>
+                </CommentDisplay>
+              </>
+            );
+          })}
+        </Wrapper>
+      )}
     </>
   );
 };
@@ -231,6 +242,16 @@ const CancelButton = styled.button`
 const OptionsDiv = styled.div`
   display: flex;
   gap: 5px;
+`;
+
+const NoComments = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 95%;
+  color: lightgrey;
+  font-family: "Vollkorn", serif;
 `;
 
 export default Conversation;

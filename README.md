@@ -13,3 +13,7 @@ A hockey website created with React.js
 - Favourite list
 - Public player-specific chat room
 - Latest personalised news
+
+## Video link
+
+https://youtu.be/Eg0PYPdpJhk

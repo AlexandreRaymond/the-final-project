@@ -43,11 +43,11 @@ const PlayerInfos = () => {
       <PlayerContainer>
         <PlayerDisplay>
           <PlayerImg src={currentPic} />
-          <h1>
+          <h2>
             {player.fullName}
             {player.alternateCaptain ? " (A)" : ""}
             {player.captain ? " (C)" : ""} | #{player.primaryNumber}
-          </h1>
+          </h2>
           <Position>
             <span>{player.primaryPosition.code}</span>
             <span> | </span>

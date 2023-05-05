@@ -72,6 +72,7 @@ const TeamChat = () => {
                 >
                   <CardWrapper>
                     <PlayerImg
+                      backgroundColor={color}
                       src={`http://nhl.bamcontent.com/images/headshots/current/168x168/${player.person.id}.jpg`}
                     />
                     <Position>

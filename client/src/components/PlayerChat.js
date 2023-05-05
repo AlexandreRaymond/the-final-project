@@ -43,7 +43,7 @@ const PlayerChat = () => {
       <MainContainer>
         <LogoImg src={currentLogo} />
         <PlayerDiv backgroundColor={color}>
-          <PlayerImg src={currentPic} />
+          <PlayerImg backgroundColor={color} src={currentPic} />
           <p>{currentChat.person.fullName}</p>
         </PlayerDiv>
         <ChatDiv>

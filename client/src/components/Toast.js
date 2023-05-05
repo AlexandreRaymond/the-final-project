@@ -33,7 +33,15 @@ const Toast = () => {
   if (!showToast.isShowing) {
     return null;
   }
-  return <>{showToast.isShowing && <ToastDiv>{showToast.message}</ToastDiv>}</>;
+  return (
+    <>
+      {showToast.isShowing && (
+        <ToastDiv>
+          <span>{showToast.message}</span>
+        </ToastDiv>
+      )}
+    </>
+  );
 };
 
 const ToastDiv = styled.div`
@@ -52,9 +60,16 @@ const ToastDiv = styled.div`
   background-color: #383838;
   padding-left: 5px;
   box-shadow: rgba(149, 157, 165, 0.2) 2px 18px 24px;
-  transition: width 300ms ease-in-out;
+  animation: fade-in 1000ms forwards;
   width: 400px;
   font-family: "Vollkorn", serif;
+
+  & span::before {
+  }
 `;
+
+/*
+
+*/
 
 export default Toast;

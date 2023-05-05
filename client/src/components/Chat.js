@@ -64,8 +64,7 @@ const Chat = () => {
       <div>
         <GoToDiv>
           <span>
-            Click <ChatLink to={`/player/${player.id}/chat`}>here</ChatLink> to
-            see {player.fullName}'s comment section.
+            Go to the chat section to see {player.fullName}'s comment section.
           </span>
         </GoToDiv>
         <Form onSubmit={handleSubmit}>
@@ -151,7 +150,7 @@ const GoToDiv = styled.div`
   justify-content: center;
   margin-bottom: 25px;
   & span {
-    font-size: 18px;
+    font-size: 16px;
   }
 `;
 

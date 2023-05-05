@@ -151,11 +151,11 @@ const ChatArea = styled.div`
 const Input = styled.textarea`
   display: flex;
   flex-direction: row;
-
+  padding-left: 10px;
   position: relative;
   resize: none;
   height: 80px;
-  width: 550px;
+  width: 540px;
   font-family: "Vollkorn", serif;
   font-size: 16px;
   font-weight: bold;

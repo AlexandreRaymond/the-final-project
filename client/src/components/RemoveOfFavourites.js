@@ -28,7 +28,7 @@ const RemoveOfFavourites = ({ favored, setFavored }) => {
       });
       setShowToast({
         isShowing: true,
-        message: `${player.fullName} successfuly deleted!`,
+        message: `${player.fullName} was removed from your favourites!`,
         duration: 3000,
       });
       setFavored(!favored);
